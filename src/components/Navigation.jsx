@@ -199,11 +199,12 @@ export const navigation = [
   {
     title: 'Resources',
     links: [
-      { title: 'Contact', href: '/contacts' },
-      { title: 'Conversations', href: '/conversations' },
-      { title: 'Messages', href: '/messages' },
-      { title: 'Groups', href: '/groups' },
-      { title: 'Attachments', href: '/attachments' },
+      { title: 'Users', href: '/users' },
+      { title: 'Courses', href: '/courses' },
+      { title: 'Course Contents', href: '/course_contents' },
+      { title: 'Comments', href: '/comments' },
+      { title: 'Reports', href: '/reports' },
+      { title: 'Additional Info', href: '/additional_info' },
     ],
   },
 ]
