@@ -1,88 +1,69 @@
 export const description =
-  'On this page, we’ll dive into the different conversation endpoints you can use to manage conversations programmatically.'
+  'On this page, we’ll dive into the different course endpoints you can use to manage courses programmatically.'
 
-# Conversations
+# Courses
 
-Conversations are an essential part of Protocol — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different conversation endpoints you can use to manage conversations programmatically. We'll look at how to query, create, update, and delete conversations. {{ className: 'lead' }}
+courses are an essential part of Protocol — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different course endpoints you can use to manage courses programmatically. We'll look at how to query, create, update, and delete courses. {{ className: 'lead' }}
 
-## The conversation model
+## The course model
 
-The conversation model contains all the information about the conversations between you and your contacts. In addition, conversations can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
+The course model contains all the information about the courses between you and your contacts. In addition, courses can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
 
 ### Properties
 
 <Properties>
   <Property name="id" type="string">
-    Unique identifier for the conversation.
+    Unique identifier for the course.
   </Property>
-  <Property name="contact_id" type="string">
-    Unique identifier for the other contact in the conversation.
+  <Property name="user_id" type="string">
+    Unique identifier for the user with facilitator role.
   </Property>
-  <Property name="group_id" type="string">
-    Unique identifier for the group that the conversation belongs to.
+  <Property name="title" type="string">
+    The title of the course.
   </Property>
-  <Property name="pinned_message_id" type="string">
-    Unique identifier for the pinned message.
+  <Property name="category_id" type="string">
+    Unique identifier for category of the course.
   </Property>
-  <Property name="is_pinned" type="boolean">
-    Whether or not the conversation has been pinned.
-  </Property>
-  <Property name="is_muted" type="boolean">
-    Whether or not the conversation has been muted.
-  </Property>
-  <Property name="last_active_at" type="timestamp">
-    Timestamp of when the conversation was last active.
-  </Property>
-  <Property name="last_opened_at" type="timestamp">
-    Timestamp of when the conversation was last opened by the authenticated
-    user.
+  <Property name="description" type="string">
+    The description of the course.
   </Property>
   <Property name="created_at" type="timestamp">
-    Timestamp of when the conversation was created.
+    Timestamp of when the course was created.
   </Property>
-  <Property name="archived_at" type="timestamp">
-    Timestamp of when the conversation was archived.
+  <Property name="updated_at" type="timestamp">
+    Timestamp of when the course was updated.
   </Property>
 </Properties>
 
 ---
 
-## List all conversations {{ tag: 'GET', label: '/v1/conversations' }}
+## List all courses {{ tag: 'GET', label: '/v1/courses' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your conversations. By default, a maximum of ten conversations are shown per page.
+    This endpoint allows you to retrieve a paginated list of all your courses. By default, a maximum of ten courses are shown per page.
 
     ### Optional attributes
 
     <Properties>
       <Property name="limit" type="integer">
-        Limit the number of conversations returned.
+        Limit the number of courses returned.
       </Property>
-      <Property name="muted" type="boolean">
-        Only show conversations that are muted when set to `true`.
-      </Property>
-      <Property name="archived" type="boolean">
-        Only show conversations that are archived when set to `true`.
-      </Property>
-      <Property name="pinned" type="boolean">
-        Only show conversations that are pinned when set to `true`.
-      </Property>
-      <Property name="group_id" type="string">
-        Only show conversations for the specified group.
+      <Property name="category_id" type="string">
+        Filter courses by their categories.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/conversations">
+    <CodeGroup title="Request" tag="GET" label="/v1/courses">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/conversations \
-      -H "Authorization: Bearer {token}" \
+    curl -G https://api.protocol.chat/v1/courses \
       -d limit=10
+      -d category_id=xxx
     ```
 
     ```js
@@ -90,7 +71,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.list()
+    await client.courses.list()
     ```
 
     ```python
@@ -98,13 +79,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.list()
+    client.courses.list()
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->conversations->list();
+    $client->courses->list();
     ```
 
     </CodeGroup>
@@ -115,20 +96,21 @@ The conversation model contains all the information about the conversations betw
       "data": [
         {
           "id": "xgQQXg3hrtjh7AvZ",
-          "contact_id": "WAz8eIbvDR60rouK",
-          "group_id": null,
-          "pinned_message_id": null,
-          "is_pinned": false,
-          "is_muted": false,
-          "last_active_at": 705103200,
-          "last_opened_at": 705103200,
+          "user_id": "WAz8eIbvDR60rouK",
+          "title": "Membuat Aplikasi Java Pertama Kali",
+          "category": {
+            "id": "xxx",
+            "name": "technology"
+          },
+          "description": "Et Lorem ullamco in proident cillum. Laborum cillum ut ullamco dolore culpa consectetur voluptate eiusmod aliqua et ut sit. Tempor irure incididunt pariatur eu sunt. Fugiat nisi aute fugiat ut laboris ad sunt ullamco nostrud laborum Lorem.",
           "created_at": 692233200,
-          "archived_at": null
+          "updated_at": 692233200
         },
         {
           "id": "hSIhXBhNe8X1d8Et"
           // ...
         }
+        ...
       ]
     }
     ```
@@ -138,33 +120,42 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Create a conversation {{ tag: 'POST', label: '/v1/conversations' }}
+## Create a course {{ tag: 'POST', label: '/v1/courses' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to add a new conversation between you and a contact or group. A contact or group id is required to create a conversation.
+    This endpoint allows you to add a new course between you and a contact or group. A contact or group id is required to create a course.
 
     ### Required attributes
 
-    <Properties>
-      <Property name="contact_id" type="string">
-        Unique identifier for the other contact in the conversation.
-      </Property>
-      <Property name="group_id" type="string">
-        Unique identifier for the group that the conversation belongs to.
-      </Property>
-    </Properties>
+  <Properties>
+  <Property name="user_id" type="string">
+    Unique identifier for the user with facilitator role.
+  </Property>
+  <Property name="title" type="string">
+    The title of the course.
+  </Property>
+  <Property name="category_id" type="string">
+    Unique identifier for category of the course.
+  </Property>
+  <Property name="description" type="string">
+    The description of the course.
+  </Property>
+</Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/conversations">
+    <CodeGroup title="Request" tag="POST" label="/v1/courses">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/conversations \
+    curl https://api.protocol.chat/v1/courses \
       -H "Authorization: Bearer {token}" \
-      -d 'contact_id'="WAz8eIbvDR60rouK"
+      -d 'user_id'="WAz8eIbvDR60rouK",
+      -d 'title' = "Belajar Machine Learning",
+      -d 'category_id' = "xxx",
+      -d 'description' = "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur."
     ```
 
     ```js
@@ -172,8 +163,11 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.create({
-      contact_id: 'WAz8eIbvDR60rouK',
+    await client.courses.create({
+      user_id: 'WAz8eIbvDR60rouK',
+      title: 'Belajar Machine Learning',
+      category_id: = 'xxx',
+      description: = 'Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.'
     })
     ```
 
@@ -182,14 +176,23 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.create(contact_id="WAz8eIbvDR60rouK")
+    client.courses.create(
+      user_id="WAz8eIbvDR60rouK",
+      title = "Belajar Machine Learning",
+      category_id = "xxx",
+      description = "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur."
+    )
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->conversations->create([
+    $client->courses->create([
       'contact_id' => 'WAz8eIbvDR60rouK',
+      'user_id' => 'WAz8eIbvDR60rouK',
+      'title' => 'Belajar Machine Learning',
+      'category_id' => 'xxx',
+      'description' => 'Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.'
     ]);
     ```
 
@@ -197,17 +200,17 @@ The conversation model contains all the information about the conversations betw
 
     ```json {{ title: 'Response' }}
     {
-      "id": "xgQQXg3hrtjh7AvZ",
-      "contact_id": "WAz8eIbvDR60rouK",
-      "group_id": null,
-      "pinned_message_id": null,
-      "is_pinned": false,
-      "is_muted": false,
-      "last_active_at": null,
-      "last_opened_at": null,
-      "created_at": 692233200,
-      "archived_at": null
-    }
+          "id": "xgQQXg3hrtjh7AvZ",
+          "user_id": "WAz8eIbvDR60rouK",
+          "title": "Belajar Machine learning",
+          "category": {
+            "id": "xxx",
+            "name": "technology"
+          },
+          "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
+          "created_at": 692233200,
+          "updated_at": 692233200
+        }
     ```
 
   </Col>
@@ -215,21 +218,20 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Retrieve a conversation {{ tag: 'GET', label: '/v1/conversations/:id' }}
+## Retrieve a course {{ tag: 'GET', label: '/v1/courses/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a conversation by providing the conversation id. Refer to [the list](#the-conversation-model) at the top of this page to see which properties are included with conversation objects.
+    This endpoint allows you to retrieve a course by providing the course id. Refer to [the list](#the-course-model) at the top of this page to see which properties are included with course objects.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/conversations/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="GET" label="/v1/courses/xgQQXg3hrtjh7AvZ">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/conversations/xgQQXg3hrtjh7AvZ \
-      -H "Authorization: Bearer {token}"
+    curl https://api.protocol.chat/v1/courses/xgQQXg3hrtjh7AvZ \
     ```
 
     ```js
@@ -237,7 +239,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.get('xgQQXg3hrtjh7AvZ')
+    await client.courses.get('xgQQXg3hrtjh7AvZ')
     ```
 
     ```python
@@ -245,13 +247,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.get("xgQQXg3hrtjh7AvZ")
+    client.courses.get("xgQQXg3hrtjh7AvZ")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->conversations->get('xgQQXg3hrtjh7AvZ');
+    $client->courses->get('xgQQXg3hrtjh7AvZ');
     ```
 
     </CodeGroup>
@@ -259,15 +261,15 @@ The conversation model contains all the information about the conversations betw
     ```json {{ title: 'Response' }}
     {
       "id": "xgQQXg3hrtjh7AvZ",
-      "contact_id": "WAz8eIbvDR60rouK",
-      "group_id": null,
-      "pinned_message_id": null,
-      "is_pinned": false,
-      "is_muted": false,
-      "last_active_at": 705103200,
-      "last_opened_at": 705103200,
+      "user_id": "WAz8eIbvDR60rouK",
+      "title": "Belajar Machine learning",
+      "category": {
+            "id": "xxx",
+            "name": "technology"
+      },
+      "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
       "created_at": 692233200,
-      "archived_at": null
+      "updated_at": 692233200
     }
     ```
 
@@ -276,39 +278,39 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Update a conversation {{ tag: 'PUT', label: '/v1/conversations/:id' }}
+## Update a course {{ tag: 'PUT', label: '/v1/courses/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to perform an update on a conversation. Examples of updates are pinning a message, muting or archiving the conversation, or pinning the conversation itself.
+    This endpoint allows you to perform an update on a course.
 
     ### Optional attributes
 
-    <Properties>
-      <Property name="pinned_message_id" type="string">
-        Unique identifier for the pinned message.
-      </Property>
-      <Property name="is_pinned" type="boolean">
-        Whether or not the conversation has been pinned.
-      </Property>
-      <Property name="is_muted" type="boolean">
-        Whether or not the conversation has been muted.
-      </Property>
-      <Property name="archived_at" type="timestamp">
-        Timestamp of when the conversation was archived.
-      </Property>
-    </Properties>
+<Properties>
+  <Property name="user_id" type="string">
+    Unique identifier for the user with facilitator role.
+  </Property>
+  <Property name="title" type="string">
+    The title of the course.
+  </Property>
+  <Property name="category_id" type="string">
+    Unique identifier for category of the course.
+  </Property>
+  <Property name="description" type="string">
+    The description of the course.
+  </Property>
+</Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/conversations/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="PUT" label="/v1/courses/xgQQXg3hrtjh7AvZ">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/conversations/xgQQXg3hrtjh7AvZ \
+    curl -X PUT https://api.protocol.chat/v1/courses/xgQQXg3hrtjh7AvZ \
       -H "Authorization: Bearer {token}" \
-      -d 'is_muted'=true
+      -d 'title'='Belajar Machine Learning Pemula'
     ```
 
     ```js
@@ -316,8 +318,8 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.update('xgQQXg3hrtjh7AvZ', {
-        is_muted: true,
+    await client.courses.update('xgQQXg3hrtjh7AvZ', {
+        title: 'Belajar Machine Learning Pemula'
     })
     ```
 
@@ -326,14 +328,17 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.update("xgQQXg3hrtjh7AvZ", is_muted=True)
+    client.courses.update(
+      "xgQQXg3hrtjh7AvZ", 
+      title="Belajar Machine Learning Pemula"
+    )
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->conversations->update('xgQQXg3hrtjh7AvZ', [
-      'is_muted' => true,
+    $client->courses->update('xgQQXg3hrtjh7AvZ', [
+      'title'=> 'Belajar Machine Learning Pemula'
     ]);
     ```
 
@@ -342,15 +347,15 @@ The conversation model contains all the information about the conversations betw
     ```json {{ title: 'Response' }}
     {
       "id": "xgQQXg3hrtjh7AvZ",
-      "contact_id": "WAz8eIbvDR60rouK",
-      "group_id": null,
-      "pinned_message_id": null,
-      "is_pinned": false,
-      "is_muted": true,
-      "last_active_at": 705103200,
-      "last_opened_at": 705103200,
+      "user_id": "WAz8eIbvDR60rouK",
+      "title": "Belajar Machine Learning Pemula",
+      "category": {
+            "id": "xxx",
+            "name": "technology"
+      },
+      "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
       "created_at": 692233200,
-      "archived_at": null
+      "updated_at": 692233200
     }
     ```
 
@@ -359,20 +364,20 @@ The conversation model contains all the information about the conversations betw
 
 ---
 
-## Delete a conversation {{ tag: 'DELETE', label: '/v1/conversations/:id' }}
+## Delete a course {{ tag: 'DELETE', label: '/v1/courses/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to delete your conversations in Protocol. Note: This will permanently delete the conversation and all its messages — archive it instead if you want to be able to restore it later.
+    This endpoint allows you to delete your courses in Protocol. Note: This will permanently delete the course and all its contents.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="DELETE" label="/v1/conversations/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/courses/xgQQXg3hrtjh7AvZ">
 
     ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/conversations/xgQQXg3hrtjh7AvZ \
+    curl -X DELETE https://api.protocol.chat/v1/courses/xgQQXg3hrtjh7AvZ \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -381,7 +386,7 @@ The conversation model contains all the information about the conversations betw
 
     const client = new ApiClient(token)
 
-    await client.conversations.delete('xgQQXg3hrtjh7AvZ')
+    await client.courses.delete('xgQQXg3hrtjh7AvZ')
     ```
 
     ```python
@@ -389,13 +394,13 @@ The conversation model contains all the information about the conversations betw
 
     client = ApiClient(token)
 
-    client.conversations.delete("xgQQXg3hrtjh7AvZ")
+    client.courses.delete("xgQQXg3hrtjh7AvZ")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->conversations->delete('xgQQXg3hrtjh7AvZ');
+    $client->courses->delete('xgQQXg3hrtjh7AvZ');
     ```
 
     </CodeGroup>

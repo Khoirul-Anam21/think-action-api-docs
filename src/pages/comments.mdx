@@ -1,70 +1,103 @@
 export const description =
-  'On this page, we’ll dive into the different group endpoints you can use to manage groups programmatically.'
+  'On this page, we’ll dive into the different comment endpoints you can use to manage comments programmatically.'
 
-# Groups
+# comments
 
-Groups are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different group endpoints you can use to manage groups programmatically. We'll look at how to query, create, update, and delete groups. {{ className: 'lead' }}
+comments are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different comment endpoints you can use to manage comments programmatically. We'll look at how to query, create, update, and delete comments. {{ className: 'lead' }}
 
-## The group model
+## The comment model
 
-The group model contains all the information about your groups, including what contacts are in the group and the group's name, description, and avatar.
+The comment model contains all the information about your comments, including what contacts are in the comment and the comment's name, description, and avatar.
 
 ### Properties
 
 <Properties>
   <Property name="id" type="string">
-    Unique identifier for the group.
+    Unique identifier for the comment.
   </Property>
-  <Property name="name" type="string">
-    The name for the group.
+  <Property name="user_id" type="string">
+    Unique identifier of user commented first.
   </Property>
-  <Property name="description" type="string">
-    The description for the group.
+  <Property name="course_id" type="string">
+    Unique identifier of the course this comment belongs to.
   </Property>
-  <Property name="avatar_url" type="string">
-    The avatar image URL for the group.
+  <Property name="content" type="string">
+    The content of the comment.
   </Property>
-  <Property name="conversation_id" type="string">
-    Unique identifier for the conversation that belongs to the group.
+  <Property name="chapter" type="string">
+    Unique identifier for the conversation that belongs to the .
   </Property>
   <Property name="contacts" type="array">
-    An array of contact objects that are members of the group.
+    An array of contact objects that are members of the comment.
   </Property>
   <Property name="created_at" type="timestamp">
-    Timestamp of when the group was created.
+    Timestamp of when the comment was created.
   </Property>
   <Property name="archived_at" type="timestamp">
-    Timestamp of when the group was archived.
+    Timestamp of when the comment was archived.
+  </Property>
+</Properties>
+
+## The comment reply model
+
+The comment model contains all the information about your comments, including what contacts are in the comment and the comment's name, description, and avatar.
+
+### Properties
+
+<Properties>
+  <Property name="id" type="string">
+    Unique identifier for the comment.
+  </Property>
+  <Property name="name" type="string">
+    The name for the comment.
+  </Property>
+  <Property name="description" type="string">
+    The description for the comment.
+  </Property>
+  <Property name="avatar_url" type="string">
+    The avatar image URL for the comment.
+  </Property>
+  <Property name="conversation_id" type="string">
+    Unique identifier for the conversation that belongs to the comment.
+  </Property>
+  <Property name="contacts" type="array">
+    An array of contact objects that are members of the comment.
+  </Property>
+  <Property name="created_at" type="timestamp">
+    Timestamp of when the comment was created.
+  </Property>
+  <Property name="archived_at" type="timestamp">
+    Timestamp of when the comment was archived.
   </Property>
 </Properties>
 
 ---
 
-## List all groups {{ tag: 'GET', label: '/v1/groups' }}
+## List all comments {{ tag: 'GET', label: '/v1/comments' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your groups. By default, a maximum of ten groups are shown per page.
+    This endpoint allows you to retrieve a paginated list of all your comments. By default, a maximum of ten comments are shown per page.
 
     ### Optional attributes
 
     <Properties>
       <Property name="limit" type="integer">
-        Limit the number of groups returned.
+        Limit the number of comments returned.
       </Property>
       <Property name="archived" type="boolean">
-        Only show groups that are archived when set to `true`.
+        Only show comments that are archived when set to `true`.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/groups">
+    <CodeGroup title="Request" tag="GET" label="/v1/comments">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/groups \
+    curl -G https://api.protocol.chat/v1/comments \
       -H "Authorization: Bearer {token}" \
       -d limit=10
     ```
@@ -74,7 +107,7 @@ The group model contains all the information about your groups, including what c
 
     const client = new ApiClient(token)
 
-    await client.groups.list()
+    await client.comments.list()
     ```
 
     ```python
@@ -82,13 +115,13 @@ The group model contains all the information about your groups, including what c
 
     client = ApiClient(token)
 
-    client.groups.list()
+    client.comments.list()
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->groups->list();
+    $client->comments->list();
     ```
 
     </CodeGroup>
@@ -137,18 +170,18 @@ The group model contains all the information about your groups, including what c
 
 ---
 
-## Create a group {{ tag: 'POST', label: '/v1/groups' }}
+## Create a comment {{ tag: 'POST', label: '/v1/comments' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to create a new group conversation between you and a group of your Protocol contacts.
+    This endpoint allows you to create a new comment conversation between you and a comment of your Protocol contacts.
 
     ### Required attributes
 
     <Properties>
       <Property name="name" type="string">
-        The name for the group.
+        The name for the comment.
       </Property>
     </Properties>
 
@@ -156,23 +189,23 @@ The group model contains all the information about your groups, including what c
 
     <Properties>
       <Property name="description" type="string">
-        The description for the group.
+        The description for the comment.
       </Property>
       <Property name="avatar_url" type="string">
-        The avatar image URL for the group.
+        The avatar image URL for the comment.
       </Property>
       <Property name="contacts" type="array">
-        An array of contact objects that are members of the group.
+        An array of contact objects that are members of the comment.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/groups">
+    <CodeGroup title="Request" tag="POST" label="/v1/comments">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/groups \
+    curl https://api.protocol.chat/v1/comments \
       -H "Authorization: Bearer {token}" \
       -d name="Plaza Hotel"
     ```
@@ -182,7 +215,7 @@ The group model contains all the information about your groups, including what c
 
     const client = new ApiClient(token)
 
-    await client.groups.create({
+    await client.comments.create({
       name: 'Plaza Hotel',
     })
     ```
@@ -192,13 +225,13 @@ The group model contains all the information about your groups, including what c
 
     client = ApiClient(token)
 
-    client.groups.create(name="Plaza Hotel")
+    client.comments.create(name="Plaza Hotel")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->groups->create([
+    $client->comments->create([
       'name' => 'Plaza Hotel',
     ]);
     ```
@@ -223,20 +256,20 @@ The group model contains all the information about your groups, including what c
 
 ---
 
-## Retrieve a group {{ tag: 'GET', label: '/v1/groups/:id' }}
+## Retrieve a comment {{ tag: 'GET', label: '/v1/comments/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a group by providing the group id. Refer to [the list](#the-group-model) at the top of this page to see which properties are included with group objects.
+    This endpoint allows you to retrieve a comment by providing the comment id. Refer to [the list](#the-comment-model) at the top of this page to see which properties are included with comment objects.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/groups/L7cGNIBKZiNJ6wqF">
+    <CodeGroup title="Request" tag="GET" label="/v1/comments/L7cGNIBKZiNJ6wqF">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/groups/L7cGNIBKZiNJ6wqF \
+    curl https://api.protocol.chat/v1/comments/L7cGNIBKZiNJ6wqF \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -245,7 +278,7 @@ The group model contains all the information about your groups, including what c
 
     const client = new ApiClient(token)
 
-    await client.groups.get('L7cGNIBKZiNJ6wqF')
+    await client.comments.get('L7cGNIBKZiNJ6wqF')
     ```
 
     ```python
@@ -253,13 +286,13 @@ The group model contains all the information about your groups, including what c
 
     client = ApiClient(token)
 
-    client.groups.get("L7cGNIBKZiNJ6wqF")
+    client.comments.get("L7cGNIBKZiNJ6wqF")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->groups->get('L7cGNIBKZiNJ6wqF');
+    $client->comments->get('L7cGNIBKZiNJ6wqF');
     ```
 
     </CodeGroup>
@@ -299,40 +332,40 @@ The group model contains all the information about your groups, including what c
 
 ---
 
-## Update a group {{ tag: 'PUT', label: '/v1/groups/:id' }}
+## Update a comment {{ tag: 'PUT', label: '/v1/comments/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to perform an update on a group. Examples of updates are changing the name, description, and avatar or adding and removing contacts from the group.
+    This endpoint allows you to perform an update on a comment. Examples of updates are changing the name, description, and avatar or adding and removing contacts from the comment.
 
     ### Optional attributes
 
     <Properties>
       <Property name="name" type="string">
-        The new name for the group.
+        The new name for the comment.
       </Property>
       <Property name="description" type="string">
-        The new description for the group.
+        The new description for the comment.
       </Property>
       <Property name="avatar_url" type="string">
-        The new avatar image URL for the group.
+        The new avatar image URL for the comment.
       </Property>
       <Property name="contacts" type="array">
-        An array of contact objects that are members of the group.
+        An array of contact objects that are members of the comment.
       </Property>
       <Property name="archived_at" type="timestamp">
-        Timestamp of when the group was archived.
+        Timestamp of when the comment was archived.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/groups/L7cGNIBKZiNJ6wqF">
+    <CodeGroup title="Request" tag="PUT" label="/v1/comments/L7cGNIBKZiNJ6wqF">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/groups/L7cGNIBKZiNJ6wqF \
+    curl -X PUT https://api.protocol.chat/v1/comments/L7cGNIBKZiNJ6wqF \
       -H "Authorization: Bearer {token}" \
       -d description="The finest in New York."
     ```
@@ -342,7 +375,7 @@ The group model contains all the information about your groups, including what c
 
     const client = new ApiClient(token)
 
-    await client.groups.update('L7cGNIBKZiNJ6wqF', {
+    await client.comments.update('L7cGNIBKZiNJ6wqF', {
         description: 'The finest in New York.',
     })
     ```
@@ -352,13 +385,13 @@ The group model contains all the information about your groups, including what c
 
     client = ApiClient(token)
 
-    client.groups.update("L7cGNIBKZiNJ6wqF", description="The finest in New York.")
+    client.comments.update("L7cGNIBKZiNJ6wqF", description="The finest in New York.")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->groups->update('L7cGNIBKZiNJ6wqF', [
+    $client->comments->update('L7cGNIBKZiNJ6wqF', [
       'description' => 'The finest in New York.',
     ]);
     ```
@@ -400,20 +433,20 @@ The group model contains all the information about your groups, including what c
 
 ---
 
-## Delete a group {{ tag: 'DELETE', label: '/v1/groups/:id' }}
+## Delete a comment {{ tag: 'DELETE', label: '/v1/comments/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to delete groups. Note: This will permanently delete the group, including the messages — archive it instead if you want to be able to restore it later.
+    This endpoint allows you to delete comments. Note: This will permanently delete the comment, including the messages — archive it instead if you want to be able to restore it later.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="DELETE" label="/v1/groups/L7cGNIBKZiNJ6wqF">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/comments/L7cGNIBKZiNJ6wqF">
 
     ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/groups/L7cGNIBKZiNJ6wqF \
+    curl -X DELETE https://api.protocol.chat/v1/comments/L7cGNIBKZiNJ6wqF \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -422,7 +455,7 @@ The group model contains all the information about your groups, including what c
 
     const client = new ApiClient(token)
 
-    await client.groups.delete('L7cGNIBKZiNJ6wqF')
+    await client.comments.delete('L7cGNIBKZiNJ6wqF')
     ```
 
     ```python
@@ -430,13 +463,13 @@ The group model contains all the information about your groups, including what c
 
     client = ApiClient(token)
 
-    client.groups.delete("L7cGNIBKZiNJ6wqF")
+    client.comments.delete("L7cGNIBKZiNJ6wqF")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->groups->delete('L7cGNIBKZiNJ6wqF');
+    $client->comments->delete('L7cGNIBKZiNJ6wqF');
     ```
 
     </CodeGroup>

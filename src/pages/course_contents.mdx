@@ -1,73 +1,73 @@
 export const description =
-  'On this page, we’ll dive into the different message endpoints you can use to manage messages programmatically.'
+  'On this page, we’ll dive into the different course_content endpoints you can use to manage course_contents programmatically.'
 
-# Messages
+# course_contents
 
-Messages are what conversations are made of in Protocol — they are the basic building blocks of your conversations with your Protocol contacts. On this page, we'll dive into the different message endpoints you can use to manage messages programmatically. We'll look at how to query, send, update, and delete messages. {{ className: 'lead' }}
+course_contents are what conversations are made of in Protocol — they are the basic building blocks of your conversations with your Protocol contacts. On this page, we'll dive into the different course_content endpoints you can use to manage course_contents programmatically. We'll look at how to query, send, update, and delete course_contents. {{ className: 'lead' }}
 
-## The message model
+## The  model
 
-The message model contains all the information about the messages and attachments you send to your contacts and groups, including how your contacts have reacted to them.
+The course_content model contains all the information about the course_contents and attachments you send to your contacts and groups, including how your contacts have reacted to them.
 
 ### Properties
 
 <Properties>
   <Property name="id" type="string">
-    Unique identifier for the message.
+    Unique identifier for the course_content.
   </Property>
-  <Property name="conversation_id" type="string">
-    Unique identifier for the conversation the message belongs to.
+  <Property name="course_id" type="string">
+    Unique identifier for the course the course_content belongs to.
   </Property>
-  <Property name="contact" type="object">
-    The contact object for the contact who sent the message.
+  <Property name="chapter" type="object">
+    The contact object for the contact who sent the course_content.
   </Property>
-  <Property name="message" type="string">
-    The message content.
+  <Property name="title" type="string">
+    The title of course content.
   </Property>
-  <Property name="reactions" type="array">
-    An array of reaction objects associated with the message.
+  <Property name="description" type="string">
+    An array of reaction objects associated with the course_content.
   </Property>
-  <Property name="attachments" type="array">
-    An array of attachment objects associated with the message.
+  <Property name="source" type="array">
+    An array of attachment objects associated with the course_content.
   </Property>
   <Property name="read_at" type="timestamp">
-    Timestamp of when the message was read.
+    Timestamp of when the course_content was read.
   </Property>
   <Property name="created_at" type="timestamp">
-    Timestamp of when the message was created.
+    Timestamp of when the course_content was created.
   </Property>
   <Property name="updated_at" type="timestamp">
-    Timestamp of when the message was last updated.
+    Timestamp of when the course_content was last updated.
   </Property>
 </Properties>
 
 ---
 
-## List all messages {{ tag: 'GET', label: '/v1/messages' }}
+## List all course_contents {{ tag: 'GET', label: '/v1/course_contents' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your messages (in a conversation if a conversation id is provided). By default, a maximum of ten messages are shown per page.
+    This endpoint allows you to retrieve a paginated list of all your course_contents (in a conversation if a conversation id is provided). By default, a maximum of ten course_contents are shown per page.
 
     ### Optional attributes
 
     <Properties>
       <Property name="conversation_id" type="string">
-        Limit to messages from a given conversation.
+        Limit to course_contents from a given conversation.
       </Property>
       <Property name="limit" type="integer">
-        Limit the number of messages returned.
+        Limit the number of course_contents returned.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/messages">
+    <CodeGroup title="Request" tag="GET" label="/v1/course_contents">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/messages \
+    curl -G https://api.protocol.chat/v1/course_contents \
       -H "Authorization: Bearer {token}" \
       -d conversation_id=xgQQXg3hrtjh7AvZ \
       -d limit=10
@@ -78,7 +78,7 @@ The message model contains all the information about the messages and attachment
 
     const client = new ApiClient(token)
 
-    await client.messages.list()
+    await client.course_contents.list()
     ```
 
     ```python
@@ -86,13 +86,13 @@ The message model contains all the information about the messages and attachment
 
     client = ApiClient(token)
 
-    client.messages.list()
+    client.course_contents.list()
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->messages->list();
+    $client->course_contents->list();
     ```
 
     </CodeGroup>
@@ -112,7 +112,7 @@ The message model contains all the information about the messages and attachment
             "last_active_at": 705103200,
             "created_at": 692233200
           },
-          "message": "It’s a nice night for a neck injury.",
+          "course_content": "It’s a nice night for a neck injury.",
           "reactions": [],
           "attachments": [],
           "read_at": 705103200,
@@ -132,21 +132,21 @@ The message model contains all the information about the messages and attachment
 
 ---
 
-## Send a message {{ tag: 'POST', label: '/v1/messages' }}
+## Send a course_content {{ tag: 'POST', label: '/v1/course_contents' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to send a new message to one of your conversations.
+    This endpoint allows you to send a new course_content to one of your conversations.
 
     ### Required attributes
 
     <Properties>
       <Property name="conversation_id" type="string">
-        Unique identifier for the conversation the message belongs to.
+        Unique identifier for the conversation the course_content belongs to.
       </Property>
-      <Property name="message" type="string">
-        The message content.
+      <Property name="course_content" type="string">
+        The course_content content.
       </Property>
     </Properties>
 
@@ -154,20 +154,20 @@ The message model contains all the information about the messages and attachment
 
     <Properties>
       <Property name="attachments" type="array">
-        An array of attachment objects associated with the message.
+        An array of attachment objects associated with the course_content.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/messages">
+    <CodeGroup title="Request" tag="POST" label="/v1/course_contents">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/messages \
+    curl https://api.protocol.chat/v1/course_contents \
       -H "Authorization: Bearer {token}" \
       -d conversation_id="xgQQXg3hrtjh7AvZ" \
-      -d message="You’re what the French call ‘les incompetents.’"
+      -d course_content="You’re what the French call ‘les incompetents.’"
     ```
 
     ```js
@@ -175,9 +175,9 @@ The message model contains all the information about the messages and attachment
 
     const client = new ApiClient(token)
 
-    await client.messages.send({
+    await client.course_contents.send({
       conversation_id: 'xgQQXg3hrtjh7AvZ',
-      message: 'You’re what the French call ‘les incompetents.’',
+      course_content: 'You’re what the French call ‘les incompetents.’',
     })
     ```
 
@@ -186,18 +186,18 @@ The message model contains all the information about the messages and attachment
 
     client = ApiClient(token)
 
-    client.messages.send(
+    client.course_contents.send(
       conversation_id="xgQQXg3hrtjh7AvZ",
-      message="You’re what the French call ‘les incompetents.’",
+      course_content="You’re what the French call ‘les incompetents.’",
     )
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->messages->send([
+    $client->course_contents->send([
       'conversation_id' => 'xgQQXg3hrtjh7AvZ',
-      'message' => 'You’re what the French call ‘les incompetents.’',
+      'course_content' => 'You’re what the French call ‘les incompetents.’',
     ]);
     ```
 
@@ -215,7 +215,7 @@ The message model contains all the information about the messages and attachment
         "last_active_at": 705103200,
         "created_at": 692233200
       },
-      "message": "You’re what the French call ‘les incompetents.’",
+      "course_content": "You’re what the French call ‘les incompetents.’",
       "reactions": [],
       "attachments": [],
       "read_at": null,
@@ -229,29 +229,28 @@ The message model contains all the information about the messages and attachment
 
 ---
 
-## Retrieve a message {{ tag: 'GET', label: '/v1/messages/:id' }}
+## Retrieve a course_content {{ tag: 'GET', label: '/v1/course_contents/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a message by providing the message id. Refer to [the list](#the-message-model) at the top of this page to see which properties are included with message objects.
+    This endpoint allows you to retrieve a course_content by providing the course_content id. Refer to [the list](#the-course_content-model) at the top of this page to see which properties are included with course_content objects.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/messages/SIuAFUNKdSYHZF2w">
+    <CodeGroup title="Request" tag="GET" label="/v1/course_contents/SIuAFUNKdSYHZF2w">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/messages/SIuAFUNKdSYHZF2w \
+    curl https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
       -H "Authorization: Bearer {token}"
     ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
-    await client.messages.get('SIuAFUNKdSYHZF2w')
+    await client.course_contents.get('SIuAFUNKdSYHZF2w')
     ```
 
     ```python
@@ -259,13 +258,13 @@ The message model contains all the information about the messages and attachment
 
     client = ApiClient(token)
 
-    client.messages.get("SIuAFUNKdSYHZF2w")
+    client.course_contents.get("SIuAFUNKdSYHZF2w")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->messages->get('SIuAFUNKdSYHZF2w');
+    $client->course_contents->get('SIuAFUNKdSYHZF2w');
     ```
 
     </CodeGroup>
@@ -282,7 +281,7 @@ The message model contains all the information about the messages and attachment
         "last_active_at": 705103200,
         "created_at": 692233200
       },
-      "message": "I’m traveling with my dad. He’s at a meeting. I hate meetings.",
+      "course_content": "I’m traveling with my dad. He’s at a meeting. I hate meetings.",
       "reactions": [],
       "attachments": [],
       "read_at": 705103200,
@@ -296,34 +295,34 @@ The message model contains all the information about the messages and attachment
 
 ---
 
-## Update a message {{ tag: 'PUT', label: '/v1/messages/:id' }}
+## Update a course_content {{ tag: 'PUT', label: '/v1/course_contents/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to perform an update on a message. Examples of updates are adding a reaction, editing the message, or adding an attachment.
+    This endpoint allows you to perform an update on a course_content. Examples of updates are adding a reaction, editing the course_content, or adding an attachment.
 
     ### Optional attributes
 
     <Properties>
-      <Property name="message" type="string">
-        The message content.
+      <Property name="course_content" type="string">
+        The course_content content.
       </Property>
       <Property name="reactions" type="array">
-        An array of reaction objects associated with the message.
+        An array of reaction objects associated with the course_content.
       </Property>
       <Property name="attachments" type="array">
-        An array of attachment objects associated with the message.
+        An array of attachment objects associated with the course_content.
       </Property>
     </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/messages/SIuAFUNKdSYHZF2w">
+    <CodeGroup title="Request" tag="PUT" label="/v1/course_contents/SIuAFUNKdSYHZF2w">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/messages/SIuAFUNKdSYHZF2w \
+    curl -X PUT https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
       -H "Authorization: Bearer {token}" \
       -d reactions[red_angry_face][]="KateMcCallister"
     ```
@@ -333,7 +332,7 @@ The message model contains all the information about the messages and attachment
 
     const client = new ApiClient(token)
 
-    await client.messages.update('SIuAFUNKdSYHZF2w', {
+    await client.course_contents.update('SIuAFUNKdSYHZF2w', {
         reactions: {
             red_angry_face: ['KateMcCallister']
         }
@@ -345,14 +344,14 @@ The message model contains all the information about the messages and attachment
 
     client = ApiClient(token)
 
-    client.messages.update("SIuAFUNKdSYHZF2w",
+    client.course_contents.update("SIuAFUNKdSYHZF2w",
         reactions={"red_angry_face": ["KateMcCallister"]})
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->messages->update('SIuAFUNKdSYHZF2w', [
+    $client->course_contents->update('SIuAFUNKdSYHZF2w', [
       'reactions' => [
         'red_angry_face' => ['KateMcCallister'],
       ],
@@ -373,7 +372,7 @@ The message model contains all the information about the messages and attachment
         "last_active_at": 705103200,
         "created_at": 692233200
       },
-      "message": "I'm not apologizing. I'd rather kiss a toilet seat.",
+      "course_content": "I'm not apologizing. I'd rather kiss a toilet seat.",
       "reactions": [
         {
           "red_angry_face": [
@@ -393,20 +392,20 @@ The message model contains all the information about the messages and attachment
 
 ---
 
-## Delete a message {{ tag: 'DELETE', label: '/v1/messages/:id' }}
+## Delete a course_content {{ tag: 'DELETE', label: '/v1/course_contents/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to delete messages from your conversations. Note: This will permanently delete the message.
+    This endpoint allows you to delete course_contents from your conversations. Note: This will permanently delete the course_content.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="DELETE" label="/v1/messages/SIuAFUNKdSYHZF2w">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/course_contents/SIuAFUNKdSYHZF2w">
 
     ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/messages/SIuAFUNKdSYHZF2w \
+    curl -X DELETE https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
       -H "Authorization: Bearer {token}"
     ```
 
@@ -415,7 +414,7 @@ The message model contains all the information about the messages and attachment
 
     const client = new ApiClient(token)
 
-    await client.messages.delete('SIuAFUNKdSYHZF2w')
+    await client.course_contents.delete('SIuAFUNKdSYHZF2w')
     ```
 
     ```python
@@ -423,13 +422,13 @@ The message model contains all the information about the messages and attachment
 
     client = ApiClient(token)
 
-    client.messages.delete("SIuAFUNKdSYHZF2w")
+    client.course_contents.delete("SIuAFUNKdSYHZF2w")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->messages->delete('SIuAFUNKdSYHZF2w');
+    $client->course_contents->delete('SIuAFUNKdSYHZF2w');
     ```
 
     </CodeGroup>
