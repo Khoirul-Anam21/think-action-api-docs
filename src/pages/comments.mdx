@@ -24,17 +24,11 @@ The comment model contains all the information about your comments, including wh
   <Property name="content" type="string">
     The content of the comment.
   </Property>
-  <Property name="chapter" type="string">
-    Unique identifier for the conversation that belongs to the .
-  </Property>
-  <Property name="contacts" type="array">
-    An array of contact objects that are members of the comment.
+  <Property name="chapter" type="integer">
+    The chapter of the course commented on.
   </Property>
   <Property name="created_at" type="timestamp">
     Timestamp of when the comment was created.
-  </Property>
-  <Property name="archived_at" type="timestamp">
-    Timestamp of when the comment was archived.
   </Property>
 </Properties>
 
@@ -48,46 +42,34 @@ The comment model contains all the information about your comments, including wh
   <Property name="id" type="string">
     Unique identifier for the comment.
   </Property>
-  <Property name="name" type="string">
-    The name for the comment.
+  <Property name="comment_id" type="string">
+    The name for the comment replied.
   </Property>
-  <Property name="description" type="string">
+  <Property name="user_id" type="string">
     The description for the comment.
   </Property>
-  <Property name="avatar_url" type="string">
+  <Property name="content" type="string">
     The avatar image URL for the comment.
   </Property>
-  <Property name="conversation_id" type="string">
-    Unique identifier for the conversation that belongs to the comment.
-  </Property>
-  <Property name="contacts" type="array">
-    An array of contact objects that are members of the comment.
-  </Property>
   <Property name="created_at" type="timestamp">
-    Timestamp of when the comment was created.
-  </Property>
-  <Property name="archived_at" type="timestamp">
-    Timestamp of when the comment was archived.
+    Timestamp of when the comment reply was created.
   </Property>
 </Properties>
 
 ---
 
-## List all comments {{ tag: 'GET', label: '/v1/comments' }}
+## List all comments with reply {{ tag: 'GET', label: '/v1/comments' }}
 
 <Row>
   <Col>
 
     This endpoint allows you to retrieve a paginated list of all your comments. By default, a maximum of ten comments are shown per page.
 
-    ### Optional attributes
+    ### Required attributes
 
     <Properties>
-      <Property name="limit" type="integer">
-        Limit the number of comments returned.
-      </Property>
-      <Property name="archived" type="boolean">
-        Only show comments that are archived when set to `true`.
+      <Property name="course_id" type="string">
+        The course of comment referred.
       </Property>
     </Properties>
 
@@ -99,7 +81,7 @@ The comment model contains all the information about your comments, including wh
     ```bash {{ title: 'cURL' }}
     curl -G https://api.protocol.chat/v1/comments \
       -H "Authorization: Bearer {token}" \
-      -d limit=10
+      -d course_id="csDaSDF44aas"
     ```
 
     ```js
@@ -107,7 +89,7 @@ The comment model contains all the information about your comments, including wh
 
     const client = new ApiClient(token)
 
-    await client.comments.list()
+    await client.comments.list({course_id:'csDaSDF44aas'})
     ```
 
     ```python
@@ -115,51 +97,43 @@ The comment model contains all the information about your comments, including wh
 
     client = ApiClient(token)
 
-    client.comments.list()
+    client.comments.list(course_id="csDaSDF44aas")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->comments->list();
+    $client->comments->list(['course_id' => 'csDaSDF44aas']);
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
     {
-      "has_more": false,
-      "data": [
+      "id": "fadfGas45",
+      "user": {
+        "username": "FrankMcCallister",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "course": {
+        "id": "xgQQXg3hrtjh7AvZ",
+        "title": "Belajar Machine learning",
+      },
+      "course_content": {
+        "id": "dfadT4asd"
+        "chapter": 3,
+        "title": "Machine Learning dan IOT update 2023",
+      } 
+      "content": "Izin bertanya, maksud dari soal ini bagaimana ya pak?",
+      "created_at": 6589659,
+      "reply": [
         {
-          "id": "l7cGNIBKZiNJ6wqF",
-          "name": "Plaza Hotel",
-          "description": "World-renowned.",
-          "avatar_url": "https://assets.protocol.chat/avatars/plazahotel.jpg",
-          "conversation_id": "ZYjVAbCE9g5XRlra",
-          "contacts": [
-            {
-              "username": "Hector"
-              // ...
-            },
-            {
-              "username": "Cedric"
-              // ...
-            },
-            {
-              "username": "Hester"
-              // ...
-            },
-            {
-              "username": "Cliff"
-              // ...
-            }
-          ],
-          "created_at": 692233200,
-          "archived_at": null
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
+          "comment_id": "fadfGas4",
+          "user": {
+            "username": "Imthe_Facilitator",
+            "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+          },
+          "content": "Ya ndak tau kok tanya saya",
         }
       ]
     }
@@ -179,25 +153,21 @@ The comment model contains all the information about your comments, including wh
 
     ### Required attributes
 
-    <Properties>
-      <Property name="name" type="string">
-        The name for the comment.
-      </Property>
-    </Properties>
+<Properties>
+  <Property name="user_id" type="string">
+    Unique identifier of user that user was commented.
+  </Property>
+  <Property name="course_id" type="string">
+    Unique identifier of the course that user was commented.
+  </Property>
+  <Property name="course_content_id" type="string">
+    Unique identifier of the course content that user was commented.
+  </Property>
+  <Property name="content" type="string">
+    The content for the comment.
+  </Property>
+</Properties>
 
-    ### Optional attributes
-
-    <Properties>
-      <Property name="description" type="string">
-        The description for the comment.
-      </Property>
-      <Property name="avatar_url" type="string">
-        The avatar image URL for the comment.
-      </Property>
-      <Property name="contacts" type="array">
-        An array of contact objects that are members of the comment.
-      </Property>
-    </Properties>
 
   </Col>
   <Col sticky>
@@ -207,7 +177,10 @@ The comment model contains all the information about your comments, including wh
     ```bash {{ title: 'cURL' }}
     curl https://api.protocol.chat/v1/comments \
       -H "Authorization: Bearer {token}" \
-      -d name="Plaza Hotel"
+      -d user_id="sdfa4ad" \
+      -d course_id="fadfGas4" \
+      -d course_content_id="dfaad466" \
+      -d content="Jadi gini..."
     ```
 
     ```js
@@ -216,7 +189,10 @@ The comment model contains all the information about your comments, including wh
     const client = new ApiClient(token)
 
     await client.comments.create({
-      name: 'Plaza Hotel',
+      user_id: 'sdfa4ad',
+      course_id: 'fadfGas4',
+      course_content_id: 'dfaad466',
+      content: 'Jadi gini...'
     })
     ```
 
@@ -225,14 +201,22 @@ The comment model contains all the information about your comments, including wh
 
     client = ApiClient(token)
 
-    client.comments.create(name="Plaza Hotel")
+    client.comments.create(      
+      user_id= "sdfa4ad",
+      course_id= "fadfGas4",
+      course_content_id= "dfaad466",
+      content= "Jadi gini..."
+    )
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
     $client->comments->create([
-      'name' => 'Plaza Hotel',
+      'user_id'=> 'sdfa4ad',
+      'course_id'=> 'fadfGas4',
+      'course_content_id'=> 'dfaad466',
+      'content'=> 'Jadi gini...'
     ]);
     ```
 
@@ -240,14 +224,23 @@ The comment model contains all the information about your comments, including wh
 
     ```json {{ title: 'Response' }}
     {
-      "id": "l7cGNIBKZiNJ6wqF",
-      "name": "Plaza Hotel",
-      "description": null,
-      "avatar_url": null,
-      "conversation_id": "ZYjVAbCE9g5XRlra",
-      "contacts": [],
-      "created_at": 692233200,
-      "archived_at": null
+      "id": "fadfGas45",
+      "user": {
+        "username": "FrankMcCallister",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "course": {
+        "id": "xgQQXg3hrtjh7AvZ",
+        "title": "Belajar Machine learning",
+      },
+      "course_content": {
+        "id": "dfadT4asd"
+        "chapter": 3,
+        "title": "Machine Learning dan IOT update 2023",
+      } 
+      "content": "Jadi gini...",
+      "created_at": 6589659,
+      "reply": []
     }
     ```
 
@@ -256,118 +249,40 @@ The comment model contains all the information about your comments, including wh
 
 ---
 
-## Retrieve a comment {{ tag: 'GET', label: '/v1/comments/:id' }}
+## Create a reply {{ tag: 'POST', label: '/v1/comments' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a comment by providing the comment id. Refer to [the list](#the-comment-model) at the top of this page to see which properties are included with comment objects.
+    This endpoint allows you to create a new comment conversation between you and a comment of your Protocol contacts.
 
-  </Col>
-  <Col sticky>
+    ### Required attributes
 
-    <CodeGroup title="Request" tag="GET" label="/v1/comments/L7cGNIBKZiNJ6wqF">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/comments/L7cGNIBKZiNJ6wqF \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.comments.get('L7cGNIBKZiNJ6wqF')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.comments.get("L7cGNIBKZiNJ6wqF")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->comments->get('L7cGNIBKZiNJ6wqF');
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "l7cGNIBKZiNJ6wqF",
-      "name": "Plaza Hotel",
-      "description": "World-renowned.",
-      "avatar_url": "https://assets.protocol.chat/avatars/plazahotel.jpg",
-      "conversation_id": "ZYjVAbCE9g5XRlra",
-      "contacts": [
-        {
-          "username": "Hector"
-          // ...
-        },
-        {
-          "username": "Cedric"
-          // ...
-        },
-        {
-          "username": "Hester"
-          // ...
-        },
-        {
-          "username": "Cliff"
-          // ...
-        }
-      ],
-      "created_at": 692233200,
-      "archived_at": null
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Update a comment {{ tag: 'PUT', label: '/v1/comments/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to perform an update on a comment. Examples of updates are changing the name, description, and avatar or adding and removing contacts from the comment.
+<Properties>
+  <Property name="user_id" type="string">
+    Unique identifier of user that user was commented.
+  </Property>
+  <Property name="reply_id" type="string">
+    Unique identifier of the desired comment / reply that user was commented.
+  </Property>
+  <Property name="content" type="string">
+    The content for the reply.
+  </Property>
+</Properties>
 
     ### Optional attributes
 
-    <Properties>
-      <Property name="name" type="string">
-        The new name for the comment.
-      </Property>
-      <Property name="description" type="string">
-        The new description for the comment.
-      </Property>
-      <Property name="avatar_url" type="string">
-        The new avatar image URL for the comment.
-      </Property>
-      <Property name="contacts" type="array">
-        An array of contact objects that are members of the comment.
-      </Property>
-      <Property name="archived_at" type="timestamp">
-        Timestamp of when the comment was archived.
-      </Property>
-    </Properties>
-
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/comments/L7cGNIBKZiNJ6wqF">
+    <CodeGroup title="Request" tag="POST" label="/v1/replies">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/comments/L7cGNIBKZiNJ6wqF \
+    curl https://api.protocol.chat/v1/replies \
       -H "Authorization: Bearer {token}" \
-      -d description="The finest in New York."
+      -d user_id="sdfa9dua" \
+      -d reply_id="dfarj9j" \
+      -d content="Prittt..."
     ```
 
     ```js
@@ -375,8 +290,10 @@ The comment model contains all the information about your comments, including wh
 
     const client = new ApiClient(token)
 
-    await client.comments.update('L7cGNIBKZiNJ6wqF', {
-        description: 'The finest in New York.',
+    await client.replies.create({
+      user_id: 'sdfa9dua',
+      reply_id: 'dfarj9j',
+      content: 'Prittt...'
     })
     ```
 
@@ -385,14 +302,20 @@ The comment model contains all the information about your comments, including wh
 
     client = ApiClient(token)
 
-    client.comments.update("L7cGNIBKZiNJ6wqF", description="The finest in New York.")
+    client.replies.create(
+      user_id="sdfa9dua",
+      reply_id="dfarj9j",
+      content="Prittt..."
+    )
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->comments->update('L7cGNIBKZiNJ6wqF', [
-      'description' => 'The finest in New York.',
+    $client->replies->create([
+      'user_id' => 'sdfa9dua',
+      'reply_id' => 'dfarj9j',
+      'content' => 'Prittt...'
     ]);
     ```
 
@@ -400,79 +323,21 @@ The comment model contains all the information about your comments, including wh
 
     ```json {{ title: 'Response' }}
     {
-      "id": "l7cGNIBKZiNJ6wqF",
-      "name": "Plaza Hotel",
-      "description": "The finest in New York.",
-      "avatar_url": "https://assets.protocol.chat/avatars/plazahotel.jpg",
-      "conversation_id": "ZYjVAbCE9g5XRlra",
-      "contacts": [
-        {
-          "username": "Hector"
-          // ...
-        },
-        {
-          "username": "Cedric"
-          // ...
-        },
-        {
-          "username": "Hester"
-          // ...
-        },
-        {
-          "username": "Cliff"
-          // ...
+      "id": "fgavvds45",
+      "user": {
+        "username": "NoobMaster69",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "reply_to": { 
+        "id": "fadfGas45"
+        "user": {
+          "username": "FrankMcCallister",
         }
-      ],
-      "created_at": 692233200,
-      "archived_at": null
-    },
+      }
+      "content": "Prit....",
+      "created_at": 6589659,
+    }
     ```
-
-  </Col>
-</Row>
-
----
-
-## Delete a comment {{ tag: 'DELETE', label: '/v1/comments/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to delete comments. Note: This will permanently delete the comment, including the messages — archive it instead if you want to be able to restore it later.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="DELETE" label="/v1/comments/L7cGNIBKZiNJ6wqF">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/comments/L7cGNIBKZiNJ6wqF \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.comments.delete('L7cGNIBKZiNJ6wqF')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.comments.delete("L7cGNIBKZiNJ6wqF")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->comments->delete('L7cGNIBKZiNJ6wqF');
-    ```
-
-    </CodeGroup>
 
   </Col>
 </Row>

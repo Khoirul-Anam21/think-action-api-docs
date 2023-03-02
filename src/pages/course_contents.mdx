@@ -18,26 +18,29 @@ The course_content model contains all the information about the course_contents 
   <Property name="course_id" type="string">
     Unique identifier for the course the course_content belongs to.
   </Property>
-  <Property name="chapter" type="object">
-    The contact object for the contact who sent the course_content.
+  <Property name="chapter" type="integer_auto_increment">
+    The chapter of the course using auto increment.
   </Property>
   <Property name="title" type="string">
     The title of course content.
   </Property>
   <Property name="description" type="string">
-    An array of reaction objects associated with the course_content.
+    The description or content material.
   </Property>
-  <Property name="source" type="array">
-    An array of attachment objects associated with the course_content.
+  <Property name="source" type="string">
+    A Url for participant's submission / supporting file.
   </Property>
-  <Property name="read_at" type="timestamp">
-    Timestamp of when the course_content was read.
+  <Property name="task_instruction" type="string">
+    Instruction for giving task / assignment for participants.
+  </Property>
+    <Property name="video" type="string">
+    Url of video course content.
   </Property>
   <Property name="created_at" type="timestamp">
     Timestamp of when the course_content was created.
   </Property>
   <Property name="updated_at" type="timestamp">
-    Timestamp of when the course_content was last updated.
+    Timestamp of when the course_content was updated.
   </Property>
 </Properties>
 
@@ -50,14 +53,11 @@ The course_content model contains all the information about the course_contents 
 
     This endpoint allows you to retrieve a paginated list of all your course_contents (in a conversation if a conversation id is provided). By default, a maximum of ten course_contents are shown per page.
 
-    ### Optional attributes
+    ### Required attributes
 
     <Properties>
-      <Property name="conversation_id" type="string">
-        Limit to course_contents from a given conversation.
-      </Property>
-      <Property name="limit" type="integer">
-        Limit the number of course_contents returned.
+      <Property name="course_id" type="string">
+        Get all course content in the specific course.
       </Property>
     </Properties>
 
@@ -69,8 +69,7 @@ The course_content model contains all the information about the course_contents 
     ```bash {{ title: 'cURL' }}
     curl -G https://api.protocol.chat/v1/course_contents \
       -H "Authorization: Bearer {token}" \
-      -d conversation_id=xgQQXg3hrtjh7AvZ \
-      -d limit=10
+      -d course_id=xgQQXg3hrtjh7AvZ \
     ```
 
     ```js
@@ -99,30 +98,32 @@ The course_content model contains all the information about the course_contents 
 
     ```json {{ title: 'Response' }}
     {
-      "has_more": false,
-      "data": [
+      "contents": [
         {
-          "id": "SIuAFUNKdSYHZF2w",
-          "conversation_id": "xgQQXg3hrtjh7AvZ",
-          "contact": {
-            "id": "WAz8eIbvDR60rouK",
-            "username": "KevinMcCallister",
-            "phone_number": "1-800-759-3000",
-            "avatar_url": "https://assets.protocol.chat/avatars/buzzboy.jpg",
-            "last_active_at": 705103200,
-            "created_at": 692233200
+          "course": {
+            "id": "xgQQXg3hrtjh7AvZ",
+            "title": "Belajar Machine learning",
           },
-          "course_content": "It’s a nice night for a neck injury.",
-          "reactions": [],
-          "attachments": [],
-          "read_at": 705103200,
-          "created_at": 692233200,
-          "updated_at": 692233200
+          "chapter": 1,
+          "title": "Belajar Algoritma Machine Learning versi 1",
+          "description": "Mollit est nostrud commodo eu velit commodo. Deserunt anim incididunt irure sunt pariatur consequat sunt laboris tempor. Dolore esse exercitation anim laboris aliquip adipisicing.",
+          "source": null,
+          "task_instruction": null,
+          "video": "cdn.cloud_storage.com/video/sdfsdAsd.mp4",
         },
         {
-          "id": "hSIhXBhNe8X1d8Et",
-          // ..
-        }
+          "course": {
+            "id": "xgQQXg3hrtjh7AvZ",
+            "title": "Belajar Machine learning",
+          },
+          "chapter": 2,
+          "title": "Penerapan Algoritma Machine Learning",
+          "description": "Mollit est nostrud commodo eu velit commodo. Deserunt anim incididunt irure sunt pariatur consequat sunt laboris tempor. Dolore esse exercitation anim laboris aliquip adipisicing.",
+          "source": "forms.gle/dsfa4arSaf",
+          "task_instruction": "Tulis contoh kodingan AI anda...",
+          "video": "cdn.cloud_storage.com/video/QgdsFFAsd.mp4",
+        },
+        ...
       ]
     }
     ```
@@ -132,7 +133,7 @@ The course_content model contains all the information about the course_contents 
 
 ---
 
-## Send a course_content {{ tag: 'POST', label: '/v1/course_contents' }}
+## Create a course_content {{ tag: 'POST', label: '/v1/course_contents' }}
 
 <Row>
   <Col>
@@ -141,22 +142,32 @@ The course_content model contains all the information about the course_contents 
 
     ### Required attributes
 
-    <Properties>
-      <Property name="conversation_id" type="string">
-        Unique identifier for the conversation the course_content belongs to.
-      </Property>
-      <Property name="course_content" type="string">
-        The course_content content.
-      </Property>
-    </Properties>
+<Properties>
+  <Property name="course_id" type="string">
+    Unique identifier for the course the course_content belongs to.
+  </Property>
+  <Property name="title" type="string">
+    The title of course content.
+  </Property>
+  <Property name="description" type="string">
+    The description or content material.
+  </Property>
+    <Property name="video" type="string">
+    Url of video course content.
+  </Property>
+</Properties>
+
 
     ### Optional attributes
 
-    <Properties>
-      <Property name="attachments" type="array">
-        An array of attachment objects associated with the course_content.
-      </Property>
-    </Properties>
+<Properties>
+  <Property name="source" type="string">
+    A Url for participant's submission / supporting file.
+  </Property>
+  <Property name="task_instruction" type="string">
+    Instruction for giving task / assignment for participants.
+  </Property>
+</Properties>
 
   </Col>
   <Col sticky>
@@ -166,8 +177,10 @@ The course_content model contains all the information about the course_contents 
     ```bash {{ title: 'cURL' }}
     curl https://api.protocol.chat/v1/course_contents \
       -H "Authorization: Bearer {token}" \
-      -d conversation_id="xgQQXg3hrtjh7AvZ" \
-      -d course_content="You’re what the French call ‘les incompetents.’"
+      -d course_id="xgQQXg3hrtjh7AvZ" \
+      -d title="Machine Learning dan IOT" \
+      -d description="Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt." \
+      -d video = "<file_upload>"
     ```
 
     ```js
@@ -176,8 +189,10 @@ The course_content model contains all the information about the course_contents 
     const client = new ApiClient(token)
 
     await client.course_contents.send({
-      conversation_id: 'xgQQXg3hrtjh7AvZ',
-      course_content: 'You’re what the French call ‘les incompetents.’',
+      course_id: 'xgQQXg3hrtjh7AvZ',
+      title: 'Machine Learning dan IOT',
+      description: 'Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.'',
+      video: '<file_upload>'
     })
     ```
 
@@ -187,8 +202,10 @@ The course_content model contains all the information about the course_contents 
     client = ApiClient(token)
 
     client.course_contents.send(
-      conversation_id="xgQQXg3hrtjh7AvZ",
-      course_content="You’re what the French call ‘les incompetents.’",
+      course_id= "xgQQXg3hrtjh7AvZ",
+      title= "Machine Learning dan IOT",
+      description= "Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.",
+      video= "<file_upload>"
     )
     ```
 
@@ -196,8 +213,10 @@ The course_content model contains all the information about the course_contents 
     $client = new \Protocol\ApiClient($token);
 
     $client->course_contents->send([
-      'conversation_id' => 'xgQQXg3hrtjh7AvZ',
-      'course_content' => 'You’re what the French call ‘les incompetents.’',
+      'course_id' => 'xgQQXg3hrtjh7AvZ',
+      'title' => 'Machine Learning dan IOT',
+      'description' => 'Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.',
+      'video' => '<file_upload>'
     ]);
     ```
 
@@ -205,88 +224,16 @@ The course_content model contains all the information about the course_contents 
 
     ```json {{ title: 'Response' }}
     {
-      "id": "gWqY86BMFRiH5o11",
-      "conversation_id": "xgQQXg3hrtjh7AvZ",
-      "contact": {
-        "id": "inEIRvzjC6YLMX3o",
-        "username": "LinnieMcCallister",
-        "phone_number": "1-800-759-3000",
-        "avatar_url": "https://assets.protocol.chat/avatars/linnie.jpg",
-        "last_active_at": 705103200,
-        "created_at": 692233200
+      "course": {
+        "id": "xgQQXg3hrtjh7AvZ",
+        "title": "Belajar Machine learning",
       },
-      "course_content": "You’re what the French call ‘les incompetents.’",
-      "reactions": [],
-      "attachments": [],
-      "read_at": null,
-      "created_at": 692233200,
-      "updated_at": null
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Retrieve a course_content {{ tag: 'GET', label: '/v1/course_contents/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a course_content by providing the course_content id. Refer to [the list](#the-course_content-model) at the top of this page to see which properties are included with course_content objects.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/course_contents/SIuAFUNKdSYHZF2w">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
-      -H "Authorization: Bearer {token}"
-    ```
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.course_contents.get('SIuAFUNKdSYHZF2w')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.course_contents.get("SIuAFUNKdSYHZF2w")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->course_contents->get('SIuAFUNKdSYHZF2w');
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "SIuAFUNKdSYHZF2w",
-      "conversation_id": "xgQQXg3hrtjh7AvZ",
-      "contact": {
-        "id": "WAz8eIbvDR60rouK",
-        "username": "KevinMcCallister",
-        "phone_number": "1-800-759-3000",
-        "avatar_url": "https://assets.protocol.chat/avatars/kevin.jpg",
-        "last_active_at": 705103200,
-        "created_at": 692233200
-      },
-      "course_content": "I’m traveling with my dad. He’s at a meeting. I hate meetings.",
-      "reactions": [],
-      "attachments": [],
-      "read_at": 705103200,
-      "created_at": 692233200,
-      "updated_at": 692233200
+      "chapter": 3,
+      "title": "Machine Learning dan IOT",
+      "description": "Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.",
+      "source": null,
+      "task_instruction": null,
+      "video": "cdn.cloud_storage.com/video/sFFdfsdAsd.mp4",
     }
     ```
 
@@ -302,29 +249,47 @@ The course_content model contains all the information about the course_contents 
 
     This endpoint allows you to perform an update on a course_content. Examples of updates are adding a reaction, editing the course_content, or adding an attachment.
 
-    ### Optional attributes
+    ### Required attributes
 
     <Properties>
-      <Property name="course_content" type="string">
-        The course_content content.
-      </Property>
-      <Property name="reactions" type="array">
-        An array of reaction objects associated with the course_content.
-      </Property>
-      <Property name="attachments" type="array">
-        An array of attachment objects associated with the course_content.
+      <Property name="course_id" type="string">
+        Unique identifier of course that the content belongs to.
       </Property>
     </Properties>
+
+    ### Optional attributes
+<Properties>
+  <Property name="course_id" type="string">
+    Unique identifier for the course the course_content belongs to.
+  </Property>
+  <Property name="title" type="string">
+    The title of course content.
+  </Property>
+  <Property name="description" type="string">
+    The description or content material.
+  </Property>
+    <Property name="video" type="string">
+    Url of video course content.
+  </Property>
+  <Property name="source" type="string">
+    A Url for participant's submission / supporting file.
+  </Property>
+  <Property name="task_instruction" type="string">
+    Instruction for giving task / assignment for participants.
+  </Property>
+</Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/course_contents/SIuAFUNKdSYHZF2w">
+    <CodeGroup title="Request" tag="PUT" label="/v1/course_contents/xsFasfeS">
 
     ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
+    curl https://api.protocol.chat/v1/course_contents/xsFasfeS \
       -H "Authorization: Bearer {token}" \
-      -d reactions[red_angry_face][]="KateMcCallister"
+      -d course_id="xgQQXg3hrtjh7AvZ" \
+      -d title="Machine Learning dan IOT" \
+      -d video = "<file_upload>"
     ```
 
     ```js
@@ -332,10 +297,10 @@ The course_content model contains all the information about the course_contents 
 
     const client = new ApiClient(token)
 
-    await client.course_contents.update('SIuAFUNKdSYHZF2w', {
-        reactions: {
-            red_angry_face: ['KateMcCallister']
-        }
+    await client.course_contents.update('xsFasfeS', {
+      course_id: 'xgQQXg3hrtjh7AvZ',
+      title: 'Machine Learning dan IOT update 2023',
+      video: '<file_upload>'
     })
     ```
 
@@ -344,17 +309,21 @@ The course_content model contains all the information about the course_contents 
 
     client = ApiClient(token)
 
-    client.course_contents.update("SIuAFUNKdSYHZF2w",
-        reactions={"red_angry_face": ["KateMcCallister"]})
+    client.course_contents.update(
+      "xsFasfeS",
+      course_id= "xgQQXg3hrtjh7AvZ",
+      title= "Machine Learning dan IOT update 2023",
+      video= "<file_upload>"
+    )
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->course_contents->update('SIuAFUNKdSYHZF2w', [
-      'reactions' => [
-        'red_angry_face' => ['KateMcCallister'],
-      ],
+    $client->course_contents->update('xsFasfeS',[
+      'course_id' => 'xgQQXg3hrtjh7AvZ',
+      'title' => 'Machine Learning dan IOT update 2023',
+      'video' => '<file_upload>'
     ]);
     ```
 
@@ -362,28 +331,17 @@ The course_content model contains all the information about the course_contents 
 
     ```json {{ title: 'Response' }}
     {
-      "id": "SIuAFUNKdSYHZF2w",
-      "conversation_id": "xgQQXg3hrtjh7AvZ",
-      "contact": {
-        "id": "WAz8eIbvDR60rouK",
-        "username": "KevinMcCallister",
-        "phone_number": "1-800-759-3000",
-        "avatar_url": "https://assets.protocol.chat/avatars/buzzboy.jpg",
-        "last_active_at": 705103200,
-        "created_at": 692233200
+      "id": "dfadT4asd"
+      "course": {
+        "id": "xgQQXg3hrtjh7AvZ",
+        "title": "Belajar Machine learning",
       },
-      "course_content": "I'm not apologizing. I'd rather kiss a toilet seat.",
-      "reactions": [
-        {
-          "red_angry_face": [
-            "KateMcCallister"
-          ]
-        }
-      ],
-      "attachments": [],
-      "read_at": 705103200,
-      "created_at": 692233200,
-      "updated_at": 692233200
+      "chapter": 3,
+      "title": "Machine Learning dan IOT update 2023",
+      "description": "Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.",
+      "source": null,
+      "task_instruction": null,
+      "video": "cdn.cloud_storage.com/video/AAAFdfsdAsd.mp4",
     }
     ```
 
@@ -396,8 +354,15 @@ The course_content model contains all the information about the course_contents 
 
 <Row>
   <Col>
-
     This endpoint allows you to delete course_contents from your conversations. Note: This will permanently delete the course_content.
+
+
+    ### Required attribute
+    <Properties>
+      <Property name="course_id" type="string">
+        Unique identifier of course that the content belongs to.
+      </Property>
+    </Properties>
 
   </Col>
   <Col sticky>
@@ -406,7 +371,8 @@ The course_content model contains all the information about the course_contents 
 
     ```bash {{ title: 'cURL' }}
     curl -X DELETE https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
-      -H "Authorization: Bearer {token}"
+      -H "Authorization: Bearer {token}" \
+      -d course_id="xgQQXg3hrtjh7AvZ" \
     ```
 
     ```js
@@ -414,7 +380,7 @@ The course_content model contains all the information about the course_contents 
 
     const client = new ApiClient(token)
 
-    await client.course_contents.delete('SIuAFUNKdSYHZF2w')
+    await client.course_contents.delete('SIuAFUNKdSYHZF2w', course_id: 'xgQQXg3hrtjh7AvZ')
     ```
 
     ```python
@@ -422,13 +388,13 @@ The course_content model contains all the information about the course_contents 
 
     client = ApiClient(token)
 
-    client.course_contents.delete("SIuAFUNKdSYHZF2w")
+    client.course_contents.delete("SIuAFUNKdSYHZF2w", course_id= "xgQQXg3hrtjh7AvZ")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->course_contents->delete('SIuAFUNKdSYHZF2w');
+    $client->course_contents->delete('SIuAFUNKdSYHZF2w',['course_id' => 'xgQQXg3hrtjh7AvZ']);
     ```
 
     </CodeGroup>
