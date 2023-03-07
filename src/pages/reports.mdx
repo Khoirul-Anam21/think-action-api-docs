@@ -66,21 +66,20 @@ The report model contains all the information about the files you send to your c
 
 ---
 
-## Get participant report by id {{ tag: 'GET', label: '/v1/reports/participants/:id' }}
-
+## Get participant report by id {{ tag: 'GET', label: '/v1/participant_reports' }}
+ 
 <Row>
   <Col>
 
     This endpoint allows you to retrieve a paginated list of all your reports (in a conversation if a conversation id is provided). By default, a maximum of ten reports are shown per page.
 
-
   </Col>
-  <Col sticky>
+  <Col sticky>    
 
     <CodeGroup title="Request" tag="GET" label="/v1/reports">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/reports/participants/xdagSd64 \
+    curl -G https://api.protocol.chat/v1/participant_reports \
       -H "Authorization: Bearer {token}" \
     ```
 
@@ -89,7 +88,7 @@ The report model contains all the information about the files you send to your c
 
     const client = new ApiClient(token)
 
-    await client.reports.participants.get("xdagSd64")
+    await client.reports.participantReports.get()
     ```
 
     ```python
@@ -97,13 +96,13 @@ The report model contains all the information about the files you send to your c
 
     client = ApiClient(token)
 
-    client.reports.participants.get("xdagSd64")
+    client.reports.participantReports.get()
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->reports->participants->get("xdagSd64");
+    $client->reports->participantReports->get();
     ```
 
     </CodeGroup>
@@ -114,19 +113,20 @@ The report model contains all the information about the files you send to your c
       "courses_count": 6,
       "courses_info": [
         {
-          "progress": 0.8,
-          "score": null,
-          "status": "progress",
-          "course": {
-            "id": "xgQQXg3hrtjh7AvZ",
-            "title": "Belajar Machine learning",
-            "category": {
-                "id": "xxx",
-                "name": "technology"
+          "id": " frdg453er3"
+          "title": "Belajar Machine learning",
+          "assignments": [
+            {
+              "title": "Penerapan Machine Learning versi 1",
+              "is_complete": true,
+              "score": 0.6,
             },
-            "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
-          },
-          "latest_update": 692233200
+            {
+              "title": "Penerapan Machine Learning versi 2",
+              "is_complete": false,
+              "score": 0,
+            }
+          ]
         },
         {
           "id": "hSIhXBhNe8X1d8Et"
@@ -141,7 +141,78 @@ The report model contains all the information about the files you send to your c
 
 ---
 
-## Get facilitator report by id {{ tag: 'GET', label: '/v1/reports/facilitator/:id' }}
+## Get facilitator reports {{ tag: 'GET', label: '/v1/facilitator_reports' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your reports (in a conversation if a conversation id is provided). By default, a maximum of ten reports are shown per page.
+    
+  </Col>
+  <Col sticky>
+
+<CodeGroup title="Request" tag="GET" label="/v1/reports">
+
+    ```bash {{ title: 'cURL' }}
+    curl -G https://api.protocol.chat/v1/facilitator_reports \
+      -H "Authorization: Bearer {token}" \
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.facilitatorReports.get()
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.facilitatorReports.get()
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->facilitatorReports->get();
+    ```
+
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    {
+      "id": "xxxxx-xxx-xx"
+      "courses_owned": 6,
+      "courses_info": [
+        {
+          "id": " frdg453er3"
+          "title": "Belajar Machine learning",
+          "students_count": 13,
+          "assignments": [
+            {
+              "title": "Penerapan Machine Learning versi 1",
+            },
+            {
+              "title": "Penerapan Machine Learning versi 2",
+            }
+          ]
+        },
+        {
+          "id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ]
+    }
+    ```
+
+  </Col>
+</Row>
+
+--- 
+
+## Get facilitator report detail by id {{ tag: 'GET', label: '/v1/facilitator_reports/:id' }}
 
 <Row>
   <Col>
@@ -151,11 +222,11 @@ The report model contains all the information about the files you send to your c
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/reports">
+<CodeGroup title="Request" tag="GET" label="/v1/facilitator_reports/sdf434td">
 
     ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/reports/facilitator/xsdAsdfF4 \
-          -H "Authorization: Bearer {token}" \
+    curl -G https://api.protocol.chat/v1/facilitator_reports/sdf434td \
+      -H "Authorization: Bearer {token}" \
     ```
 
     ```js
@@ -163,7 +234,7 @@ The report model contains all the information about the files you send to your c
 
     const client = new ApiClient(token)
 
-    await client.reports.facilitator.get("xsdAsdfF4")
+    await client.facilitatorReports.get("sdf434td")
     ```
 
     ```python
@@ -171,42 +242,44 @@ The report model contains all the information about the files you send to your c
 
     client = ApiClient(token)
 
-    client.reports.facilitator.get("xsdAsdfF4")
+    client.facilitatorReports.get("sdf434td")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->reports->facilitator->get("xsdAsdfF4");
+    $client->facilitatorReports->get("sdf434td");
     ```
 
     </CodeGroup>
-
     ```json {{ title: 'Response' }}
     {
+      "id": "xxxxx-xxx-xx",
+      "title": "Penerapan Machine Learning versi 1",
+      "course": "Belajar Machine Learning",
+      "student_reports": [
         {
-          "course_owned": 4,
-          "total_participant": 80,
-          "complete_participant": 40,
-          "courses": [
-            {
-              "participant_count": 20,
-              "course": {
-                "id": "xgQQXg3hrtjh7AvZ",
-                "title": "Belajar Machine learning",
-                "category": {
-                  "id": "xxx",
-                  "name": "technology"
-                  }
-              }
-            }
-          ]
-          "latest_update": 692233200
+          "id": "q5eqre00rkqe",
+          "name": "AnamWidodo Maharani",
+          "photo": "cdn.cloud_storage.com/img/sdtwesdfafd.jpg",
+          "is_submit": true,
+          "score": 0.78,
         },
         {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
+          "id": "q5eqre00rkqe",
+          "name": "Mega panjaitan wati",
+          "photo": "cdn.cloud_storage.com/img/sdtwe45rsdfafd.jpg",
+          "is_submit": true,
+          "score": 0.90,
+        },
+        {
+          "id": "q5eqre00rkqe",
+          "name": "Buzzer Lightyear",
+          "photo": "cdn.cloud_storage.com/img/sdtwQQ4esdfafd.jpg",
+          "is_submit": false,
+          "score": 0,
         }
+      ]
     }
     ```
 

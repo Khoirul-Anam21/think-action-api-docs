@@ -204,6 +204,7 @@ export const navigation = [
       { title: 'Course Contents', href: '/course_contents' },
       { title: 'Comments', href: '/comments' },
       { title: 'Reports', href: '/reports' },
+      { title: 'Announcement', href: '/announcement' },
       { title: 'Additional Info', href: '/additional_info' },
     ],
   },

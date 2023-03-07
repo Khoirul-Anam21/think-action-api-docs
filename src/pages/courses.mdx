@@ -5,7 +5,7 @@ export const description =
 
 courses are an essential part of Protocol — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different course endpoints you can use to manage courses programmatically. We'll look at how to query, create, update, and delete courses. {{ className: 'lead' }}
 
-## The course model
+## The course models
 
 The course model contains all the information about the courses between you and your contacts. In addition, courses can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
 
@@ -23,6 +23,9 @@ The course model contains all the information about the courses between you and 
   </Property>
   <Property name="category_id" type="string">
     Unique identifier for category of the course.
+  </Property>
+  <Property name="thumbnail" type="string">
+    The thumbnail of the course.
   </Property>
   <Property name="description" type="string">
     The description of the course.
@@ -92,19 +95,13 @@ The course model contains all the information about the courses between you and 
 
     ```json {{ title: 'Response' }}
     {
-      "has_more": false,
       "data": [
-        {
+         {
           "id": "xgQQXg3hrtjh7AvZ",
-          "user_id": "WAz8eIbvDR60rouK",
+          "facilitator": "FrankMcCallister",
+          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
           "title": "Membuat Aplikasi Java Pertama Kali",
-          "category": {
-            "id": "xxx",
-            "name": "technology"
-          },
-          "description": "Et Lorem ullamco in proident cillum. Laborum cillum ut ullamco dolore culpa consectetur voluptate eiusmod aliqua et ut sit. Tempor irure incididunt pariatur eu sunt. Fugiat nisi aute fugiat ut laboris ad sunt ullamco nostrud laborum Lorem.",
-          "created_at": 692233200,
-          "updated_at": 692233200
+          "category": "technology"
         },
         {
           "id": "hSIhXBhNe8X1d8Et"
@@ -113,104 +110,6 @@ The course model contains all the information about the courses between you and 
         ...
       ]
     }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Create a course {{ tag: 'POST', label: '/v1/courses' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to add a new course between you and a contact or group. A contact or group id is required to create a course.
-
-    ### Required attributes
-
-  <Properties>
-  <Property name="user_id" type="string">
-    Unique identifier for the user with facilitator role.
-  </Property>
-  <Property name="title" type="string">
-    The title of the course.
-  </Property>
-  <Property name="category_id" type="string">
-    Unique identifier for category of the course.
-  </Property>
-  <Property name="description" type="string">
-    The description of the course.
-  </Property>
-</Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/v1/courses">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/courses \
-      -H "Authorization: Bearer {token}" \
-      -d 'user_id'="WAz8eIbvDR60rouK",
-      -d 'title' = "Belajar Machine Learning",
-      -d 'category_id' = "xxx",
-      -d 'description' = "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur."
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.courses.create({
-      user_id: 'WAz8eIbvDR60rouK',
-      title: 'Belajar Machine Learning',
-      category_id: = 'xxx',
-      description: = 'Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.'
-    })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.courses.create(
-      user_id="WAz8eIbvDR60rouK",
-      title = "Belajar Machine Learning",
-      category_id = "xxx",
-      description = "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur."
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->courses->create([
-      'contact_id' => 'WAz8eIbvDR60rouK',
-      'user_id' => 'WAz8eIbvDR60rouK',
-      'title' => 'Belajar Machine Learning',
-      'category_id' => 'xxx',
-      'description' => 'Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.'
-    ]);
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-          "id": "xgQQXg3hrtjh7AvZ",
-          "user_id": "WAz8eIbvDR60rouK",
-          "title": "Belajar Machine learning",
-          "category": {
-            "id": "xxx",
-            "name": "technology"
-          },
-          "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
-          "created_at": 692233200,
-          "updated_at": 692233200
-        }
     ```
 
   </Col>
@@ -261,149 +160,17 @@ The course model contains all the information about the courses between you and 
     ```json {{ title: 'Response' }}
     {
       "id": "xgQQXg3hrtjh7AvZ",
-      "user_id": "WAz8eIbvDR60rouK",
+      "facilitator": "FrankMcCallister",
       "title": "Belajar Machine learning",
-      "category": {
-            "id": "xxx",
-            "name": "technology"
-      },
+      "category": "technology",
+      "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg",
+      "content": 90, 
+      "total_duration": 600        
       "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
       "created_at": 692233200,
       "updated_at": 692233200
     }
     ```
-
-  </Col>
-</Row>
-
----
-
-## Update a course {{ tag: 'PUT', label: '/v1/courses/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to perform an update on a course.
-
-    ### Optional attributes
-
-<Properties>
-  <Property name="user_id" type="string">
-    Unique identifier for the user with facilitator role.
-  </Property>
-  <Property name="title" type="string">
-    The title of the course.
-  </Property>
-  <Property name="category_id" type="string">
-    Unique identifier for category of the course.
-  </Property>
-  <Property name="description" type="string">
-    The description of the course.
-  </Property>
-</Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="PUT" label="/v1/courses/xgQQXg3hrtjh7AvZ">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/courses/xgQQXg3hrtjh7AvZ \
-      -H "Authorization: Bearer {token}" \
-      -d 'title'='Belajar Machine Learning Pemula'
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.courses.update('xgQQXg3hrtjh7AvZ', {
-        title: 'Belajar Machine Learning Pemula'
-    })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.courses.update(
-      "xgQQXg3hrtjh7AvZ", 
-      title="Belajar Machine Learning Pemula"
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->courses->update('xgQQXg3hrtjh7AvZ', [
-      'title'=> 'Belajar Machine Learning Pemula'
-    ]);
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "xgQQXg3hrtjh7AvZ",
-      "user_id": "WAz8eIbvDR60rouK",
-      "title": "Belajar Machine Learning Pemula",
-      "category": {
-            "id": "xxx",
-            "name": "technology"
-      },
-      "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
-      "created_at": 692233200,
-      "updated_at": 692233200
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Delete a course {{ tag: 'DELETE', label: '/v1/courses/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to delete your courses in Protocol. Note: This will permanently delete the course and all its contents.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="DELETE" label="/v1/courses/xgQQXg3hrtjh7AvZ">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/courses/xgQQXg3hrtjh7AvZ \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.courses.delete('xgQQXg3hrtjh7AvZ')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.courses.delete("xgQQXg3hrtjh7AvZ")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->courses->delete('xgQQXg3hrtjh7AvZ');
-    ```
-
-    </CodeGroup>
 
   </Col>
 </Row>

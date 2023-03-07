@@ -1,0 +1,138 @@
+export const description =
+  'On this page, we’ll dive into the different announcement endpoints you can use to manage announcements programmatically.'
+
+# announcements
+
+announcements are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different announcement endpoints you can use to manage announcements programmatically. We'll look at how to query, create, update, and delete announcements. {{ className: 'lead' }}
+
+## The announcement model
+
+The announcement model contains all the information about your announcements, including what contacts are in the announcement and the announcement's name, description, and avatar.
+
+### Properties
+
+<Properties>
+  <Property name="id" type="string">
+    Unique identifier for the announcement.
+  </Property>
+  <Property name="user_id" type="string">
+    Unique identifier of user announcemented first.
+  </Property>
+  <Property name="course_id" type="string">
+    Unique identifier of the course this announcement belongs to.
+  </Property>
+  <Property name="content" type="string">
+    The content of the announcement.
+  </Property>
+  <Property name="chapter" type="integer">
+    The chapter of the course announcemented on.
+  </Property>
+  <Property name="created_at" type="timestamp">
+    Timestamp of when the announcement was created.
+  </Property>
+</Properties>
+
+## The announcement reply model
+
+The announcement model contains all the information about your announcements, including what contacts are in the announcement and the announcement's name, description, and avatar.
+
+### Properties
+
+<Properties>
+  <Property name="id" type="string">
+    Unique identifier for the announcement.
+  </Property>
+  <Property name="announcement_id" type="string">
+    The name for the announcement replied.
+  </Property>
+  <Property name="user_id" type="string">
+    The description for the announcement.
+  </Property>
+  <Property name="content" type="string">
+    The avatar image URL for the announcement.
+  </Property>
+  <Property name="created_at" type="timestamp">
+    Timestamp of when the announcement reply was created.
+  </Property>
+</Properties>
+
+---
+
+## List all announcements with reply {{ tag: 'GET', label: '/v1/announcements' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your announcements. By default, a maximum of ten announcements are shown per page.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="course_id" type="string">
+        The course of announcement referred.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/announcements">
+
+    ```bash {{ title: 'cURL' }}
+    curl -G https://api.protocol.chat/v1/announcements \
+      -H "Authorization: Bearer {token}" \
+      -d course_id="csDaSDF44aas"
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.announcements.list({course_id:'csDaSDF44aas'})
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.announcements.list(course_id="csDaSDF44aas")
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->announcements->list(['course_id' => 'csDaSDF44aas']);
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    [
+     {
+      "id": "fadfGas45",
+      "user": {
+        "username": "Anam",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "content": "Happy friday, here is a new announcement..",
+      "created_at": 6589659,
+     },
+     {
+      "id": "fadfGfwe5",
+      "user": {
+        "username": "Anam",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "content": "There will be a new update on...,
+      "created_at": 6589659,
+     }
+    ]
+    ```
+
+  </Col>
+</Row>
+
+
+

@@ -3,11 +3,11 @@ export const description =
 
 # Users
 
-As the name suggests, users are a core part of Protocol — the very reason Protocol exists is so you can have secure conversations with your users. On this page, we'll dive into the different user endpoints you can use to manage users programmatically. We'll look at how to query, create, update, and delete users. {{ className: 'lead' }}
+As the name suggests, users are a core part of Protocol — Making new account. We'll look at how to query, create, update, and delete users. {{ className: 'lead' }}
 
 ## The user model
 
-The user model contains all the information about your users, such as their username, avatar, and phone number. It also contains a reference to the conversation between you and the user and information about when they were last active on Protocol.
+The user model contains all the information about your users, such as their username, email, role, and profile photo. It also able to edit account information.
 
 ### Properties
 
@@ -26,6 +26,12 @@ The user model contains all the information about your users, such as their user
   </Property>
   <Property name="photo" type="string">
     The Url of the profile picture
+  </Property>
+  <Property name="role_id" type="string">
+    The role of the user
+  </Property>
+    <Property name="job" type="string">
+    The job of the user (only facilitator)
   </Property>
   <Property name="created_at" type="timestamp">
     Timestamp of when the user was created.
@@ -114,6 +120,8 @@ The user model contains all the information about your users, such as their user
       "email": "someone@mail.com",
       "password": "xxxxx-xxx-x-xx-xx(encrypted)",
       "photo": null,
+      "job": null
+      "role": "student",
       "created_at": "692233200",
       "updated_at": 692233200,
     }
@@ -124,83 +132,6 @@ The user model contains all the information about your users, such as their user
 
 ---
 
-## List all users {{ tag: 'GET', label: '/v1/users' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a paginated list of all your users. By default, a maximum of ten users are shown per page.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="limit" type="integer">
-        Limit the number of users returned.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/users">
-
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/users \
-      -H "Authorization: Bearer {token}" \
-      -d active=true \
-      -d limit=10
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.list()
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.users.list()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->users->list();
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "has_more": false,
-      "data": [
-        {
-          "id": "WAz8eIbvDR60rouK",
-          "username": "FrankMcCallister",
-          "phone_number": "1-800-759-3000",
-          "avatar_url": "https://assets.protocol.chat/avatars/frank.jpg",
-          "display_name": null,
-          "conversation_id": "xgQQXg3hrtjh7AvZ",
-          "last_active_at": 705103200,
-          "created_at": 692233200
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
-
-  </Col>
-</Row>
-
----
 
 ## Retrieve user data {{ tag: 'GET', label: '/v1/users/:id' }}
 
@@ -250,6 +181,8 @@ The user model contains all the information about your users, such as their user
       "email": "someone@mail.com",
       "password": "xxxxx-xxx-x-xx-xx(encrypted)",
       "photo": null,
+      "job": null,
+      "role": "student"
       "created_at": "692233200",
       "updated_at": 692233200,
     }
@@ -324,6 +257,8 @@ The user model contains all the information about your users, such as their user
       "email": "someone@mail.com",
       "password": "xxxxx-xxx-x-xx-xx(encrypted)",
       "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      "role": "student",
+      "job": "facilitator",
       "created_at": "692233200",
       "updated_at": 692233200,
     }

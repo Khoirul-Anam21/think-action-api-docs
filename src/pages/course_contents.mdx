@@ -97,31 +97,17 @@ The course_content model contains all the information about the course_contents 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
+    get
       "contents": [
-        {
-          "course": {
-            "id": "xgQQXg3hrtjh7AvZ",
-            "title": "Belajar Machine learning",
-          },
-          "chapter": 1,
+        { 
           "title": "Belajar Algoritma Machine Learning versi 1",
-          "description": "Mollit est nostrud commodo eu velit commodo. Deserunt anim incididunt irure sunt pariatur consequat sunt laboris tempor. Dolore esse exercitation anim laboris aliquip adipisicing.",
-          "source": null,
-          "task_instruction": null,
-          "video": "cdn.cloud_storage.com/video/sdfsdAsd.mp4",
+          "duration": 12,
+          "is_complete": true
         },
-        {
-          "course": {
-            "id": "xgQQXg3hrtjh7AvZ",
-            "title": "Belajar Machine learning",
-          },
-          "chapter": 2,
-          "title": "Penerapan Algoritma Machine Learning",
-          "description": "Mollit est nostrud commodo eu velit commodo. Deserunt anim incididunt irure sunt pariatur consequat sunt laboris tempor. Dolore esse exercitation anim laboris aliquip adipisicing.",
-          "source": "forms.gle/dsfa4arSaf",
-          "task_instruction": "Tulis contoh kodingan AI anda...",
-          "video": "cdn.cloud_storage.com/video/QgdsFFAsd.mp4",
+        { 
+          "title": "Belajar Algoritma Machine Learning versi 2",
+          "duration": 12,
+          "is_complete": false
         },
         ...
       ]
@@ -133,67 +119,38 @@ The course_content model contains all the information about the course_contents 
 
 ---
 
-## Create a course_content {{ tag: 'POST', label: '/v1/course_contents' }}
+## Get course_contents detail {{ tag: 'GET', label: '/v1/course_content/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to send a new course_content to one of your conversations.
+    This endpoint allows you to retrieve a paginated list of all your course_contents (in a conversation if a conversation id is provided). By default, a maximum of ten course_contents are shown per page.
 
     ### Required attributes
 
-<Properties>
-  <Property name="course_id" type="string">
-    Unique identifier for the course the course_content belongs to.
-  </Property>
-  <Property name="title" type="string">
-    The title of course content.
-  </Property>
-  <Property name="description" type="string">
-    The description or content material.
-  </Property>
-    <Property name="video" type="string">
-    Url of video course content.
-  </Property>
-</Properties>
-
-
-    ### Optional attributes
-
-<Properties>
-  <Property name="source" type="string">
-    A Url for participant's submission / supporting file.
-  </Property>
-  <Property name="task_instruction" type="string">
-    Instruction for giving task / assignment for participants.
-  </Property>
-</Properties>
+    <Properties>
+      <Property name="course_id" type="string">
+        Get all course content in the specific course.
+      </Property>
+    </Properties>
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/course_contents">
+    <CodeGroup title="Request" tag="GET" label="/v1/course_contents/sdfa8ah66">
 
     ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/course_contents \
+    curl -G https://api.protocol.chat/v1/course_contents/sdfa8ah66 \
       -H "Authorization: Bearer {token}" \
-      -d course_id="xgQQXg3hrtjh7AvZ" \
-      -d title="Machine Learning dan IOT" \
-      -d description="Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt." \
-      -d video = "<file_upload>"
-    ```
+      -d course_id=xgQQXg3hrtjh7AvZ \ 
+    ```      
 
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
-    await client.course_contents.send({
-      course_id: 'xgQQXg3hrtjh7AvZ',
-      title: 'Machine Learning dan IOT',
-      description: 'Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.'',
-      video: '<file_upload>'
-    })
+    await client.course_contents.get("sdfa8ah66", {course_id: "xgQQXg3hrtjh7AvZ"})
     ```
 
     ```python
@@ -201,23 +158,13 @@ The course_content model contains all the information about the course_contents 
 
     client = ApiClient(token)
 
-    client.course_contents.send(
-      course_id= "xgQQXg3hrtjh7AvZ",
-      title= "Machine Learning dan IOT",
-      description= "Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.",
-      video= "<file_upload>"
-    )
+    client.course_contents.get("sdfa8ah66", course_id="xgQQXg3hrtjh7AvZ")
     ```
 
     ```php
     $client = new \Protocol\ApiClient($token);
 
-    $client->course_contents->send([
-      'course_id' => 'xgQQXg3hrtjh7AvZ',
-      'title' => 'Machine Learning dan IOT',
-      'description' => 'Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.',
-      'video' => '<file_upload>'
-    ]);
+    $client->course_contents->get('sdfa8ah66',[ 'course_id'=> 'xgQQXg3hrtjh7AvZ']);
     ```
 
     </CodeGroup>
@@ -225,179 +172,24 @@ The course_content model contains all the information about the course_contents 
     ```json {{ title: 'Response' }}
     {
       "course": {
-        "id": "xgQQXg3hrtjh7AvZ",
-        "title": "Belajar Machine learning",
+        "id": "sdfa9aj",
+        "title":"Belajar Machine Learning"
+        "facilitator": {
+          "name": "ImTheFacil",
+          "job": "Backend Engineer"
+        },
       },
-      "chapter": 3,
-      "title": "Machine Learning dan IOT",
-      "description": "Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.",
-      "source": null,
-      "task_instruction": null,
-      "video": "cdn.cloud_storage.com/video/sFFdfsdAsd.mp4",
+      "video": "cdn.cloud_storage.com/video/sdfafe.mp4",
+      "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
+      "announcement": [],
+      "assignment": {
+        "instruction": null,
+        "submission": null
+      }
+      "certificate": null
     }
     ```
 
   </Col>
 </Row>
 
----
-
-## Update a course_content {{ tag: 'PUT', label: '/v1/course_contents/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to perform an update on a course_content. Examples of updates are adding a reaction, editing the course_content, or adding an attachment.
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="course_id" type="string">
-        Unique identifier of course that the content belongs to.
-      </Property>
-    </Properties>
-
-    ### Optional attributes
-<Properties>
-  <Property name="course_id" type="string">
-    Unique identifier for the course the course_content belongs to.
-  </Property>
-  <Property name="title" type="string">
-    The title of course content.
-  </Property>
-  <Property name="description" type="string">
-    The description or content material.
-  </Property>
-    <Property name="video" type="string">
-    Url of video course content.
-  </Property>
-  <Property name="source" type="string">
-    A Url for participant's submission / supporting file.
-  </Property>
-  <Property name="task_instruction" type="string">
-    Instruction for giving task / assignment for participants.
-  </Property>
-</Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="PUT" label="/v1/course_contents/xsFasfeS">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/course_contents/xsFasfeS \
-      -H "Authorization: Bearer {token}" \
-      -d course_id="xgQQXg3hrtjh7AvZ" \
-      -d title="Machine Learning dan IOT" \
-      -d video = "<file_upload>"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.course_contents.update('xsFasfeS', {
-      course_id: 'xgQQXg3hrtjh7AvZ',
-      title: 'Machine Learning dan IOT update 2023',
-      video: '<file_upload>'
-    })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.course_contents.update(
-      "xsFasfeS",
-      course_id= "xgQQXg3hrtjh7AvZ",
-      title= "Machine Learning dan IOT update 2023",
-      video= "<file_upload>"
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->course_contents->update('xsFasfeS',[
-      'course_id' => 'xgQQXg3hrtjh7AvZ',
-      'title' => 'Machine Learning dan IOT update 2023',
-      'video' => '<file_upload>'
-    ]);
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "dfadT4asd"
-      "course": {
-        "id": "xgQQXg3hrtjh7AvZ",
-        "title": "Belajar Machine learning",
-      },
-      "chapter": 3,
-      "title": "Machine Learning dan IOT update 2023",
-      "description": "Dolore est ea aliquip amet ut cupidatat id. Ipsum dolore veniam dolore aliqua irure velit officia aute fugiat. Aliquip nostrud labore nisi quis consequat dolor labore aute. Nulla ullamco labore magna ut excepteur id. Minim irure nulla ut consectetur quis. Mollit qui elit qui cupidatat ipsum elit ut velit nostrud magna culpa sit laborum sunt.",
-      "source": null,
-      "task_instruction": null,
-      "video": "cdn.cloud_storage.com/video/AAAFdfsdAsd.mp4",
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Delete a course_content {{ tag: 'DELETE', label: '/v1/course_contents/:id' }}
-
-<Row>
-  <Col>
-    This endpoint allows you to delete course_contents from your conversations. Note: This will permanently delete the course_content.
-
-
-    ### Required attribute
-    <Properties>
-      <Property name="course_id" type="string">
-        Unique identifier of course that the content belongs to.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="DELETE" label="/v1/course_contents/SIuAFUNKdSYHZF2w">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/course_contents/SIuAFUNKdSYHZF2w \
-      -H "Authorization: Bearer {token}" \
-      -d course_id="xgQQXg3hrtjh7AvZ" \
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.course_contents.delete('SIuAFUNKdSYHZF2w', course_id: 'xgQQXg3hrtjh7AvZ')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.course_contents.delete("SIuAFUNKdSYHZF2w", course_id= "xgQQXg3hrtjh7AvZ")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->course_contents->delete('SIuAFUNKdSYHZF2w',['course_id' => 'xgQQXg3hrtjh7AvZ']);
-    ```
-
-    </CodeGroup>
-
-  </Col>
-</Row>

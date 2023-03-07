@@ -109,19 +109,16 @@ The comment model contains all the information about your comments, including wh
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
+    [
+      {
       "id": "fadfGas45",
       "user": {
-        "username": "FrankMcCallister",
+        "username": "Anam",
         "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-      },
-      "course": {
-        "id": "xgQQXg3hrtjh7AvZ",
-        "title": "Belajar Machine learning",
+        "job": "Student"
       },
       "course_content": {
         "id": "dfadT4asd"
-        "chapter": 3,
         "title": "Machine Learning dan IOT update 2023",
       } 
       "content": "Izin bertanya, maksud dari soal ini bagaimana ya pak?",
@@ -132,11 +129,14 @@ The comment model contains all the information about your comments, including wh
           "user": {
             "username": "Imthe_Facilitator",
             "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+            "Job": "Backend Engineer"
           },
           "content": "Ya ndak tau kok tanya saya",
         }
       ]
-    }
+     },
+     ...
+    ]
     ```
 
   </Col>
@@ -228,16 +228,9 @@ The comment model contains all the information about your comments, including wh
       "user": {
         "username": "FrankMcCallister",
         "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+        "job": "Student"
       },
-      "course": {
-        "id": "xgQQXg3hrtjh7AvZ",
-        "title": "Belajar Machine learning",
-      },
-      "course_content": {
-        "id": "dfadT4asd"
-        "chapter": 3,
-        "title": "Machine Learning dan IOT update 2023",
-      } 
+      "course_content": null, 
       "content": "Jadi gini...",
       "created_at": 6589659,
       "reply": []
@@ -327,6 +320,7 @@ The comment model contains all the information about your comments, including wh
       "user": {
         "username": "NoobMaster69",
         "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+        "job": "Backend Engineer"
       },
       "reply_to": { 
         "id": "fadfGas45"
