@@ -3,11 +3,11 @@ export const description =
 
 # comments
 
-comments are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different comment endpoints you can use to manage comments programmatically. We'll look at how to query, create, update, and delete comments. {{ className: 'lead' }}
+comments are where communities live. Comments are shown in the main page of the course and its contents. Although they're showed similarly. Using tags as differences of topic whether referring to specific contents or just plain comment.
 
 ## The comment model
 
-The comment model contains all the information about your comments, including what contacts are in the comment and the comment's name, description, and avatar.
+The comment model contains all the information about your comments.
 
 ### Properties
 
@@ -34,7 +34,7 @@ The comment model contains all the information about your comments, including wh
 
 ## The comment reply model
 
-The comment model contains all the information about your comments, including what contacts are in the comment and the comment's name, description, and avatar.
+The comment model contains all the information about the reply of comments.
 
 ### Properties
 
@@ -63,7 +63,7 @@ The comment model contains all the information about your comments, including wh
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your comments. By default, a maximum of ten comments are shown per page.
+    This endpoint allows you to retrieve a list of all your comments. Including their replies.
 
     ### Required attributes
 
@@ -149,7 +149,7 @@ The comment model contains all the information about your comments, including wh
 <Row>
   <Col>
 
-    This endpoint allows you to create a new comment conversation between you and a comment of your Protocol contacts.
+    This endpoint allows you to create a new comment conversation. 
 
     ### Required attributes
 
@@ -247,7 +247,7 @@ The comment model contains all the information about your comments, including wh
 <Row>
   <Col>
 
-    This endpoint allows you to create a new comment conversation between you and a comment of your Protocol contacts.
+    This endpoint allows you to create a new reply to the current comment. Notice that there's reply_id that refer to the id of the referred comment or another reply.
 
     ### Required attributes
 
@@ -335,3 +335,5 @@ The comment model contains all the information about your comments, including wh
 
   </Col>
 </Row>
+
+

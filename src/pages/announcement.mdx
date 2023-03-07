@@ -3,11 +3,11 @@ export const description =
 
 # announcements
 
-announcements are where communities live in Protocol — they are a collection of contacts you're talking to all at once. On this page, we'll dive into the different announcement endpoints you can use to manage announcements programmatically. We'll look at how to query, create, update, and delete announcements. {{ className: 'lead' }}
+announcements are where the facilitator announce all the important information to its student. rather than in the comment, announcements should have a special and noticeable place {{ className: 'lead' }}
 
 ## The announcement model
 
-The announcement model contains all the information about your announcements, including what contacts are in the announcement and the announcement's name, description, and avatar.
+The announcement model contains all the information about your announcements.
 
 ### Properties
 
@@ -32,30 +32,6 @@ The announcement model contains all the information about your announcements, in
   </Property>
 </Properties>
 
-## The announcement reply model
-
-The announcement model contains all the information about your announcements, including what contacts are in the announcement and the announcement's name, description, and avatar.
-
-### Properties
-
-<Properties>
-  <Property name="id" type="string">
-    Unique identifier for the announcement.
-  </Property>
-  <Property name="announcement_id" type="string">
-    The name for the announcement replied.
-  </Property>
-  <Property name="user_id" type="string">
-    The description for the announcement.
-  </Property>
-  <Property name="content" type="string">
-    The avatar image URL for the announcement.
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the announcement reply was created.
-  </Property>
-</Properties>
-
 ---
 
 ## List all announcements with reply {{ tag: 'GET', label: '/v1/announcements' }}
@@ -63,8 +39,8 @@ The announcement model contains all the information about your announcements, in
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your announcements. By default, a maximum of ten announcements are shown per page.
-
+    This endpoint allows you to retrieve a list of all your announcements.
+    
     ### Required attributes
 
     <Properties>

@@ -3,11 +3,11 @@ export const description =
 
 # course_contents
 
-course_contents are what conversations are made of in Protocol — they are the basic building blocks of your conversations with your Protocol contacts. On this page, we'll dive into the different course_content endpoints you can use to manage course_contents programmatically. We'll look at how to query, send, update, and delete course_contents. {{ className: 'lead' }}
+Course content is the sub part of the course that contains the materials about the course. this is the part where users actually learn the course.
 
 ## The  model
 
-The course_content model contains all the information about the course_contents and attachments you send to your contacts and groups, including how your contacts have reacted to them.
+The course_content model contains all the information about the course_contents.
 
 ### Properties
 
@@ -51,7 +51,7 @@ The course_content model contains all the information about the course_contents 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your course_contents (in a conversation if a conversation id is provided). By default, a maximum of ten course_contents are shown per page.
+    This endpoint allows you to retrieve a list of all your course_contents. 
 
     ### Required attributes
 
@@ -124,7 +124,7 @@ The course_content model contains all the information about the course_contents 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your course_contents (in a conversation if a conversation id is provided). By default, a maximum of ten course_contents are shown per page.
+    This endpoint allows you to retrieve a detailed information about the course_content. Using course content id as http params. And user must specify the course id in the body.
 
     ### Required attributes
 

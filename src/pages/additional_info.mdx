@@ -3,11 +3,11 @@ export const description =
 
 # Additional information
 
-Attachments are how you share things in Protocol — they allow you to send all sorts of files to your contacts and groups. On this page, we'll dive into the different attachment endpoints you can use to manage attachments programmatically. We'll look at how to query, upload, update, and delete attachments. {{ className: 'lead' }}
+This additional information contains some information that's not really involved in the business logic but important however. {{ className: 'lead' }}
 
 ## Category model 
 
-The attachment model contains all the information about the files you send to your contacts and groups, including the name, type, and size.
+The attachment model contains all the information about the category of the courses.
 
 ### Properties
 
@@ -22,7 +22,7 @@ The attachment model contains all the information about the files you send to yo
 
 ## Role model
 
-The attachment model contains all the information about the files you send to your contacts and groups, including the name, type, and size.
+The attachment model contains all the information about the role type of the user. Decide whether the user is a student or facilitator.
 
 ### Properties
 
@@ -44,7 +44,7 @@ The attachment model contains all the information about the files you send to yo
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your attachments (in a conversation if a conversation id is provided). By default, a maximum of ten attachments are shown per page.
+    This endpoint allows you to retrieve a list of all of the categories.
   </Col>
   <Col sticky>
 
@@ -106,7 +106,7 @@ The attachment model contains all the information about the files you send to yo
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your attachments (in a conversation if a conversation id is provided). By default, a maximum of ten attachments are shown per page.
+    This endpoint allows you to retrieve a list of all specified role.  
   </Col>
   <Col sticky>
 

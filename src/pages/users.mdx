@@ -27,7 +27,7 @@ The user model contains all the information about your users, such as their user
   <Property name="photo" type="string">
     The Url of the profile picture
   </Property>
-  <Property name="role_id" type="string">
+  <Property name="role" type="string">
     The role of the user
   </Property>
     <Property name="job" type="string">
@@ -138,7 +138,7 @@ The user model contains all the information about your users, such as their user
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a user by providing their Protocol id. Refer to [the list](#the-user-model) at the top of this page to see which properties are included with user objects.
+    This endpoint allows you to retrieve a user by providing their user id. 
 
   </Col>
   <Col sticky>
@@ -198,7 +198,7 @@ The user model contains all the information about your users, such as their user
 <Row>
   <Col>
 
-    This endpoint allows you to perform an update on a user. Currently, the only attribute that can be updated on users is the `display_name` attribute which controls how a user appears in your user list in Protocol.
+    This endpoint allows you to perform an update on a user. You can update the photo and the username of the user.
 
     ### Optional attributes
 
@@ -274,7 +274,7 @@ The user model contains all the information about your users, such as their user
 <Row>
   <Col>
 
-    This endpoint allows you to delete users from your user list in Protocol. Note: This will also delete your conversation with the given user.
+    This endpoint allows you to delete users from your user list in Protocol. 
 
   </Col>
   <Col sticky>

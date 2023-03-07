@@ -3,11 +3,11 @@ export const description =
 
 # Courses
 
-courses are an essential part of Protocol — they are the containers for the messages between you, your contacts, and groups. On this page, we’ll dive into the different course endpoints you can use to manage courses programmatically. We'll look at how to query, create, update, and delete courses. {{ className: 'lead' }}
+Course is the main product of this application. Course is the topic of the learning that contains many contents{{ className: 'lead' }}
 
 ## The course models
 
-The course model contains all the information about the courses between you and your contacts. In addition, courses can also be group-based with more than one contact, they can have a pinned message, and they can be muted.
+The course model contains all the information about the courses. it contains of the information of facilitator data, title, category, thumbnail, description.
 
 ### Properties
 
@@ -45,7 +45,7 @@ The course model contains all the information about the courses between you and 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your courses. By default, a maximum of ten courses are shown per page.
+    This endpoint allows you to retrieve a paginated list of all your courses. This endpoint usually used for catalog. By default, a maximum of ten courses are shown per page.
 
     ### Optional attributes
 
@@ -122,7 +122,7 @@ The course model contains all the information about the courses between you and 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a course by providing the course id. Refer to [the list](#the-course-model) at the top of this page to see which properties are included with course objects.
+    This endpoint allows you to retrieve a course by providing the course id. 
 
   </Col>
   <Col sticky>
