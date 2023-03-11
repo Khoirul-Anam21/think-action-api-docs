@@ -15,11 +15,8 @@ The course_content model contains all the information about the course_contents.
   <Property name="id" type="string">
     Unique identifier for the course_content.
   </Property>
-  <Property name="course_id" type="string">
-    Unique identifier for the course the course_content belongs to.
-  </Property>
-  <Property name="chapter" type="integer_auto_increment">
-    The chapter of the course using auto increment.
+  <Property name="course" type="object">
+    The course information containing this content.
   </Property>
   <Property name="title" type="string">
     The title of course content.
@@ -30,8 +27,11 @@ The course_content model contains all the information about the course_contents.
   <Property name="source" type="string">
     A Url for participant's submission / supporting file.
   </Property>
-  <Property name="task_instruction" type="string">
+  <Property name="assignment" type="object">
     Instruction for giving task / assignment for participants.
+  </Property>
+    <Property name="announcement" type="array">
+    List of the course announcement.
   </Property>
     <Property name="video" type="string">
     Url of video course content.
@@ -97,8 +97,7 @@ The course_content model contains all the information about the course_contents.
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    get
-      "contents": [
+   [
         { 
           "title": "Belajar Algoritma Machine Learning versi 1",
           "duration": 12,
@@ -111,7 +110,7 @@ The course_content model contains all the information about the course_contents.
         },
         ...
       ]
-    }
+
     ```
 
   </Col>

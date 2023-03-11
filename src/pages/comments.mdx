@@ -15,10 +15,10 @@ The comment model contains all the information about your comments.
   <Property name="id" type="string">
     Unique identifier for the comment.
   </Property>
-  <Property name="user_id" type="string">
+  <Property name="user" type="object">
     Unique identifier of user commented first.
   </Property>
-  <Property name="course_id" type="string">
+  <Property name="course" type="object">
     Unique identifier of the course this comment belongs to.
   </Property>
   <Property name="content" type="string">
@@ -42,11 +42,11 @@ The comment model contains all the information about the reply of comments.
   <Property name="id" type="string">
     Unique identifier for the comment.
   </Property>
-  <Property name="comment_id" type="string">
-    The name for the comment replied.
+  <Property name="user" type="object">
+    The name of the user commented
   </Property>
-  <Property name="user_id" type="string">
-    The description for the comment.
+  <Property name="reply_to" type="object">
+    The name of the user that this comment replied to.
   </Property>
   <Property name="content" type="string">
     The avatar image URL for the comment.
@@ -154,9 +154,6 @@ The comment model contains all the information about the reply of comments.
     ### Required attributes
 
 <Properties>
-  <Property name="user_id" type="string">
-    Unique identifier of user that user was commented.
-  </Property>
   <Property name="course_id" type="string">
     Unique identifier of the course that user was commented.
   </Property>
@@ -177,7 +174,6 @@ The comment model contains all the information about the reply of comments.
     ```bash {{ title: 'cURL' }}
     curl https://api.protocol.chat/v1/comments \
       -H "Authorization: Bearer {token}" \
-      -d user_id="sdfa4ad" \
       -d course_id="fadfGas4" \
       -d course_content_id="dfaad466" \
       -d content="Jadi gini..."
@@ -189,7 +185,6 @@ The comment model contains all the information about the reply of comments.
     const client = new ApiClient(token)
 
     await client.comments.create({
-      user_id: 'sdfa4ad',
       course_id: 'fadfGas4',
       course_content_id: 'dfaad466',
       content: 'Jadi gini...'
@@ -202,7 +197,6 @@ The comment model contains all the information about the reply of comments.
     client = ApiClient(token)
 
     client.comments.create(      
-      user_id= "sdfa4ad",
       course_id= "fadfGas4",
       course_content_id= "dfaad466",
       content= "Jadi gini..."
@@ -213,7 +207,6 @@ The comment model contains all the information about the reply of comments.
     $client = new \Protocol\ApiClient($token);
 
     $client->comments->create([
-      'user_id'=> 'sdfa4ad',
       'course_id'=> 'fadfGas4',
       'course_content_id'=> 'dfaad466',
       'content'=> 'Jadi gini...'
@@ -242,7 +235,7 @@ The comment model contains all the information about the reply of comments.
 
 ---
 
-## Create a reply {{ tag: 'POST', label: '/v1/comments' }}
+## Create a reply {{ tag: 'POST', label: '/v1/replies' }}
 
 <Row>
   <Col>
@@ -252,9 +245,6 @@ The comment model contains all the information about the reply of comments.
     ### Required attributes
 
 <Properties>
-  <Property name="user_id" type="string">
-    Unique identifier of user that user was commented.
-  </Property>
   <Property name="reply_id" type="string">
     Unique identifier of the desired comment / reply that user was commented.
   </Property>
@@ -273,7 +263,6 @@ The comment model contains all the information about the reply of comments.
     ```bash {{ title: 'cURL' }}
     curl https://api.protocol.chat/v1/replies \
       -H "Authorization: Bearer {token}" \
-      -d user_id="sdfa9dua" \
       -d reply_id="dfarj9j" \
       -d content="Prittt..."
     ```
@@ -284,7 +273,6 @@ The comment model contains all the information about the reply of comments.
     const client = new ApiClient(token)
 
     await client.replies.create({
-      user_id: 'sdfa9dua',
       reply_id: 'dfarj9j',
       content: 'Prittt...'
     })
@@ -296,7 +284,6 @@ The comment model contains all the information about the reply of comments.
     client = ApiClient(token)
 
     client.replies.create(
-      user_id="sdfa9dua",
       reply_id="dfarj9j",
       content="Prittt..."
     )
@@ -306,7 +293,6 @@ The comment model contains all the information about the reply of comments.
     $client = new \Protocol\ApiClient($token);
 
     $client->replies->create([
-      'user_id' => 'sdfa9dua',
       'reply_id' => 'dfarj9j',
       'content' => 'Prittt...'
     ]);
@@ -330,6 +316,280 @@ The comment model contains all the information about the reply of comments.
       }
       "content": "Prit....",
       "created_at": 6589659,
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Edit a comment {{ tag: 'PUT', label: '/v1/comments/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to edit a comment conversation. 
+
+    ### Required attributes
+
+<Properties>
+  <Property name="content" type="string">
+    The content for the comment.
+  </Property>
+</Properties>
+
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/comments/ksdf453ds">
+
+    ```bash {{ title: 'cURL' }}
+    curl https://api.protocol.chat/v1/comments/ksdf453ds \
+      -H "Authorization: Bearer {token}" \
+      -d content="Jadi yo gini..."
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.comments.update("ksdf453ds",{
+      content: 'Jadi yo gini...'
+    })
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.comments.update(      
+      "ksdf453ds",
+      content= "Jadi yo gini..."
+    )
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->comments->update('ksdf453ds',[
+      'content'=> 'Jadi yo gini...'
+    ]);
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "id": "fadfGas45",
+      "user": {
+        "username": "FrankMcCallister",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+        "job": "Student"
+      },
+      "course_content": null, 
+      "content": "Jadi yo gini...",
+      "created_at": 6589659,
+      "reply": []
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Edit reply {{ tag: 'PUT', label: '/v1/replies/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to create a new reply to the current comment. Notice that there's reply_id that refer to the id of the referred comment or another reply.
+
+    ### Required attributes
+
+<Properties>
+  <Property name="user_id" type="string">
+    Unique identifier of user that user was commented.
+  </Property>
+  <Property name="reply_id" type="string">
+    Unique identifier of the desired comment / reply that user was commented.
+  </Property>
+  <Property name="content" type="string">
+    The content for the reply.
+  </Property>
+</Properties>
+
+    ### Optional attributes
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/replies/dfe43239hf">
+
+    ```bash {{ title: 'cURL' }}
+    curl https://api.protocol.chat/v1/replies/938hdkaw \
+      -H "Authorization: Bearer {token}" \
+      -d content="Kenapa kamu tanya begitu? Siapa yang suruh?"
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.replies.create('938hdkaw',{
+      content: 'Kenapa kamu tanya begitu? Siapa yang suruh?'
+    })
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.replies.create(
+      "938hdkaw",
+      content="Kenapa kamu tanya begitu? Siapa yang suruh?"
+    )
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->replies->create('938hdkaw',[
+      'content' => 'Kenapa kamu tanya begitu? Siapa yang suruh?'
+    ]);
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "id": "fgavvds45",
+      "user": {
+        "username": "NoobMaster69",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+        "job": "Backend Engineer"
+      },
+      "reply_to": { 
+        "id": "fadfGas45"
+        "user": {
+          "username": "FrankMcCallister",
+        }
+      }
+      "content": "Kenapa kamu tanya begitu? Siapa yang suruh?",
+      "created_at": 6589659,
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Delete a comment {{ tag: 'DELETE', label: '/v1/comments/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to delete a comment. If a comment contains replies, all the replies will also removed.
+
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/v1/comments/ksdf453ds">
+
+    ```bash {{ title: 'cURL' }}
+    curl https://api.protocol.chat/v1/comments/ksdf453ds \
+      -H "Authorization: Bearer {token}" \
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.comments.delete("ksdf453ds")
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.comments.delete(      
+      "ksdf453ds"
+    )
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->comments->delete('ksdf453ds');
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "message": "comment deleted"
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+
+## Delete a reply {{ tag: 'DELETE', label: '/v1/replies/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete the current user's reply to the current comment. The deletion of this specific reply won't affect other comments / replies.
+
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/v1/replies/dfe43239hf">
+
+    ```bash {{ title: 'cURL' }}
+    curl https://api.protocol.chat/v1/replies/938hdkaw \
+      -H "Authorization: Bearer {token}" \
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.replies.delete('938hdkaw')
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.replies.delete("938hdkaw")
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->replies->delete('938hdkaw');
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "message": "reply deleted"
     }
     ```
 
