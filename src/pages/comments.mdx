@@ -78,11 +78,6 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="GET" label="/v1/comments">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/comments \
-      -H "Authorization: Bearer {token}" \
-      -d course_id="csDaSDF44aas"
-    ```
 
     ```js
     import ApiClient from '@example/protocol-api'
@@ -90,20 +85,6 @@ The comment model contains all the information about the reply of comments.
     const client = new ApiClient(token)
 
     await client.comments.list({course_id:'csDaSDF44aas'})
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.comments.list(course_id="csDaSDF44aas")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->comments->list(['course_id' => 'csDaSDF44aas']);
     ```
 
     </CodeGroup>
@@ -170,15 +151,6 @@ The comment model contains all the information about the reply of comments.
   <Col sticky>
 
     <CodeGroup title="Request" tag="POST" label="/v1/comments">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/comments \
-      -H "Authorization: Bearer {token}" \
-      -d course_id="fadfGas4" \
-      -d course_content_id="dfaad466" \
-      -d content="Jadi gini..."
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -189,28 +161,6 @@ The comment model contains all the information about the reply of comments.
       course_content_id: 'dfaad466',
       content: 'Jadi gini...'
     })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.comments.create(      
-      course_id= "fadfGas4",
-      course_content_id= "dfaad466",
-      content= "Jadi gini..."
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->comments->create([
-      'course_id'=> 'fadfGas4',
-      'course_content_id'=> 'dfaad466',
-      'content'=> 'Jadi gini...'
-    ]);
     ```
 
     </CodeGroup>
@@ -260,13 +210,6 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="POST" label="/v1/replies">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/replies \
-      -H "Authorization: Bearer {token}" \
-      -d reply_id="dfarj9j" \
-      -d content="Prittt..."
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -278,25 +221,6 @@ The comment model contains all the information about the reply of comments.
     })
     ```
 
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.replies.create(
-      reply_id="dfarj9j",
-      content="Prittt..."
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->replies->create([
-      'reply_id' => 'dfarj9j',
-      'content' => 'Prittt...'
-    ]);
-    ```
 
     </CodeGroup>
 
@@ -345,12 +269,6 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="PUT" label="/v1/comments/ksdf453ds">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/comments/ksdf453ds \
-      -H "Authorization: Bearer {token}" \
-      -d content="Jadi yo gini..."
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -361,24 +279,6 @@ The comment model contains all the information about the reply of comments.
     })
     ```
 
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.comments.update(      
-      "ksdf453ds",
-      content= "Jadi yo gini..."
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->comments->update('ksdf453ds',[
-      'content'=> 'Jadi yo gini...'
-    ]);
-    ```
 
     </CodeGroup>
 
@@ -429,11 +329,6 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="PUT" label="/v1/replies/dfe43239hf">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/replies/938hdkaw \
-      -H "Authorization: Bearer {token}" \
-      -d content="Kenapa kamu tanya begitu? Siapa yang suruh?"
-    ```
 
     ```js
     import ApiClient from '@example/protocol-api'
@@ -443,25 +338,6 @@ The comment model contains all the information about the reply of comments.
     await client.replies.create('938hdkaw',{
       content: 'Kenapa kamu tanya begitu? Siapa yang suruh?'
     })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.replies.create(
-      "938hdkaw",
-      content="Kenapa kamu tanya begitu? Siapa yang suruh?"
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->replies->create('938hdkaw',[
-      'content' => 'Kenapa kamu tanya begitu? Siapa yang suruh?'
-    ]);
     ```
 
     </CodeGroup>
@@ -503,33 +379,12 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="DELETE" label="/v1/comments/ksdf453ds">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/comments/ksdf453ds \
-      -H "Authorization: Bearer {token}" \
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
     await client.comments.delete("ksdf453ds")
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.comments.delete(      
-      "ksdf453ds"
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->comments->delete('ksdf453ds');
     ```
 
     </CodeGroup>
@@ -558,31 +413,12 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="DELETE" label="/v1/replies/dfe43239hf">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/replies/938hdkaw \
-      -H "Authorization: Bearer {token}" \
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
     await client.replies.delete('938hdkaw')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.replies.delete("938hdkaw")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->replies->delete('938hdkaw');
     ```
 
     </CodeGroup>

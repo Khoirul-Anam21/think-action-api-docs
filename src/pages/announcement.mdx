@@ -54,32 +54,12 @@ The announcement model contains all the information about your announcements.
 
     <CodeGroup title="Request" tag="GET" label="/v1/announcements">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/announcements \
-      -H "Authorization: Bearer {token}" \
-      -d course_id="csDaSDF44aas"
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
     await client.announcements.list({course_id:'csDaSDF44aas'})
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.announcements.list(course_id="csDaSDF44aas")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->announcements->list(['course_id' => 'csDaSDF44aas']);
     ```
 
     </CodeGroup>

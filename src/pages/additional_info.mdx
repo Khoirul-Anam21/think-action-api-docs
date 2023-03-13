@@ -50,30 +50,12 @@ The attachment model contains all the information about the role type of the use
 
     <CodeGroup title="Request" tag="GET" label="/v1/categories">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/categories \
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
     await client.categories.list()
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.categories.list()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->categories->list();
     ```
 
     </CodeGroup>
@@ -112,10 +94,6 @@ The attachment model contains all the information about the role type of the use
 
     <CodeGroup title="Request" tag="GET" label="/v1/roles">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/roles \
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -123,21 +101,6 @@ The attachment model contains all the information about the role type of the use
 
     await client.roles.list()
     ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.roles.list()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->roles->list();
-    ```
-
     </CodeGroup>
 
     ```json {{ title: 'Response' }}

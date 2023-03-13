@@ -77,32 +77,12 @@ The report model contains all the information about courses informations that th
   <Col sticky>    
 
     <CodeGroup title="Request" tag="GET" label="/v1/reports">
-
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/participant_reports \
-      -H "Authorization: Bearer {token}" \
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
     await client.reports.participantReports.get()
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.reports.participantReports.get()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->reports->participantReports->get();
     ```
 
     </CodeGroup>
@@ -153,10 +133,6 @@ The report model contains all the information about courses informations that th
 
 <CodeGroup title="Request" tag="GET" label="/v1/reports">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/facilitator_reports \
-      -H "Authorization: Bearer {token}" \
-    ```
 
     ```js
     import ApiClient from '@example/protocol-api'
@@ -164,20 +140,6 @@ The report model contains all the information about courses informations that th
     const client = new ApiClient(token)
 
     await client.facilitatorReports.get()
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.facilitatorReports.get()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->facilitatorReports->get();
     ```
 
     </CodeGroup>
@@ -224,10 +186,6 @@ The report model contains all the information about courses informations that th
 
 <CodeGroup title="Request" tag="GET" label="/v1/facilitator_reports/sdf434td">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/facilitator_reports/sdf434td \
-      -H "Authorization: Bearer {token}" \
-    ```
 
     ```js
     import ApiClient from '@example/protocol-api'
@@ -235,20 +193,6 @@ The report model contains all the information about courses informations that th
     const client = new ApiClient(token)
 
     await client.facilitatorReports.get("sdf434td")
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.facilitatorReports.get("sdf434td")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->facilitatorReports->get("sdf434td");
     ```
 
     </CodeGroup>

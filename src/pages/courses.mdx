@@ -63,12 +63,6 @@ The course model contains all the information about the courses. it contains of 
 
     <CodeGroup title="Request" tag="GET" label="/v1/courses">
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/courses \
-      -d limit=10
-      -d category_id=xxx
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -77,25 +71,11 @@ The course model contains all the information about the courses. it contains of 
     await client.courses.list()
     ```
 
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.courses.list()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->courses->list();
-    ```
-
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "data": [
+    
+    [
          {
           "id": "xgQQXg3hrtjh7AvZ",
           "facilitator": "FrankMcCallister",
@@ -107,9 +87,7 @@ The course model contains all the information about the courses. it contains of 
           "id": "hSIhXBhNe8X1d8Et"
           // ...
         }
-        ...
       ]
-    }
     ```
 
   </Col>
@@ -129,30 +107,12 @@ The course model contains all the information about the courses. it contains of 
 
     <CodeGroup title="Request" tag="GET" label="/v1/courses/xgQQXg3hrtjh7AvZ">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/courses/xgQQXg3hrtjh7AvZ \
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
     await client.courses.get('xgQQXg3hrtjh7AvZ')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.courses.get("xgQQXg3hrtjh7AvZ")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->courses->get('xgQQXg3hrtjh7AvZ');
     ```
 
     </CodeGroup>

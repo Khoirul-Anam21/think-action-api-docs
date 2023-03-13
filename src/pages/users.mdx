@@ -70,13 +70,6 @@ The user model contains all the information about your users, such as their user
 
     <CodeGroup title="Request" tag="POST" label="/v1/users">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/users \
-      -d username="FrankMcCallister" \
-      -d email="someone@mail.com" \
-      -d password="xxxx-xxxxx-xxxx-xxxx"
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -87,28 +80,6 @@ The user model contains all the information about your users, such as their user
       email: 'someone@mail.com',
       password: 'xxxx-xxxxx-xxxx-xxxx',
     })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.users.create(
-      username="FrankMcCallister",
-      email="someone@mail.com",
-      password="xxxx-xxxxx-xxxx-xxxx",
-    )
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->users->create([
-      'username' => 'FrankMcCallister',
-      'email' => 'someone@mail.com',
-      'password' => 'xxxx-xxxxx-xxxx-xxxx',
-    ]);
     ```
 
     </CodeGroup>
@@ -145,10 +116,6 @@ The user model contains all the information about your users, such as their user
 
     <CodeGroup title="Request" tag="GET" label="/v1/users/WAz8eIbvDR60rouK">
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/users/WAz8eIbvDR60rouK \
-      -H "Authorization: Bearer {token}"
-    ```
 
     ```js
     import ApiClient from '@example/protocol-api'
@@ -156,20 +123,6 @@ The user model contains all the information about your users, such as their user
     const client = new ApiClient(token)
 
     await client.users.get('WAz8eIbvDR60rouK')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.users.get("WAz8eIbvDR60rouK")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->users->get('WAz8eIbvDR60rouK');
     ```
 
     </CodeGroup>
@@ -216,11 +169,6 @@ The user model contains all the information about your users, such as their user
 
     <CodeGroup title="Request" tag="PUT" label="/v1/users/WAz8eIbvDR60rouK">
 
-    ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/users/WAz8eIbvDR60rouK \
-      -H "Authorization: Bearer {token}" \
-      -d photo="photo_file"
-    ```
 
     ```js
     import ApiClient from '@example/protocol-api'
@@ -232,21 +180,6 @@ The user model contains all the information about your users, such as their user
     })
     ```
 
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.users.update("WAz8eIbvDR60rouK", photo="photo_file")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->users->update('WAz8eIbvDR60rouK', [
-      'photo' => 'photo_file',
-    ]);
-    ```
 
     </CodeGroup>
 
@@ -281,11 +214,6 @@ The user model contains all the information about your users, such as their user
 
     <CodeGroup title="Request" tag="DELETE" label="/v1/users/WAz8eIbvDR60rouK">
 
-    ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/users/WAz8eIbvDR60rouK \
-      -H "Authorization: Bearer {token}"
-    ```
-
     ```js
     import ApiClient from '@example/protocol-api'
 
@@ -293,21 +221,6 @@ The user model contains all the information about your users, such as their user
 
     await client.users.delete('WAz8eIbvDR60rouK')
     ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.users.delete("WAz8eIbvDR60rouK")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->users->delete('WAz8eIbvDR60rouK');
-    ```
-
     </CodeGroup>
 
   </Col>
