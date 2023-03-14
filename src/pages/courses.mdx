@@ -93,6 +93,7 @@ The course model contains all the information about the courses. it contains of 
   </Col>
 </Row>
 
+
 ---
 
 ## Retrieve a course {{ tag: 'GET', label: '/v1/courses/:id' }}
@@ -125,11 +126,174 @@ The course model contains all the information about the courses. it contains of 
       "category": "technology",
       "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg",
       "content": 90, 
-      "total_duration": 600        
+      "total_duration": 600,   
       "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
+      "contents": [
+        { 
+          "id": "difoa3042", 
+          "title": "Belajar Algoritma Machine Learning versi 1",
+          "duration": 12,
+          "is_complete": true
+        },
+        { 
+          "id": "031jnkwew",
+          "title": "Belajar Algoritma Machine Learning versi 2",
+          "duration": 12,
+          "is_complete": false
+        },
+      ]
       "created_at": 692233200,
       "updated_at": 692233200
     }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Add a course {{ tag: 'POST', label: '/v1/courses' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to add a course. 
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="title" type="string">
+        new title to change
+      </Property>
+      <Property name="category_id" type="string">
+        new category to change
+      </Property>
+      <Property name="thumbnail" type="file">
+        new thumbnail picture to change
+      </Property>
+      <Property name="description" type="string">
+        new description to change
+      </Property>
+    </Properties>
+    
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/courses/xgQQXg3hrtjh7AvZ">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.update('xgQQXg3hrtjh7AvZ', { 
+      title: "Belajar pemrograman java", 
+      category_id: "sdf93afj",
+      thumbnail: "<java-thumbnail.jpg>",
+      description: "Non enim nostrud duis laborum aliquip. Esse non eiusmod minim non ullamco. Excepteur Lorem mollit tempor ad non. Reprehenderit reprehenderit dolore excepteur ut enim culpa nulla quis nostrud enim mollit labore. Qui culpa ipsum velit duis proident Lorem. Nulla labore laboris nostrud adipisicing culpa minim pariatur ullamco veniam commodo. Lorem anim aute magna laborum aliquip ad incididunt nostrud nostrud enim elit tempor."
+    });
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "id": "xgQQXg3hrtjh7AvZ",
+      "facilitator": "FrankMcCallister",
+      "title": "Belajar pemrograman java",
+      "category": "technology",
+      "thumbnail": "cdn.cloud_storage.com/img/java-thumbnail.jpg",
+      "content": 0, 
+      "total_duration": 0,        
+      "description": "Non enim nostrud duis laborum aliquip. Esse non eiusmod minim non ullamco. Excepteur Lorem mollit tempor ad non. Reprehenderit reprehenderit dolore excepteur ut enim culpa nulla quis nostrud enim mollit labore. Qui culpa ipsum velit duis proident Lorem. Nulla labore laboris nostrud adipisicing culpa minim pariatur ullamco veniam commodo. Lorem anim aute magna laborum aliquip ad incididunt nostrud nostrud enim elit tempor",
+      "contents": [],
+      "created_at": 692233200,
+      "updated_at": 692233200
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Edit a course {{ tag: 'PUT', label: '/v1/courses/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to update a course by providing the course id. 
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="title" type="string">
+        new title to change
+      </Property>
+      <Property name="category_id" type="string">
+        new category to change
+      </Property>
+      <Property name="thumbnail" type="file">
+        new thumbnail picture to change
+      </Property>
+      <Property name="description" type="string">
+        new description to change
+      </Property>
+    </Properties>
+    
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/courses/xgQQXg3hrtjh7AvZ">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.update('xgQQXg3hrtjh7AvZ', { 
+      title: "Belajar pemrograman java update 2023", 
+      thumbnail: "<java-thumbnail.jpg>"
+    });
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Delete a course {{ tag: 'DELETE', label: '/v1/courses/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to delete a course by providing the course id. Deleting this course will delete all the contents inside.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/v1/courses/xgQQXg3hrtjh7AvZ">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.delete('xgQQXg3hrtjh7AvZ')
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
     ```
 
   </Col>

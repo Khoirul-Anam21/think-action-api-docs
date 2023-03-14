@@ -46,58 +46,6 @@ The course_content model contains all the information about the course_contents.
 
 ---
 
-## List all course_contents {{ tag: 'GET', label: '/v1/course_contents' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a list of all your course_contents. 
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="course_id" type="string">
-        Get all course content in the specific course.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/course_contents">
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.course_contents.list()
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-   [
-        { 
-          "title": "Belajar Algoritma Machine Learning versi 1",
-          "duration": 12,
-          "is_complete": true
-        },
-        { 
-          "title": "Belajar Algoritma Machine Learning versi 2",
-          "duration": 12,
-          "is_complete": false
-        },
-        ...
-      ]
-
-    ```
-
-  </Col>
-</Row>
-
----
-
 ## Get course_contents detail {{ tag: 'GET', label: '/v1/course_content/:id' }}
 
 <Row>
@@ -148,6 +96,126 @@ The course_content model contains all the information about the course_contents.
       }
       "certificate": null
     }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Post submit assignment {{ tag: 'POST', label: '/v1/course_content/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to submit the assignment of the student
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="assignment" type="file">
+        The submission file of the student
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/course_contents/sdfa8ah66">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.get("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "file": "tugas-saya.pdf",
+      "url": "cdn.cloudstorage.com/files/tugas-saya.pdf"
+    }
+    ```
+  </Col>
+</Row>
+
+---
+
+## Update Course content progress {{ tag: 'PATCH', label: '/v1/course_content/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to indicate the user has finished watching the content of the course.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="is_complete" type="boolean">
+        The boolean indicator of content completion
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PATCH" label="/v1/course_contents/sdfa8ah66">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.update("sdfa8ah66", {is_complete: true})
+    ```
+
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Grade student assignment {{ tag: 'PATCH', label: '/v1/content-grade/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to indicate the user has finished watching the content of the course.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="grade" type="integer">
+        The grade from facilitator for student's assignment
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PATCH" label="/v1/content-grade/sdfa8ah66">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.contentGrade.update("sdfa8ah66", {grade: 80})
+    ```
+
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    // empty response
     ```
 
   </Col>
