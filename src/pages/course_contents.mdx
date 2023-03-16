@@ -5,14 +5,14 @@ export const description =
 
 Course content is the sub part of the course that contains the materials about the course. this is the part where users actually learn the course.
 
-## The  model
+## The course content model
 
 The course_content model contains all the information about the course_contents.
 
 ### Properties
 
 <Properties>
-  <Property name="id" type="string">
+  <Property name="_id" type="string">
     Unique identifier for the course_content.
   </Property>
   <Property name="course" type="object">
@@ -24,6 +24,9 @@ The course_content model contains all the information about the course_contents.
   <Property name="description" type="string">
     The description or content material.
   </Property>
+  <Property name="thumbnail" type="string">
+    The thumbail of the course that will be displayed when its a reading material. Otherwise it will be null
+  </Property>
   <Property name="source" type="string">
     A Url for participant's submission / supporting file.
   </Property>
@@ -33,14 +36,47 @@ The course_content model contains all the information about the course_contents.
     <Property name="announcement" type="array">
     List of the course announcement.
   </Property>
-    <Property name="video" type="string">
-    Url of video course content.
+  <Property name="material" type="string">
+    The link of the material file. could be video or pdf file.
+  </Property>
+  <Property name="type" type="string">
+    The type of material
+  </Property>
+  <Property name="certificate" type="string">
+    The certificate of the student to be downloaded.
   </Property>
   <Property name="created_at" type="timestamp">
     Timestamp of when the course_content was created.
   </Property>
   <Property name="updated_at" type="timestamp">
     Timestamp of when the course_content was updated.
+  </Property>
+</Properties>
+
+## The assignment model
+
+The assignment model contains the information of the assignment
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the course_content.
+  </Property>
+  <Property name="title" type="string">
+    The title of course content.
+  </Property>
+  <Property name="instruction" type="string">
+    The instruction of the assignment
+  </Property>
+  <Property name="contentId" type="string">
+    Referring to the content material of the course.
+  </Property>
+  <Property name="submissions" type="array">
+    The student assignment's submission
+  </Property>
+  <Property name="posted" type="timestamp">
+    Timestamp of when the assignment was created.
   </Property>
 </Properties>
 
@@ -53,13 +89,6 @@ The course_content model contains all the information about the course_contents.
 
     This endpoint allows you to retrieve a detailed information about the course_content. Using course content id as http params. And user must specify the course id in the body.
 
-    ### Required attributes
-
-    <Properties>
-      <Property name="course_id" type="string">
-        Get all course content in the specific course.
-      </Property>
-    </Properties>
 
   </Col>
   <Col sticky>
@@ -72,7 +101,116 @@ The course_content model contains all the information about the course_contents.
 
     const client = new ApiClient(token)
 
-    await client.course_contents.get("sdfa8ah66", {course_id: "xgQQXg3hrtjh7AvZ"})
+    await client.course_contents.get("sdfa8ah66")
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup>
+
+    ```json {{ title: 'Response facil' }}
+    {
+      "course": {
+        "id": "sdfa9aj",
+        "title":"Belajar Machine Learning"
+        "facilitator": {
+          "name": "ImTheFacil",
+          "job": "Backend Engineer"
+        },
+      },
+      "title": "Belajar membuat website",
+      "thumbnail": null,
+      "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
+      "type": "video",
+      "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
+      "announcement": [],
+      "assignment": {
+        "_id": "i0iijjewr", 
+        "title": "Create a website",
+        "posted": 6948954,
+      },
+      "certificate": null,
+      "createdAt": 6759055,
+      "updatedAt": 7867484
+    }
+    ```
+
+        ```json {{ title: 'Response student' }}
+    {
+      "course": {
+        "id": "sdfa9aj",
+        "title":"Belajar Machine Learning"
+        "facilitator": {
+          "name": "ImTheFacil",
+          "job": "Backend Engineer"
+        },
+      },
+      "title": "Belajar membuat website",
+      "thumbnail": null,
+      "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
+      "type": "video",
+      "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
+      "announcement": [],
+      "assignment": {
+        "_id": "i0iijjewr", 
+        "instruction": "Create a website",
+        "submission": null,
+      },
+      "certificate": null,
+      "createdAt": 6759055,
+      "updatedAt": 7867484
+    }
+    ```
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+---
+
+## Add a course_content {{ tag: 'POST', label: '/v1/course_contents' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a detailed information about the course_content. Using course content id as http params. And user must specify the course id in the body.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="course_id" type="string">
+        Refer to the course of this content.
+      </Property>
+      <Property name="title" type="string">
+        The title of the course content.
+      </Property>
+      <Property name="description" type="string">
+        The description of the course.
+      </Property>
+      <Property name="material" type="file">
+        The material file of the course content. if its a video file, it will become video material, otherwise it will become reading material.
+      </Property>
+    </Properties>
+
+
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/course_contents">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.post("sdfa8ah66", {
+      course_id: "xgQQXg3hrtjh7AvZ", 
+      title: "Setup Projek Pertama kali", 
+      description: "Sunt aliquip ullamco incididunt aute amet occaecat minim in ipsum aliquip nostrud occaecat ex. Laborum tempor do qui duis nostrud tempor ullamco cillum dolore aliquip. Id ut laborum aliqua duis dolore magna pariatur. Labore qui aliqua cillum adipisicing amet ad deserunt exercitation mollit quis. Cillum magna sit aliquip nulla labore eu laborum reprehenderit. Sint duis officia amet aliqua Lorem excepteur est do voluptate commodo ullamco adipisicing magna. Ullamco consequat do in esse ex.",
+      material: "<video-saya.mp4>"
+    })
     ```
 
     </CodeGroup>
@@ -87,59 +225,18 @@ The course_content model contains all the information about the course_contents.
           "job": "Backend Engineer"
         },
       },
-      "video": "cdn.cloud_storage.com/video/sdfafe.mp4",
+      "thumbnail": null,
+      "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
+      "type": "video",
       "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
       "announcement": [],
-      "assignment": {
-        "instruction": null,
-        "submission": null
-      }
-      "certificate": null
+      "assignment": null,
+      "certificate": null,
+      "createdAt": 6759055,
+      "updatedAt": 7867484
     }
     ```
 
-  </Col>
-</Row>
-
----
-
-## Post submit assignment {{ tag: 'POST', label: '/v1/course_content/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to submit the assignment of the student
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="assignment" type="file">
-        The submission file of the student
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/v1/course_contents/sdfa8ah66">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.course_contents.get("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "file": "tugas-saya.pdf",
-      "url": "cdn.cloudstorage.com/files/tugas-saya.pdf"
-    }
-    ```
   </Col>
 </Row>
 
@@ -184,7 +281,201 @@ The course_content model contains all the information about the course_contents.
 
 ---
 
-## Grade student assignment {{ tag: 'PATCH', label: '/v1/content-grade/:id' }}
+## Delete a Course content  {{ tag: 'DELETE', label: '/v1/course_content/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to delete a course content
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/v1/course_contents/sdfa8ah66">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.delete("sdfa8ah66")
+    ```
+
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Add new assignment {{ tag: 'POST', label: '/v1/assignments' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to submit the assignment of the student
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="title" type="string">
+        The name of the assignment
+      </Property>
+      <Property name="description" type="string">
+        The description of the assignment
+      </Property>
+      <Property name="contentId" type="string">
+        The identifier of the content of this assignment
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/assignments">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.post({ 
+      title: "Create a sample app", 
+      description: "lorem ipsum dolor sit amet", 
+      contentId: "kjoeraj90" })
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "oakmsf09",
+      "title": "Create a sample app",
+      "instruction": "lorem ipsum dolor sit amet",
+      "contentId": "sdfopka9",
+      "submissions": [],
+      "posted": 6790459,
+    }
+    ```
+  </Col>
+</Row>
+
+---
+
+## List assignment submission {{ tag: 'GET', label: '/v1/assignments' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to submit the assignment of the student
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="contentId" type="string">
+        The ID of the content that have the assignments
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/assignments">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.list({ contentId: "oi00jerwr" })
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "submissions": [
+        {
+          "_id": "onfdau9",
+          "user": {
+            "name": "Anam",
+            "photo": "cdn.cloudstorage.com/img/sjdfa.jpg"
+          },
+          "isGraded": true,
+          "source": "cdn.cloudstorage.com/pdf/sodifno0j0-dfsdsdf.pdf",
+          "score": 90,
+        },
+        {
+          "_id": "onfdeawau9",
+          "user": {
+            "name": "Budi",
+            "photo": "cdn.cloudstorage.com/img/sjdfa.jpg"
+          },
+          "isGraded": false,
+          "source": "cdn.cloudstorage.com/pdf/sodifno0j0-dfsdsdf.pdf",
+          "score": 0,
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument": 16
+      }
+    }
+    ```
+  </Col>
+</Row>
+
+---
+
+## Post submit assignment {{ tag: 'POST', label: '/v1/assignment-submit/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to submit the assignment of the student
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="assignment" type="file">
+        The submission file of the student
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/assignment-submit/sdfa8ah66">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.get("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+  </Col>
+</Row>
+
+
+---
+
+## Grade student assignment {{ tag: 'PATCH', label: '/v1/assignment-grade/:id' }}
 
 <Row>
   <Col>
@@ -202,7 +493,7 @@ The course_content model contains all the information about the course_contents.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PATCH" label="/v1/content-grade/sdfa8ah66">
+    <CodeGroup title="Request" tag="PATCH" label="/v1/assignment-grade/sdfa8ah66">
 
 
     ```js

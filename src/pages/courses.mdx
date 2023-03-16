@@ -27,8 +27,14 @@ The course model contains all the information about the courses. it contains of 
   <Property name="thumbnail" type="string">
     The thumbnail of the course.
   </Property>
+  <Property name="purpose" type="array">
+    The learning purpose of this course.
+  </Property>
   <Property name="description" type="string">
     The description of the course.
+  </Property>
+  <Property name="published" type="boolean">
+    The status of the course whether can be displayed or not
   </Property>
   <Property name="created_at" type="timestamp">
     Timestamp of when the course was created.
@@ -75,7 +81,8 @@ The course model contains all the information about the courses. it contains of 
 
     ```json {{ title: 'Response' }}
     
-    [
+    {
+      "courses": [
          {
           "id": "xgQQXg3hrtjh7AvZ",
           "facilitator": "FrankMcCallister",
@@ -87,7 +94,209 @@ The course model contains all the information about the courses. it contains of 
           "id": "hSIhXBhNe8X1d8Et"
           // ...
         }
-      ]
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## List all owned courses {{ tag: 'GET', label: '/v1/courses/learnings' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your courses. This endpoint usually used for catalog. By default, a maximum of ten courses are shown per page.
+
+    ### Required attributes
+    <Properties>
+      <Property name="user_id" type="string">
+        The id to filter the course.
+      </Property>
+    </Properties>
+
+    
+    
+    ### Optional attributes
+
+    <Properties>
+      <Property name="limit" type="integer">
+        Limit the number of courses returned.
+      </Property>
+      <Property name="category_id" type="string">
+        Filter courses by their categories.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/courses/learnings">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.list({user_id: "sda090jear"})
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup title="Response" tag="GET" label="/v1/courses/learnings">
+    ```json {{ title: 'Response student' }}
+    {
+      "courses": [
+         {
+          "id": "xgQQXg3hrtjh7AvZ",
+          "facilitator": "FrankMcCallister",
+          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
+          "title": "Membuat Aplikasi Java Pertama Kali",
+          "category": "technology"
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument":1
+      }
+    }
+    ```
+
+    ```json {{ title: 'Response facil' }}
+    {
+      "courses": [
+         {
+          "id": "xgQQXg3hrtjh7AvZ",
+          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg",
+          "title": "Membuat Aplikasi Java Pertama Kali",
+          "category": "technology",
+          "studentCount": 40,
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument":1
+      }
+    }
+    ```
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+---
+
+## List all courses participant{{ tag: 'GET', label: '/v1/course-participant/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your participant of a course.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="limit" type="integer">
+        Limit the number of courses returned.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/courses">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.list()
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    
+    {
+      "participants": [
+         {
+          "id": "xgQQXg3hrtjh7AvZ",
+          "name": "FrankMcCallister",
+          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
+        },
+        {
+          "id": "hSIhXBhNe8X1d8Et",
+          "name": "FrankMcCallister",
+          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
+
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Start learning a course {{ tag: 'POST', label: '/v1/course/learnings' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to start learning a course by student
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        The identifier of user
+      </Property>
+      <Property name="course_id" type="string">
+        The identifier of user to add to user's course
+      </Property>
+    </Properties>
+    
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/courses/learnings/xgQQXg3hrtjh7AvZ">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.post('xgQQXg3hrtjh7AvZ', { 
+      user_id: "94j9jewq", 
+      course_id: "sdf93afj",
+    });
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+   // empty response
     ```
 
   </Col>
@@ -126,20 +335,41 @@ The course model contains all the information about the courses. it contains of 
       "category": "technology",
       "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg",
       "content": 90, 
-      "total_duration": 600,   
+      "total_duration": 600,
+      "purpose": ["Create visually appealing UI", "Build a beautiful website"],
+      "published": true,   
       "description": "Ad velit Lorem do Lorem sint. Non exercitation deserunt et ut labore do proident in. Ullamco veniam ipsum et mollit et anim tempor Lorem dolore sint consequat sit incididunt id. Exercitation eiusmod ut voluptate voluptate ut velit sunt elit. Laborum excepteur sunt consequat dolor fugiat commodo nisi ad proident pariatur reprehenderit duis nisi ullamco. Deserunt quis commodo eiusmod nisi ipsum pariatur.",
       "contents": [
         { 
           "id": "difoa3042", 
           "title": "Belajar Algoritma Machine Learning versi 1",
           "duration": 12,
+          "type": "video",
           "is_complete": true
         },
         { 
           "id": "031jnkwew",
           "title": "Belajar Algoritma Machine Learning versi 2",
-          "duration": 12,
+          "duration": 10,
+          "type": "reading",
           "is_complete": false
+        },
+      ],
+      "reports": [
+        {
+          "title": "Belajar membuat website",
+          "status": "Complete",
+          "score": 90,
+        },
+        {
+          "title": "Belajar membuat website",
+          "status": "Complete",
+          "score": 90,
+        },
+        {
+          "title": "Belajar membuat website",
+          "status": "Not Submitted",
+          "score": 0,
         },
       ]
       "created_at": 692233200,
@@ -151,6 +381,7 @@ The course model contains all the information about the courses. it contains of 
 </Row>
 
 ---
+
 
 ## Add a course {{ tag: 'POST', label: '/v1/courses' }}
 
@@ -171,6 +402,9 @@ The course model contains all the information about the courses. it contains of 
       <Property name="thumbnail" type="file">
         new thumbnail picture to change
       </Property>
+      <Property name="purpose" type="array">
+        The learning purpose of this course.
+      </Property>
       <Property name="description" type="string">
         new description to change
       </Property>
@@ -187,10 +421,11 @@ The course model contains all the information about the courses. it contains of 
 
     const client = new ApiClient(token)
 
-    await client.courses.update('xgQQXg3hrtjh7AvZ', { 
+    await client.courses.post('xgQQXg3hrtjh7AvZ', { 
       title: "Belajar pemrograman java", 
       category_id: "sdf93afj",
       thumbnail: "<java-thumbnail.jpg>",
+      purpose: ["Create beautiful UI", "Learn how to make responsive website"],
       description: "Non enim nostrud duis laborum aliquip. Esse non eiusmod minim non ullamco. Excepteur Lorem mollit tempor ad non. Reprehenderit reprehenderit dolore excepteur ut enim culpa nulla quis nostrud enim mollit labore. Qui culpa ipsum velit duis proident Lorem. Nulla labore laboris nostrud adipisicing culpa minim pariatur ullamco veniam commodo. Lorem anim aute magna laborum aliquip ad incididunt nostrud nostrud enim elit tempor."
     });
     ```
@@ -205,7 +440,9 @@ The course model contains all the information about the courses. it contains of 
       "category": "technology",
       "thumbnail": "cdn.cloud_storage.com/img/java-thumbnail.jpg",
       "content": 0, 
-      "total_duration": 0,        
+      "total_duration": 0,
+      "purpose": ["Create visually appealing UI", "Build a beautiful website"],
+      "published": false,           
       "description": "Non enim nostrud duis laborum aliquip. Esse non eiusmod minim non ullamco. Excepteur Lorem mollit tempor ad non. Reprehenderit reprehenderit dolore excepteur ut enim culpa nulla quis nostrud enim mollit labore. Qui culpa ipsum velit duis proident Lorem. Nulla labore laboris nostrud adipisicing culpa minim pariatur ullamco veniam commodo. Lorem anim aute magna laborum aliquip ad incididunt nostrud nostrud enim elit tempor",
       "contents": [],
       "created_at": 692233200,
@@ -240,6 +477,9 @@ The course model contains all the information about the courses. it contains of 
       <Property name="description" type="string">
         new description to change
       </Property>
+      <Property name="purpose" type="array">
+        The learning purpose of this course.
+      </Property>
     </Properties>
     
 
@@ -257,6 +497,39 @@ The course model contains all the information about the courses. it contains of 
       title: "Belajar pemrograman java update 2023", 
       thumbnail: "<java-thumbnail.jpg>"
     });
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Publish a course {{ tag: 'PUT', label: '/v1/courses-publish/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to set publish a course
+
+    
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/courses/xgQQXg3hrtjh7AvZ">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.update('xgQQXg3hrtjh7AvZ'  );
     ```
 
     </CodeGroup>
@@ -298,3 +571,5 @@ The course model contains all the information about the courses. it contains of 
 
   </Col>
 </Row>
+
+

@@ -203,7 +203,7 @@ export const navigation = [
       { title: 'Courses', href: '/courses' },
       { title: 'Course Contents', href: '/course_contents' },
       { title: 'Comments', href: '/comments' },
-      { title: 'Reports', href: '/reports' },
+      // { title: 'Reports', href: '/reports' },
       { title: 'Announcement', href: '/announcement' },
       { title: 'Additional Info', href: '/additional_info' },
     ],
