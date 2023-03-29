@@ -134,7 +134,7 @@ function CodePanel({ tag, label, code, children }) {
 }
 
 function CodeGroupHeader({ title, children, selectedIndex }) {
-  let hasTabs = Children.count(children) > 1
+  let hasTabs = Children.count(children) > 0
 
   if (!title && !hasTabs) {
     return null
@@ -254,7 +254,7 @@ const CodeGroupContext = createContext(false)
 export function CodeGroup({ children, title, ...props }) {
   let languages = Children.map(children, (child) => getPanelTitle(child.props))
   let tabGroupProps = useTabGroupProps(languages)
-  let hasTabs = Children.count(children) > 1
+  let hasTabs = Children.count(children) > 0
   let Container = hasTabs ? Tab.Group : 'div'
   let containerProps = hasTabs ? tabGroupProps : {}
   let headerProps = hasTabs

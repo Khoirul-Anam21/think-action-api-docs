@@ -109,7 +109,76 @@ The course model contains all the information about the courses. it contains of 
 
 ---
 
-## List all owned courses {{ tag: 'GET', label: '/v1/courses/learnings' }}
+## List a student courses {{ tag: 'GET', label: '/v1/courses/student/learnings' }}
+
+<Row>
+  <Col>
+
+   Get all courses that a student have
+
+    ### Required attributes
+    <Properties>
+      <Property name="user_id" type="string">
+        The id to filter the course.
+      </Property>
+    </Properties>
+
+    
+    
+    ### Optional attributes
+
+    <Properties>
+      <Property name="limit" type="integer">
+        Limit the number of courses returned.
+      </Property>
+      <Property name="category_id" type="string">
+        Filter courses by their categories.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/courses/student/learnings">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.courses.students.list({user_id: "sda090jear"})
+    ```
+
+    </CodeGroup>
+
+    <CodeGroup title="Response" tag="GET" label="/v1/courses/student/learnings">
+    ```json {{ title: 'Response' }}
+    {
+      "courses": [
+         {
+          "id": "xgQQXg3hrtjh7AvZ",
+          "facilitator": "FrankMcCallister",
+          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
+          "title": "Membuat Aplikasi Java Pertama Kali",
+          "category": "technology"
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 1,
+        "totalDocument":1
+      }
+    }
+    ```
+    </CodeGroup>
+
+  </Col>
+</Row>
+
+---
+
+## List a facil courses {{ tag: 'GET', label: '/v1/courses/facil/learnings' }}
 
 <Row>
   <Col>
@@ -139,40 +208,22 @@ The course model contains all the information about the courses. it contains of 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/courses/learnings">
+    <CodeGroup title="Request" tag="GET" label="/v1/courses/facil/learnings">
 
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
-    await client.courses.list({user_id: "sda090jear"})
+    await client.courses.facilitators.list({user_id: "sda090jear"})
     ```
 
     </CodeGroup>
 
-    <CodeGroup title="Response" tag="GET" label="/v1/courses/learnings">
-    ```json {{ title: 'Response student' }}
-    {
-      "courses": [
-         {
-          "id": "xgQQXg3hrtjh7AvZ",
-          "facilitator": "FrankMcCallister",
-          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
-          "title": "Membuat Aplikasi Java Pertama Kali",
-          "category": "technology"
-        },
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 1,
-        "totalDocument":1
-      }
-    }
-    ```
+    <CodeGroup title="Response" tag="GET" label="/v1/courses/facil/learnings">
 
-    ```json {{ title: 'Response facil' }}
+
+    ```json {{ title: 'Response' }}
     {
       "courses": [
          {
@@ -195,6 +246,7 @@ The course model contains all the information about the courses. it contains of 
 
   </Col>
 </Row>
+
 
 ---
 
@@ -501,9 +553,15 @@ The course model contains all the information about the courses. it contains of 
 
     </CodeGroup>
 
-    ```json {{ title: 'Response' }}
-    // empty response
+    <CodeGroup title="Response">
+
+    ```json {{ title: '204' }}
+    // empty response tess
     ```
+
+    </CodeGroup>
+
+
 
   </Col>
 </Row>
