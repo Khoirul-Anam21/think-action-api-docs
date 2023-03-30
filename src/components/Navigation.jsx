@@ -199,6 +199,7 @@ export const navigation = [
   {
     title: 'Resources',
     links: [
+      { title: 'Auth', href: '/auth' },
       { title: 'Users', href: '/users' },
       { title: 'Courses', href: '/courses' },
       { title: 'Course Contents', href: '/course_contents' },
