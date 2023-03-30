@@ -41,29 +41,45 @@ The user model contains all the information about your users, such as their user
   </Property>
 </Properties>
 
-
 ---
 
-
-## Retrieve user data {{ tag: 'GET', label: '/v1/users/:id' }}
+## Sign up {{ tag: 'POST', label: '/v1/auth/signup' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a user by providing their user id. 
+    This endpoint allows you to add a new user. To add a user, you must provide email, username, and password.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="username" type="string">
+        The username for the user.
+      </Property>
+      <Property name="email" type="string">
+        The email for the user.
+      </Property>
+      <Property name="password" type="string">
+        The password for the user.
+      </Property>
+    </Properties>
+
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/users/WAz8eIbvDR60rouK">
-
+    <CodeGroup title="Request" tag="POST" label="/v1/auth/signup">
 
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
-    await client.users.get('WAz8eIbvDR60rouK')
+    await client.users.create({
+      username: 'FrankMcCallister',
+      email: 'someone@mail.com',
+      password: 'xxxx-xxxxx-xxxx-xxxx',
+    })
     ```
 
     </CodeGroup>
@@ -75,8 +91,8 @@ The user model contains all the information about your users, such as their user
       "email": "someone@mail.com",
       "password": "xxxxx-xxx-x-xx-xx(encrypted)",
       "photo": null,
-      "job": null,
-      "role": "student"
+      "job": null
+      "role": "student",
       "created_at": "692233200",
       "updated_at": 692233200,
     }
@@ -87,82 +103,49 @@ The user model contains all the information about your users, such as their user
 
 ---
 
-## Update user {{ tag: 'PUT', label: '/v1/users/:id' }}
+
+## Sign in {{ tag: 'POST', label: '/v1/auth/signin' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to perform an update on a user. You can update the photo and the username of the user.
+    This endpoint allows you to login to the user account
 
-    ### Optional attributes
+    ### Required attributes
 
     <Properties>
-      <Property name="photo" type="string">
-        The display profile picture.
+      <Property name="email" type="string">
+        The email for the user.
       </Property>
-      <Property name="username" type="string">
-        The user  name in the user list. By default, this is just the username.
+      <Property name="password" type="string">
+        The password for the user.
       </Property>
     </Properties>
+
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/users/WAz8eIbvDR60rouK">
-
+    <CodeGroup title="Request" tag="POST" label="/v1/auth/signin">
 
     ```js
     import ApiClient from '@example/protocol-api'
 
     const client = new ApiClient(token)
 
-    await client.users.update('WAz8eIbvDR60rouK', {
-        photo: 'photo_file',
+    await client.users.create({
+      email: 'someone@mail.com',
+      password: 'xxxx-xxxxx-xxxx-xxxx',
     })
     ```
-
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
     {
-      "id": "WAz8eIbvDR60rouK",
-      "username": "FrankMcCallister",
-      "email": "someone@mail.com",
-      "password": "xxxxx-xxx-x-xx-xx(encrypted)",
-      "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-      "role": "student",
-      "job": "facilitator",
-      "created_at": "692233200",
-      "updated_at": 692233200,
+      "accessToken": "WAz8eIbvDR60rouKdfg45556dfgdf",
     }
     ```
-
-  </Col>
-</Row>
-
----
-
-## Delete user account {{ tag: 'DELETE', label: '/v1/users/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to delete users from your user list in Protocol. 
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="DELETE" label="/v1/users/WAz8eIbvDR60rouK">
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.delete('WAz8eIbvDR60rouK')
-    ```
-    </CodeGroup>
 
   </Col>
 </Row>
