@@ -15,7 +15,7 @@ The announcement model contains all the information about your announcements.
   <Property name="id" type="string">
     Unique identifier for the announcement.
   </Property>
-  <Property name="user_id" type="string">
+  <Property name="user" type="object">
     Unique identifier of user announcemented first.
   </Property>
   <Property name="course_id" type="string">
@@ -28,7 +28,61 @@ The announcement model contains all the information about your announcements.
 
 ---
 
-## List all announcements with reply {{ tag: 'GET', label: '/v1/announcements' }}
+## Create new announcement  {{ tag: 'POST', label: '/v1/announcements' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a list of all your announcements.
+    
+    ### Required attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        Unique identifier of user announcemented first.
+      </Property>
+      <Property name="course_id" type="string">
+        Unique identifier of the course this announcement belongs to.
+      </Property>
+      <Property name="description" type="string">
+        The content of the announcement.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/announcements">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.announcements.list({user: 'dmqweqwe', course_id:'csDaSDF44aas', description: 'Pengumuman untuk siswa...'})
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+     {
+      "id": "fadfGas45",
+      "user": {
+        "username": "Anam",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "description": "Happy friday, here is a new announcement..",
+      "created_at": 6589659,
+     }
+    ```
+
+  </Col>
+</Row>
+
+
+---
+
+## List all announcements  {{ tag: 'GET', label: '/v1/announcements' }}
 
 <Row>
   <Col>
