@@ -33,11 +33,11 @@ The course_content model contains all the information about the course_contents.
   <Property name="assignment" type="object">
     Instruction for giving task / assignment for participants.
   </Property>
-    <Property name="announcement" type="array">
-    List of the course announcement.
-  </Property>
   <Property name="material" type="string">
     The link of the material file. could be video or pdf file.
+  </Property>
+    <Property name="duration" type="number">
+    The duration of the video, if pdf will be 0.
   </Property>
   <Property name="type" type="string">
     The type of material
@@ -260,9 +260,9 @@ The assignment model contains the information of the assignment
       },
       "thumbnail": null,
       "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
+      "duration": 80,
       "type": "video",
       "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
-      "announcement": [],
       "assignment": null,
       "certificate": null,
       "createdAt": 6759055,
