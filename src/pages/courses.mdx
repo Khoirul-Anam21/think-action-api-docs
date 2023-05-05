@@ -36,6 +36,12 @@ The course model contains all the information about the courses. it contains of 
   <Property name="published" type="boolean">
     The status of the course whether can be displayed or not
   </Property>
+    <Property name="contents" type="array">
+    The content of the courses
+  </Property>
+    <Property name="certificate" type="string">
+    The certificate of the course of all the contents are finished.
+  </Property>
   <Property name="created_at" type="timestamp">
     Timestamp of when the course was created.
   </Property>
@@ -407,6 +413,7 @@ The course model contains all the information about the courses. it contains of 
           "is_complete": false
         },
       ],
+      "certificate": null,
       "reports": [
         {
           "title": "Belajar membuat website",
@@ -423,7 +430,7 @@ The course model contains all the information about the courses. it contains of 
           "status": "Not Submitted",
           "score": 0,
         },
-      ]
+      ],
       "created_at": 692233200,
       "updated_at": 692233200
     }
@@ -497,6 +504,7 @@ The course model contains all the information about the courses. it contains of 
       "published": false,           
       "description": "Non enim nostrud duis laborum aliquip. Esse non eiusmod minim non ullamco. Excepteur Lorem mollit tempor ad non. Reprehenderit reprehenderit dolore excepteur ut enim culpa nulla quis nostrud enim mollit labore. Qui culpa ipsum velit duis proident Lorem. Nulla labore laboris nostrud adipisicing culpa minim pariatur ullamco veniam commodo. Lorem anim aute magna laborum aliquip ad incididunt nostrud nostrud enim elit tempor",
       "contents": [],
+      "certificate": null,
       "created_at": 692233200,
       "updated_at": 692233200
     }
