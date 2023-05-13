@@ -360,6 +360,46 @@ The course model contains all the information about the courses. it contains of 
   </Col>
 </Row>
 
+--- 
+
+## Complete Course content progress {{ tag: 'PATCH', label: '/v1/courses/course-participant/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to indicate the user has finished watching the content of the course.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="courseContent_id" type="string">
+        The string of course content
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PATCH" label="/v1/courses/course-participant/sdfa8ah66">
+
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.course_contents.update("sdfa8ah66", {courseContent_id: 'cdoaf9fw'})
+    ```
+
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+
+  </Col>
+</Row>
+
+
 
 ---
 
