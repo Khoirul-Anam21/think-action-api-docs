@@ -352,7 +352,7 @@ The assignment model contains the information of the assignment
       <Property name="title" type="string">
         The name of the assignment
       </Property>
-      <Property name="description" type="string">
+      <Property name="instruction" type="string">
         The description of the assignment
       </Property>
       <Property name="contentId" type="string">
@@ -373,7 +373,7 @@ The assignment model contains the information of the assignment
 
     await client.course_contents.post({ 
       title: "Create a sample app", 
-      description: "lorem ipsum dolor sit amet", 
+      instruction: "lorem ipsum dolor sit amet", 
       contentId: "kjoeraj90" })
     ```
 
