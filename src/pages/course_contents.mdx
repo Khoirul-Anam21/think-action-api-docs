@@ -461,7 +461,7 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Patch submit assignment {{ tag: 'PATCH', label: '/v1/assignments/submit/:id' }}
+## Post submit assignment (create submission) {{ tag: 'POST', label: '/v1/assignments/submit/:id' }}
 
 <Row>
   <Col>
@@ -479,7 +479,7 @@ The assignment model contains the information of the assignment
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PATCH" label="/v1/assignments/submit/sdfa8ah66">
+    <CodeGroup title="Request" tag="POST" label="/v1/assignments/submit/sdfa8ah66">
 
 
     ```js
@@ -487,7 +487,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.get("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
+    await client.course_contents.post("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
     ```
 
     </CodeGroup>
