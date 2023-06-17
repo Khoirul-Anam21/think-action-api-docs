@@ -27,18 +27,6 @@ The user model contains all the information about your users, such as their user
   <Property name="photo" type="string">
     The Url of the profile picture
   </Property>
-  <Property name="role" type="string">
-    The role of the user
-  </Property>
-    <Property name="job" type="string">
-    The job of the user (only facilitator)
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the user was created.
-  </Property>
-  <Property name="updated_at" type="timestamp">
-    Timestamp of when the user was updated.
-  </Property>
 </Properties>
 
 ---
@@ -71,15 +59,11 @@ The user model contains all the information about your users, such as their user
     <CodeGroup title="Request" tag="POST" label="/v1/auth/signup">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.create({
-      username: 'FrankMcCallister',
-      email: 'someone@mail.com',
-      password: 'xxxx-xxxxx-xxxx-xxxx',
-    })
+    const postResponse = await axios.post('https://api.example.com/v1/auth/signup', {
+      username: 'John',
+      email: 'john@example.com',
+      password: 'admin'
+    });
     ```
 
     </CodeGroup>
@@ -87,14 +71,7 @@ The user model contains all the information about your users, such as their user
     ```json {{ title: 'Response' }}
     {
       "id": "WAz8eIbvDR60rouK",
-      "username": "FrankMcCallister",
-      "email": "someone@mail.com",
-      "password": "xxxxx-xxx-x-xx-xx(encrypted)",
-      "photo": null,
-      "job": null
-      "role": "student",
-      "created_at": "692233200",
-      "updated_at": 692233200,
+      "acknowledged": true,
     }
     ```
 
@@ -129,14 +106,10 @@ The user model contains all the information about your users, such as their user
     <CodeGroup title="Request" tag="POST" label="/v1/auth/signin">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.create({
-      email: 'someone@mail.com',
-      password: 'xxxx-xxxxx-xxxx-xxxx',
-    })
+    const postResponse = await axios.post('https://api.example.com/v1/auth/signin', {
+      email: 'john@example.com',
+      password: 'admin'
+    });
     ```
 
     </CodeGroup>

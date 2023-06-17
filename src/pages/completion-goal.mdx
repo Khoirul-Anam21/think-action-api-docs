@@ -28,10 +28,25 @@ The attachment model contains all the information about the role type of the use
 
 <Properties>
   <Property name="id" type="string">
-    Unique identifier for the attachment.
+    Unique identifier for the Entity.
   </Property>
-  <Property name="name" type="string">
-    The name of the role type.
+  <Property name="user_id" type="string">
+    Identifier of the User associated with the Entity.
+  </Property>
+  <Property name="goal_id" type="string">
+    Identifier of the Goal associated with the Entity.
+  </Property>
+  <Property name="category_id" type="string">
+    Identifier of the category to which the Entity belongs.
+  </Property>
+  <Property name="caption" type="string">
+    Caption or description of the Entity.
+  </Property>
+  <Property name="image" type="string">
+    URL or path of the image associated with the Entity.
+  </Property>
+  <Property name="isCompleteResolution" type="boolean">
+    Flag indicating whether the resolution is complete for the Entity.
   </Property>
 </Properties>
 

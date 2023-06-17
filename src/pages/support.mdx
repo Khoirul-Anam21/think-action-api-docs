@@ -1,0 +1,158 @@
+export const description =
+  'On this page, we’ll dive into the different support endpoints you can use to manage supports programmatically.'
+
+# supports
+
+supports are where the facilitator announce all the important information to its student. rather than in the comment, supports should have a special and noticeable place {{ className: 'lead' }}
+
+## The supporter model
+
+The support model contains all the information about your supports.
+
+### Properties
+
+<Properties>
+  <Property name="id" type="string">
+    Unique identifier for the Supporter.
+  </Property>
+  <Property name="user_id" type="string">
+    Identifier of the User associated with the Supporter.
+  </Property>
+  <Property name="supporterUser_id" type="string">
+    Identifier of the User who is supporting.
+  </Property>
+</Properties>
+
+## The supporting model
+
+The support model contains all the information about your supports.
+
+### Properties
+
+<Properties>
+  <Property name="id" type="string">
+    Unique identifier for the Supporting entity.
+  </Property>
+  <Property name="user_id" type="string">
+    Identifier of the User associated with the Supporting entity.
+  </Property>
+  <Property name="supportingUser_id" type="string">
+    Identifier of the User being supported.
+  </Property>
+</Properties>
+
+
+---
+
+## Create new support  {{ tag: 'POST', label: '/v1/supports' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a list of all your supports.
+    
+    ### Required attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        Unique identifier of user supported first.
+      </Property>
+      <Property name="course_id" type="string">
+        Unique identifier of the course this support belongs to.
+      </Property>
+      <Property name="description" type="string">
+        The content of the support.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/supports">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.supports.list({user: 'dmqweqwe', course_id:'csDaSDF44aas', description: 'Pengumuman untuk siswa...'})
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+     {
+      "id": "fadfGas45",
+      "user": {
+        "username": "Anam",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "description": "Happy friday, here is a new support..",
+      "created_at": 6589659,
+     }
+    ```
+
+  </Col>
+</Row>
+
+
+---
+
+## List all supports  {{ tag: 'GET', label: '/v1/supports' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a list of all your supports.
+    
+    ### Required attributes
+
+    <Properties>
+      <Property name="course_id" type="string">
+        The course of support referred.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/supports">
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.supports.list({course_id:'csDaSDF44aas'})
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    [
+     {
+      "id": "fadfGas45",
+      "user": {
+        "username": "Anam",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "description": "Happy friday, here is a new support..",
+      "created_at": 6589659,
+     },
+     {
+      "id": "fadfGfwe5",
+      "user": {
+        "username": "Anam",
+        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
+      },
+      "description": "There will be a new update on...",
+      "created_at": 6589659,
+     }
+    ]
+    ```
+
+  </Col>
+</Row>
+
+
+

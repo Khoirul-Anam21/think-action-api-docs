@@ -27,18 +27,6 @@ The user model contains all the information about your users, such as their user
   <Property name="photo" type="string">
     The Url of the profile picture
   </Property>
-  <Property name="role" type="string">
-    The role of the user
-  </Property>
-    <Property name="job" type="string">
-    The job of the user (only facilitator)
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the user was created.
-  </Property>
-  <Property name="updated_at" type="timestamp">
-    Timestamp of when the user was updated.
-  </Property>
 </Properties>
 
 
@@ -59,27 +47,21 @@ The user model contains all the information about your users, such as their user
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.get('WAz8eIbvDR60rouK')
+      const response = await axios.get('/users/:id');
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "id": "WAz8eIbvDR60rouK",
-      "username": "FrankMcCallister",
-      "email": "someone@mail.com",
-      "password": "xxxxx-xxx-x-xx-xx(encrypted)",
-      "photo": null,
-      "job": null,
-      "role": "student"
-      "created_at": "692233200",
-      "updated_at": 692233200,
-    }
+      {
+        "_id": "60aeb58db4fe155d9c4a0cf1",
+        "username": "johnDoe",
+        "email": "johndoe@example.com",
+        "password": "********",
+        "photo": "https://example.com/photo.jpg",
+        "createdAt": "2022-05-27T12:30:45.123Z",
+        "updatedAt": "2022-05-27T12:30:45.123Z"
+      }
     ```
 
   </Col>
@@ -112,13 +94,12 @@ The user model contains all the information about your users, such as their user
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.update('WAz8eIbvDR60rouK', {
-        photo: 'photo_file',
-    })
+      const response = await axios.put('/users/:id', {
+        username: 'newUsername',
+        email: 'newemail@example.com',
+        password: 'newpassword123',
+        photo: 'https://example.com/newphoto.jpg'
+      });
     ```
 
 
@@ -146,13 +127,12 @@ The user model contains all the information about your users, such as their user
     <CodeGroup title="Request" tag="DELETE" label="/v1/users/WAz8eIbvDR60rouK">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.users.delete('WAz8eIbvDR60rouK')
+      const response = await axios.delete('/users/:id');
     ```
     </CodeGroup>
 
+    ```json {{ title: 'Response' }}
+    // Empty response
+    ```
   </Col>
 </Row>

@@ -201,12 +201,12 @@ export const navigation = [
     links: [
       { title: 'Auth', href: '/auth' },
       { title: 'Users', href: '/users' },
-      { title: 'Courses', href: '/courses' },
-      { title: 'Course Contents', href: '/course_contents' },
+      { title: 'Resolution', href: '/resolution' },
+      { title: 'Goals', href: '/goal' },
       { title: 'Comments', href: '/comments' },
-      // { title: 'Reports', href: '/reports' },
-      { title: 'Announcement', href: '/announcement' },
-      { title: 'Additional Info', href: '/additional_info' },
+      { title: 'Reports', href: '/reports' },
+      { title: 'Support', href: '/support' },
+      { title: 'Goal Completion', href: '/completion-goal' },
     ],
   },
 ]

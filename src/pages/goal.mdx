@@ -1,54 +1,40 @@
 export const description =
-  'On this page, we’ll dive into the different course_content endpoints you can use to manage course_contents programmatically.'
+  'On this page, we’ll dive into the different goal endpoints you can use to manage goals programmatically.'
 
-# course_contents
+# goals
 
 Course content is the sub part of the course that contains the materials about the course. this is the part where users actually learn the course.
 
 ## The course content model
 
-The course_content model contains all the information about the course_contents.
+The goal model contains all the information about the goals.
 
 ### Properties
 
 <Properties>
-  <Property name="_id" type="string">
-    Unique identifier for the course_content.
+  <Property name="id" type="string">
+    Unique identifier for the Goal.
   </Property>
-  <Property name="course" type="object">
-    The course information containing this content.
+  <Property name="resolution_id" type="string">
+    Identifier of the Resolution associated with the Goal.
   </Property>
-  <Property name="title" type="string">
-    The title of course content.
+  <Property name="goalText" type="string">
+    Text content of the Goal.
   </Property>
-  <Property name="description" type="string">
-    The description or content material.
+  <Property name="category_id" type="string">
+    Identifier of the category to which the Goal belongs.
   </Property>
-  <Property name="thumbnail" type="string">
-    The thumbail of the course that will be displayed when its a reading material. Otherwise it will be null
+  <Property name="shareType" type="string">
+    Type of sharing for the Goal (e.g., public, private).
   </Property>
-  <Property name="source" type="string">
-    A Url for participant's submission / supporting file.
+  <Property name="imageUrl" type="string">
+    URL of the image associated with the Goal.
   </Property>
-  <Property name="assignment" type="object">
-    Instruction for giving task / assignment for participants.
-  </Property>
-  <Property name="material" type="string">
-    The link of the material file. could be video or pdf file.
-  </Property>
-    <Property name="duration" type="number">
-    The duration of the video, if pdf will be 0.
-  </Property>
-  <Property name="type" type="string">
-    The type of material
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the course_content was created.
-  </Property>
-  <Property name="updated_at" type="timestamp">
-    Timestamp of when the course_content was updated.
+  <Property name="dueDate" type="string">
+    Due date for the Goal.
   </Property>
 </Properties>
+
 
 ## The assignment model
 
@@ -58,7 +44,7 @@ The assignment model contains the information of the assignment
 
 <Properties>
   <Property name="_id" type="string">
-    Unique identifier for the course_content.
+    Unique identifier for the goal.
   </Property>
   <Property name="title" type="string">
     The title of course content.
@@ -79,7 +65,7 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Get a student course content detail {{ tag: 'GET', label: '/v1/course_content/student/:id' }}
+## Get a student course content detail {{ tag: 'GET', label: '/v1/goal/student/:id' }}
 
 <Row>
   <Col>
@@ -90,7 +76,7 @@ The assignment model contains the information of the assignment
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/course_contents/student/sdfa8ah66">
+    <CodeGroup title="Request" tag="GET" label="/v1/goals/student/sdfa8ah66">
 
 
     ```js
@@ -98,7 +84,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.students.get("sdfa8ah66")
+    await client.goals.students.get("sdfa8ah66")
     ```
 
     </CodeGroup>
@@ -137,7 +123,7 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Get a facilitator course contents detail {{ tag: 'GET', label: '/v1/course_content/facil/:id' }}
+## Get a facilitator course contents detail {{ tag: 'GET', label: '/v1/goal/facil/:id' }}
 
 <Row>
   <Col>
@@ -148,7 +134,7 @@ The assignment model contains the information of the assignment
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/course_contents/facil/sdfa8ah66">
+    <CodeGroup title="Request" tag="GET" label="/v1/goals/facil/sdfa8ah66">
 
 
     ```js
@@ -156,7 +142,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.facilitators.get("sdfa8ah66")
+    await client.goals.facilitators.get("sdfa8ah66")
     ```
 
     </CodeGroup>
@@ -196,12 +182,12 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Add a course content {{ tag: 'POST', label: '/v1/course_contents' }}
+## Add a course content {{ tag: 'POST', label: '/v1/goals' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a detailed information about the course_content. Using course content id as http params. And user must specify the course id in the body.
+    This endpoint allows you to retrieve a detailed information about the goal. Using course content id as http params. And user must specify the course id in the body.
 
     ### Required attributes
 
@@ -225,7 +211,7 @@ The assignment model contains the information of the assignment
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/course_contents">
+    <CodeGroup title="Request" tag="POST" label="/v1/goals">
 
 
     ```js
@@ -233,7 +219,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.post("sdfa8ah66", {
+    await client.goals.post("sdfa8ah66", {
       course_id: "xgQQXg3hrtjh7AvZ", 
       title: "Setup Projek Pertama kali", 
       description: "Sunt aliquip ullamco incididunt aute amet occaecat minim in ipsum aliquip nostrud occaecat ex. Laborum tempor do qui duis nostrud tempor ullamco cillum dolore aliquip. Id ut laborum aliqua duis dolore magna pariatur. Labore qui aliqua cillum adipisicing amet ad deserunt exercitation mollit quis. Cillum magna sit aliquip nulla labore eu laborum reprehenderit. Sint duis officia amet aliqua Lorem excepteur est do voluptate commodo ullamco adipisicing magna. Ullamco consequat do in esse ex.",
@@ -269,7 +255,7 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Update Course content progress {{ tag: 'PATCH', label: '/v1/course_content/:id' }}
+## Update Course content progress {{ tag: 'PATCH', label: '/v1/goal/:id' }}
 
 <Row>
   <Col>
@@ -287,7 +273,7 @@ The assignment model contains the information of the assignment
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PATCH" label="/v1/course_contents/sdfa8ah66">
+    <CodeGroup title="Request" tag="PATCH" label="/v1/goals/sdfa8ah66">
 
 
     ```js
@@ -295,7 +281,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.update("sdfa8ah66", {is_complete: true})
+    await client.goals.update("sdfa8ah66", {is_complete: true})
     ```
 
     </CodeGroup>
@@ -308,7 +294,7 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Delete a Course content  {{ tag: 'DELETE', label: '/v1/course_content/:id' }}
+## Delete a Course content  {{ tag: 'DELETE', label: '/v1/goal/:id' }}
 
 <Row>
   <Col>
@@ -318,7 +304,7 @@ The assignment model contains the information of the assignment
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="DELETE" label="/v1/course_contents/sdfa8ah66">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/goals/sdfa8ah66">
 
 
     ```js
@@ -326,7 +312,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.delete("sdfa8ah66")
+    await client.goals.delete("sdfa8ah66")
     ```
 
     </CodeGroup>
@@ -371,7 +357,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.post({ 
+    await client.goals.post({ 
       title: "Create a sample app", 
       instruction: "lorem ipsum dolor sit amet", 
       contentId: "kjoeraj90" })
@@ -419,7 +405,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.list({ contentId: "oi00jerwr" })
+    await client.goals.list({ contentId: "oi00jerwr" })
     ```
 
     </CodeGroup>
@@ -487,7 +473,7 @@ The assignment model contains the information of the assignment
 
     const client = new ApiClient(token)
 
-    await client.course_contents.post("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
+    await client.goals.post("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
     ```
 
     </CodeGroup>
