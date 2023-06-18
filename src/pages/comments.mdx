@@ -15,20 +15,17 @@ The comment model contains all the information about your comments.
   <Property name="id" type="string">
     Unique identifier for the comment.
   </Property>
-  <Property name="user" type="object">
+  <Property name="user_id" type="string">
     Unique identifier of user commented first.
   </Property>
-  <Property name="course" type="object">
+  <Property name="post_id" type="string">
     Unique identifier of the course this comment belongs to.
+  </Property>
+  <Property name="post_type" type="string">
+    The post identifier to minimize multi reading by filtering
   </Property>
   <Property name="comment" type="string">
     The content of the comment.
-  </Property>
-  <Property name="chapter" type="integer">
-    The chapter of the course commented on.
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the comment was created.
   </Property>
 </Properties>
 
@@ -42,17 +39,20 @@ The comment model contains all the information about the reply of comments.
   <Property name="id" type="string">
     Unique identifier for the comment.
   </Property>
-  <Property name="user" type="object">
-    The name of the user commented
+  <Property name="user_id" type="string">
+    Unique identifier of user commented.
   </Property>
-  <Property name="reply_to" type="object">
-    The name of the user that this comment replied to.
+  <Property name="replyTo_id" type="string">
+    Unique identifier of a comment replied by this reply.
+  </Property>
+  <Property name="post_id" type="string">
+    Unique identifier of the course this comment belongs to.
+  </Property>
+  <Property name="postType" type="string">
+    The post identifier to minimize multi reading by filtering.
   </Property>
   <Property name="comment" type="string">
-    The avatar image URL for the comment.
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the comment reply was created.
+    The content of the comment.
   </Property>
 </Properties>
 
@@ -68,9 +68,10 @@ The comment model contains all the information about the reply of comments.
     ### Required attributes
 
     <Properties>
-      <Property name="course_id" type="string">
+      <Property name="postId" type="string">
         The course of comment referred.
       </Property>
+
     </Properties>
 
   </Col>
@@ -80,44 +81,48 @@ The comment model contains all the information about the reply of comments.
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.comments.list({course_id:'csDaSDF44aas'})
+    const response = await axios.post('/api/comments', {
+      postId: 'post1'
+    });
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    [
-      {
-      "id": "fadfGas45",
-      "user": {
-        "username": "Anam",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-        "job": "Student"
-      },
-      "course_content": {
-        "id": "dfadT4asd"
-        "title": "Machine Learning dan IOT update 2023",
-      }, 
-      "comment": "Izin bertanya, maksud dari soal ini bagaimana ya pak?",
-      "created_at": 6589659,
-      "reply": [
+    {
+      "comments": [
         {
-          "comment_id": "fadfGas4",
+          "_id": "dfsdfa",
           "user": {
-            "username": "Imthe_Facilitator",
-            "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-            "Job": "Backend Engineer"
+            "_id": "afasf",
+            "photo": "www.image.com/dfdfs.jpg",
+            "username": "tes"
           },
-          "comment": "Ya ndak tau kok tanya saya",
-        }
-      ]
-     },
-     ...
-    ]
+          "comment": "asdasdasd",
+          "postId": "postidosdf90",
+          "postType": "resolution",
+          "replies": [
+            {
+              "id": "reply1",
+              "user": {
+                "_id": "afasf",
+                "photo": "www.image.com/dfdfs.jpg",
+                "username": "tes"
+              },
+              "replyTo_id": "comment1",
+              "comment": "This is a reply."
+            },
+          ]
+        },
+        ...
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
     ```
 
   </Col>
@@ -135,11 +140,14 @@ The comment model contains all the information about the reply of comments.
     ### Required attributes
 
 <Properties>
-  <Property name="course_id" type="string">
-    Unique identifier of the course that user was commented.
+  <Property name="user_id" type="string">
+    Unique identifier of user commented.
   </Property>
-  <Property name="course_content_id" type="string">
-    Unique identifier of the course content that user was commented.
+  <Property name="post_id" type="string">
+    Unique identifier of the post that user was commented.
+  </Property>
+  <Property name="postType" type="string">
+    Type of the post commented (resolution, weekly, goal)
   </Property>
   <Property name="comment" type="string">
     The content for the comment.
@@ -152,15 +160,12 @@ The comment model contains all the information about the reply of comments.
 
     <CodeGroup title="Request" tag="POST" label="/v1/comments">
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.comments.create({
-      course_id: 'fadfGas4',
-      course_content_id: 'dfaad466',
-      comment: 'Jadi gini...'
-    })
+    const response = await axios.post('/v1/comments', {
+      user_id: 'user1',
+      post_id: 'post1',
+      post_type: 'course',
+      comment: 'This is a comment.'
+    });
     ```
 
     </CodeGroup>
@@ -168,15 +173,7 @@ The comment model contains all the information about the reply of comments.
     ```json {{ title: 'Response' }}
     {
       "id": "fadfGas45",
-      "user": {
-        "username": "FrankMcCallister",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-        "job": "Student"
-      },
-      "course_content": null, 
-      "comment": "Jadi gini...",
-      "created_at": 6589659,
-      "reply": []
+      "acknowledged": true
     }
     ```
 
@@ -195,11 +192,14 @@ The comment model contains all the information about the reply of comments.
     ### Required attributes
 
 <Properties>
-  <Property name="reply_id" type="string">
-    Unique identifier of the desired comment / reply that user was commented.
+  <Property name="userId" type="string">
+    Unique identifier of the user commented
+  </Property>
+  <Property name="replyToId" type="string">
+    Unique identifier of the user replied
   </Property>
   <Property name="comment" type="string">
-    The content for the reply.
+    The content for the comment.
   </Property>
 </Properties>
 
@@ -211,14 +211,13 @@ The comment model contains all the information about the reply of comments.
     <CodeGroup title="Request" tag="POST" label="/v1/comments/replies">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.replies.create({
-      reply_id: 'dfarj9j',
-      comment: 'Prittt...'
-    })
+    const response = await axios.post('/v1/comments/replies', {
+      user_id: 'user2',
+      replyTo_id: 'comment1ID',
+      post_id: 'post1',
+      postType: 'resolution',
+      comment: 'This is a reply.'
+    });
     ```
 
 
@@ -227,19 +226,7 @@ The comment model contains all the information about the reply of comments.
     ```json {{ title: 'Response' }}
     {
       "id": "fgavvds45",
-      "user": {
-        "username": "NoobMaster69",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-        "job": "Backend Engineer"
-      },
-      "reply_to": { 
-        "id": "fadfGas45"
-        "user": {
-          "username": "FrankMcCallister",
-        }
-      },
-      "comment": "Prit....",
-      "created_at": 6589659,
+      "acknowledged": true
     }
     ```
 
@@ -270,31 +257,16 @@ The comment model contains all the information about the reply of comments.
     <CodeGroup title="Request" tag="PUT" label="/v1/comments/ksdf453ds">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.comments.update("ksdf453ds",{
-      comment: 'Jadi yo gini...'
-    })
+    const response = await axios.put('/v1/comments/ksdf453ds', {
+      comment: 'Updated comment.'
+    });
     ```
 
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "id": "fadfGas45",
-      "user": {
-        "username": "FrankMcCallister",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-        "job": "Student"
-      },
-      "course_content": null, 
-      "comment": "Jadi yo gini...",
-      "created_at": 6589659,
-      "reply": []
-    }
+    // empty response
     ```
 
   </Col>
@@ -314,7 +286,7 @@ The comment model contains all the information about the reply of comments.
   <Property name="user_id" type="string">
     Unique identifier of user that user was commented.
   </Property>
-  <Property name="reply_id" type="string">
+  <Property name="replyTo_id" type="string">
     Unique identifier of the desired comment / reply that user was commented.
   </Property>
   <Property name="comment" type="string">
@@ -331,34 +303,15 @@ The comment model contains all the information about the reply of comments.
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.replies.create('938hdkaw',{
-      comment: 'Kenapa kamu tanya begitu? Siapa yang suruh?'
-    })
+    const response = await axios.put('/v1/comments/replies/dfe43239hf', {
+      comment: 'Updated reply.'
+    });
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "id": "fgavvds45",
-      "user": {
-        "username": "NoobMaster69",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-        "job": "Backend Engineer"
-      },
-      "reply_to": { 
-        "id": "fadfGas45"
-        "user": {
-          "username": "FrankMcCallister",
-        }
-      }
-      "comment": "Kenapa kamu tanya begitu? Siapa yang suruh?",
-      "created_at": 6589659,
-    }
+    // empty response
     ```
 
   </Col>
@@ -380,19 +333,13 @@ The comment model contains all the information about the reply of comments.
     <CodeGroup title="Request" tag="DELETE" label="/v1/comments/ksdf453ds">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.comments.delete("ksdf453ds")
+   const response = await axios.delete('/v1/comments/ksdf453ds');
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "message": "comment deleted"
-    }
+    // empty response
     ```
 
   </Col>
@@ -414,19 +361,13 @@ The comment model contains all the information about the reply of comments.
     <CodeGroup title="Request" tag="DELETE" label="/v1/comments/replies/dfe43239hf">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.replies.delete('938hdkaw')
+    const response = await axios.delete('/v1/comments/replies/dfe43239hf');
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "message": "reply deleted"
-    }
+    // empty response
     ```
 
   </Col>
