@@ -44,12 +44,12 @@ The support model contains all the information about your supports.
 
 ---
 
-## Create new support  {{ tag: 'POST', label: '/v1/supports' }}
+## Add new supporting user  {{ tag: 'POST', label: '/v1/supports' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a list of all your supports.
+    This endpoint allows you to create a new user to be supported, because the current user can't add its own supporter
     
     ### Required attributes
 
@@ -71,11 +71,9 @@ The support model contains all the information about your supports.
     <CodeGroup title="Request" tag="POST" label="/v1/supports">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.supports.list({user: 'dmqweqwe', course_id:'csDaSDF44aas', description: 'Pengumuman untuk siswa...'})
+    const response = await axios.post('/v1/supports', {
+      user_id: 'user123',
+    });
     ```
 
     </CodeGroup>
@@ -83,12 +81,7 @@ The support model contains all the information about your supports.
     ```json {{ title: 'Response' }}
      {
       "id": "fadfGas45",
-      "user": {
-        "username": "Anam",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-      },
-      "description": "Happy friday, here is a new support..",
-      "created_at": 6589659,
+      "acknowledged": true
      }
     ```
 
@@ -98,57 +91,107 @@ The support model contains all the information about your supports.
 
 ---
 
-## List all supports  {{ tag: 'GET', label: '/v1/supports' }}
+## List all supporters  {{ tag: 'GET', label: '/v1/supports/supporters' }}
 
 <Row>
   <Col>
 
     This endpoint allows you to retrieve a list of all your supports.
-    
-    ### Required attributes
 
+    ### Required attributes
     <Properties>
-      <Property name="course_id" type="string">
-        The course of support referred.
+      <Property name="user_id" type="string">
+        Unique identifier of user supported first.
       </Property>
     </Properties>
+
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/supports">
+    <CodeGroup title="Request" tag="GET" label="/v1/supports/supporters">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.supports.list({course_id:'csDaSDF44aas'})
+    const response = await axios.get('/v1/supports/supporters');
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    [
-     {
-      "id": "fadfGas45",
-      "user": {
-        "username": "Anam",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-      },
-      "description": "Happy friday, here is a new support..",
-      "created_at": 6589659,
-     },
-     {
-      "id": "fadfGfwe5",
-      "user": {
-        "username": "Anam",
-        "photo": "cdn.photo_cloud_storage.com/xxxxxxx-xxxx",
-      },
-      "description": "There will be a new update on...",
-      "created_at": 6589659,
-     }
-    ]
+    {
+      "supporters": [
+        {
+          "_id": "sdf9rrew",
+          "photo": "www.example.com/img/sdfa.jpg",
+          "username": "Someone"
+        },
+        {
+          "_id": "sdf9rrew",
+          "photo": "www.example.com/img/sdfa.jpg",
+          "username": "Someone"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## List all supporting  {{ tag: 'GET', label: '/v1/supports/supportings' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a list of all your supports.
+
+    ### Required attributes
+    <Properties>
+      <Property name="user_id" type="string">
+        Unique identifier of user supported first.
+      </Property>
+    </Properties>
+
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/supports/supportings">
+
+    ```js
+    const response = await axios.get('/v1/supports/supportings');
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "supporters": [
+        {
+          "_id": "sdf9rrew",
+          "photo": "www.example.com/img/sdfa.jpg",
+          "username": "Someone"
+        },
+        {
+          "_id": "sdf9rrew",
+          "photo": "www.example.com/img/sdfa.jpg",
+          "username": "Someone"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
     ```
 
   </Col>

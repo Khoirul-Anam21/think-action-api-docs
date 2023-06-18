@@ -3,9 +3,9 @@ export const description =
 
 # goals
 
-Course content is the sub part of the course that contains the materials about the course. this is the part where users actually learn the course.
+goal is the sub part of the resolution that contains the materials about the resolution. this is the part where users actually learn the resolution.
 
-## The course content model
+## The goal model
 
 The goal model contains all the information about the goals.
 
@@ -18,8 +18,8 @@ The goal model contains all the information about the goals.
   <Property name="resolution_id" type="string">
     Identifier of the Resolution associated with the Goal.
   </Property>
-  <Property name="goalText" type="string">
-    Text content of the Goal.
+  <Property name="goal" type="string">
+    Text goal of the Goal.
   </Property>
   <Property name="category_id" type="string">
     Identifier of the category to which the Goal belongs.
@@ -36,173 +36,35 @@ The goal model contains all the information about the goals.
 </Properties>
 
 
-## The assignment model
-
-The assignment model contains the information of the assignment
-
-### Properties
-
-<Properties>
-  <Property name="_id" type="string">
-    Unique identifier for the goal.
-  </Property>
-  <Property name="title" type="string">
-    The title of course content.
-  </Property>
-  <Property name="instruction" type="string">
-    The instruction of the assignment
-  </Property>
-  <Property name="contentId" type="string">
-    Referring to the content material of the course.
-  </Property>
-  <Property name="submissions" type="array">
-    The student assignment's submission
-  </Property>
-  <Property name="posted" type="timestamp">
-    Timestamp of when the assignment was created.
-  </Property>
-</Properties>
-
 ---
 
-## Get a student course content detail {{ tag: 'GET', label: '/v1/goal/student/:id' }}
+## Create a goal {{ tag: 'POST', label: '/v1/goals' }}
 
 <Row>
   <Col>
 
-   Get a student course content detail to be displayed
-
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/goals/student/sdfa8ah66">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.students.get("sdfa8ah66")
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup>
-
-    ```json {{ title: 'Response student' }}
-    {
-      "course": {
-        "id": "sdfa9aj",
-        "title":"Belajar Machine Learning"
-        "facilitator": {
-          "name": "ImTheFacil",
-          "job": "Backend Engineer"
-        },
-      },
-      "title": "Belajar membuat website",
-      "thumbnail": null,
-      "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
-      "type": "video",
-      "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
-      "announcement": [],
-      "assignment": {
-        "_id": "i0iijjewr", 
-        "instruction": "Create a website",
-        "submission": null,
-      },
-      "createdAt": 6759055,
-      "updatedAt": 7867484
-    }
-    ```
-    </CodeGroup>
-
-  </Col>
-</Row>
-
----
-
-## Get a facilitator course contents detail {{ tag: 'GET', label: '/v1/goal/facil/:id' }}
-
-<Row>
-  <Col>
-
-    Get a facil course content detail to be displayed
-
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/goals/facil/sdfa8ah66">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.facilitators.get("sdfa8ah66")
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup>
-
-    ```json {{ title: 'Response facil' }}
-    {
-      "course": {
-        "id": "sdfa9aj",
-        "title":"Belajar Machine Learning"
-        "facilitator": {
-          "name": "ImTheFacil",
-          "job": "Backend Engineer"
-        },
-      },
-      "title": "Belajar membuat website",
-      "thumbnail": null,
-      "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
-      "type": "video",
-      "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
-      "announcement": [],
-      "assignment": {
-        "_id": "i0iijjewr", 
-        "title": "Create a website",
-        "posted": 6948954,
-      },
-      "createdAt": 6759055,
-      "updatedAt": 7867484
-    }
-    ```
-    </CodeGroup>
-
-  </Col>
-</Row>
-
-
----
-
-## Add a course content {{ tag: 'POST', label: '/v1/goals' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a detailed information about the goal. Using course content id as http params. And user must specify the course id in the body.
+    This endpoint allows you to retrieve a detailed information about the goal. Using goal id as http params. And user must specify the resolution id in the body.
 
     ### Required attributes
 
     <Properties>
-      <Property name="course_id" type="string">
-        Refer to the course of this content.
+      <Property name="resolution_id" type="string">
+        Identifier of the Resolution associated with the Goal.
       </Property>
-      <Property name="title" type="string">
-        The title of the course content.
+      <Property name="goal" type="string">
+        Text goal of the Goal.
       </Property>
-      <Property name="description" type="string">
-        The description of the course.
+      <Property name="category_id" type="string">
+        Identifier of the category to which the Goal belongs.
       </Property>
-      <Property name="material" type="file">
-        The material file of the course content. if its a video file, it will become video material, otherwise it will become reading material.
+      <Property name="shareType" type="string">
+        Type of sharing for the Goal (e.g., public, private).
+      </Property>
+      <Property name="imageUrl" type="string">
+        URL of the image associated with the Goal.
+      </Property>
+      <Property name="dueDate" type="string">
+        Due date for the Goal.
       </Property>
     </Properties>
 
@@ -215,38 +77,22 @@ The assignment model contains the information of the assignment
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.post("sdfa8ah66", {
-      course_id: "xgQQXg3hrtjh7AvZ", 
-      title: "Setup Projek Pertama kali", 
-      description: "Sunt aliquip ullamco incididunt aute amet occaecat minim in ipsum aliquip nostrud occaecat ex. Laborum tempor do qui duis nostrud tempor ullamco cillum dolore aliquip. Id ut laborum aliqua duis dolore magna pariatur. Labore qui aliqua cillum adipisicing amet ad deserunt exercitation mollit quis. Cillum magna sit aliquip nulla labore eu laborum reprehenderit. Sint duis officia amet aliqua Lorem excepteur est do voluptate commodo ullamco adipisicing magna. Ullamco consequat do in esse ex.",
-      material: "<video-saya.mp4>"
-    })
+    const response = await axios.post('/api/goals', {
+      resolution_id: 'resolution123',
+      goalText: 'Complete Chapter 1',
+      category_id: 'category123',
+      shareType: 'public',
+      imageUrl: 'https://example.com/image.jpg',
+      dueDate: '2023-06-30'
+    });
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
     {
-      "course": {
-        "id": "sdfa9aj",
-        "title":"Belajar Machine Learning"
-        "facilitator": {
-          "name": "ImTheFacil",
-          "job": "Backend Engineer"
-        },
-      },
-      "thumbnail": null,
-      "material": "cdn.cloud_storage.com/video/sdfafe.mp4",
-      "duration": 80,
-      "type": "video",
-      "description": "Et occaecat quis veniam aliquip mollit. Ut qui consequat et voluptate. Adipisicing officia qui ullamco labore consequat reprehenderit reprehenderit nisi. Irure quis adipisicing pariatur in reprehenderit nisi.",
-      "assignment": null,
-      "createdAt": 6759055,
-      "updatedAt": 7867484
+      "_id": "fda0djfad",
+      "acknowledged": true
     }
     ```
 
@@ -255,36 +101,156 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Update Course content progress {{ tag: 'PATCH', label: '/v1/goal/:id' }}
+## List all goal  {{ tag: 'GET', label: '/v1/goals' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to indicate the user has finished watching the content of the course.
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="is_complete" type="boolean">
-        The boolean indicator of content completion
-      </Property>
-    </Properties>
+    This endpoint allows you to delete a goal
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PATCH" label="/v1/goals/sdfa8ah66">
+    <CodeGroup title="Request" tag="GET" label="/v1/goals">
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.update("sdfa8ah66", {is_complete: true})
+    const response = await axios.delete('/api/goals');
     ```
 
     </CodeGroup>
+    ```json {{ title: 'Response' }}
+    {
+      "goals": [
+        {
+          "id": "goal123",
+          "resolution_id": "resolution123",
+          "goalText": "Complete Chapter 1",
+          "category_id": "category123",
+          "shareType": "public",
+          "imageUrl": "https://example.com/image.jpg",
+          "dueDate": "2023-06-30",
+          "createdAt": "2023-04-25T12:34:56Z",
+          "updatedAt": "2023-04-25T12:34:56Z"
+        }
+        {
+          "id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## List all goal owned by a user  {{ tag: 'GET', label: '/v1/goals/user/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to get all goals that user owns
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/v1/goals/user/sdfa8ah66">
+
+
+    ```js
+    const response = await axios.delete('/api/goals/user/goal123');
+    ```
+
+    </CodeGroup>
+    ```json {{ title: 'Response' }}
+    {
+      "goals": [
+        {
+          "id": "goal123",
+          "resolution_id": "resolution123",
+          "goalText": "Complete Chapter 1",
+          "category_id": "category123",
+          "shareType": "public",
+          "imageUrl": "https://example.com/image.jpg",
+          "dueDate": "2023-06-30",
+          "createdAt": "2023-04-25T12:34:56Z",
+          "updatedAt": "2023-04-25T12:34:56Z"
+        }
+        {
+          "id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
+    ```
+
+  </Col>
+</Row>
+
+
+---
+
+## Update a goal {{ tag: 'POST', label: '/v1/goals/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a detailed information about the goal. Using goal id as http params. And user must specify the resolution id in the body.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="goal" type="string">
+        Text goal of the Goal.
+      </Property>
+      <Property name="category_id" type="string">
+        Identifier of the category to which the Goal belongs.
+      </Property>
+      <Property name="shareType" type="string">
+        Type of sharing for the Goal (e.g., public, private).
+      </Property>
+      <Property name="imageUrl" type="string">
+        URL of the image associated with the Goal.
+      </Property>
+      <Property name="dueDate" type="string">
+        Due date for the Goal.
+      </Property>
+    </Properties>
+
+
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/goals">
+
+
+    ```js
+    const response = await axios.put('/api/goals/goal123', {
+      goalText: 'Complete Chapter 1',
+      category_id: 'category123',
+      shareType: 'public',
+      imageUrl: 'https://example.com/image.jpg',
+      dueDate: '2023-06-30'
+    });
+    ```
+
+    </CodeGroup>
+
     ```json {{ title: 'Response' }}
     // empty response
     ```
@@ -294,12 +260,12 @@ The assignment model contains the information of the assignment
 
 ---
 
-## Delete a Course content  {{ tag: 'DELETE', label: '/v1/goal/:id' }}
+## Delete a goal  {{ tag: 'DELETE', label: '/v1/goals/:id' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to delete a course content
+    This endpoint allows you to delete a goal
 
   </Col>
   <Col sticky>
@@ -308,11 +274,7 @@ The assignment model contains the information of the assignment
 
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.delete("sdfa8ah66")
+    const response = await axios.delete('/api/goals/goal123');
     ```
 
     </CodeGroup>
@@ -323,203 +285,7 @@ The assignment model contains the information of the assignment
   </Col>
 </Row>
 
----
-
-## Add new assignment {{ tag: 'POST', label: '/v1/assignments' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to submit the assignment of the student
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="title" type="string">
-        The name of the assignment
-      </Property>
-      <Property name="instruction" type="string">
-        The description of the assignment
-      </Property>
-      <Property name="contentId" type="string">
-        The identifier of the content of this assignment
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/v1/assignments">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.post({ 
-      title: "Create a sample app", 
-      instruction: "lorem ipsum dolor sit amet", 
-      contentId: "kjoeraj90" })
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "_id": "oakmsf09",
-      "title": "Create a sample app",
-      "instruction": "lorem ipsum dolor sit amet",
-      "contentId": "sdfopka9",
-      "posted": 6790459,
-    }
-    ```
-  </Col>
-</Row>
 
 ---
 
-## List assignment submission {{ tag: 'GET', label: '/v1/assignments' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to submit the assignment of the student
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="contentId" type="string">
-        The ID of the content that have the assignments
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/v1/assignments">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.list({ contentId: "oi00jerwr" })
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "submissions": [
-        {
-          "_id": "onfdau9",
-          "user": {
-            "name": "Anam",
-            "photo": "cdn.cloudstorage.com/img/sjdfa.jpg"
-          },
-          "isGraded": true,
-          "source": "cdn.cloudstorage.com/pdf/sodifno0j0-dfsdsdf.pdf",
-          "score": 90,
-        },
-        {
-          "_id": "onfdeawau9",
-          "user": {
-            "name": "Budi",
-            "photo": "cdn.cloudstorage.com/img/sjdfa.jpg"
-          },
-          "isGraded": false,
-          "source": "cdn.cloudstorage.com/pdf/sodifno0j0-dfsdsdf.pdf",
-          "score": 0,
-        },
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 1,
-        "totalDocument": 16
-      }
-    }
-    ```
-  </Col>
-</Row>
-
----
-
-## Post submit assignment (create submission) {{ tag: 'POST', label: '/v1/assignments/submit/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to submit the assignment of the student
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="assignment" type="file">
-        The submission file of the student
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/v1/assignments/submit/sdfa8ah66">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.goals.post("sdfa8ah66", { assignment: "<tugas-saya.pdf>" })
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    // empty response
-    ```
-  </Col>
-</Row>
-
-
----
-
-## Grade student assignment {{ tag: 'PATCH', label: '/v1/assignments/grade/:submissionId' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows facilitator to grade their assignment
-    ### Required attributes
-
-    <Properties>
-      <Property name="grade" type="integer">
-        The grade from facilitator for student's assignment
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="PATCH" label="/v1/assignments/grade/sdfa8ah66">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.contentGrade.update("sdfa8ah66", {grade: 80})
-    ```
-
-    </CodeGroup>
-    ```json {{ title: 'Response' }}
-    // empty response
-    ```
-
-  </Col>
-</Row>
 

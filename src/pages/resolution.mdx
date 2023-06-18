@@ -76,13 +76,18 @@ The Resolution model contains all the information about the Resolutions.
     ```json {{ title: 'Response' }}
     
     {
-      "Resolutions": [
-         {
-          "id": "xgQQXg3hrtjh7AvZ",
-          "facilitator": "FrankMcCallister",
-          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
-          "title": "Membuat Aplikasi Java Pertama Kali",
-          "category": "technology"
+      "resolutions": [
+        {
+          "_id": "resolution123",
+          "user_id": "user123",
+          "resolution": "Finish reading a book",
+          "imageUrl": "https://example.com/image.jpg",
+          "category_id": "category123",
+          "shareType": "public",
+          "completed": false,
+          "dueDate": "2023-05-31",
+          "createdAt": "2023-04-20T10:00:00Z",
+          "updatedAt": "2023-04-20T10:00:00Z"
         },
         {
           "id": "hSIhXBhNe8X1d8Et"
@@ -141,12 +146,17 @@ The Resolution model contains all the information about the Resolutions.
     ```json {{ title: 'Response' }}
     {
       "Resolutions": [
-         {
-          "id": "xgQQXg3hrtjh7AvZ",
-          "facilitator": "FrankMcCallister",
-          "thumbnail": "cdn.cloud_storage.com/img/sdf8re.jpg"
-          "title": "Membuat Aplikasi Java Pertama Kali",
-          "category": "technology"
+        {
+          "_id": "resolution123",
+          "user_id": "user123",
+          "resolution": "Finish reading a book",
+          "imageUrl": "https://example.com/image.jpg",
+          "category_id": "category123",
+          "shareType": "public",
+          "completed": false,
+          "dueDate": "2023-05-31",
+          "createdAt": "2023-04-20T10:00:00Z",
+          "updatedAt": "2023-04-20T10:00:00Z"
         },
       ],
       "pagination": {

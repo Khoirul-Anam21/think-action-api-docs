@@ -1,26 +1,11 @@
 export const description =
   'On this page, we’ll dive into the different attachment endpoints you can use to manage attachments programmatically.'
 
-# Additional information
+# Goal Completion
 
-This additional information contains some information that's not really involved in the business logic but important however. {{ className: 'lead' }}
+This Goal Completion contains some information that's not really involved in the business logic but important however. {{ className: 'lead' }}
 
-## Category model 
-
-The attachment model contains all the information about the category of the courses.
-
-### Properties
-
-<Properties>
-  <Property name="id" type="string">
-    Unique identifier for the attachment.
-  </Property>
-  <Property name="name" type="string">
-    The name of the Category.
-  </Property>
-</Properties>
-
-## Role model
+## Completion model
 
 The attachment model contains all the information about the role type of the user. Decide whether the user is a student or facilitator.
 
@@ -36,8 +21,8 @@ The attachment model contains all the information about the role type of the use
   <Property name="goal_id" type="string">
     Identifier of the Goal associated with the Entity.
   </Property>
-  <Property name="category_id" type="string">
-    Identifier of the category to which the Entity belongs.
+  <Property name="completion_id" type="string">
+    Identifier of the completion to which the Entity belongs.
   </Property>
   <Property name="caption" type="string">
     Caption or description of the Entity.
@@ -54,51 +39,52 @@ The attachment model contains all the information about the role type of the use
 
 ---
 
-## List all category {{ tag: 'GET', label: '/v1/categories' }}
+## List all completions {{ tag: 'GET', label: '/v1/completions' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a list of all of the categories.
+    This endpoint allows you to retrieve a list of all of the completions.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/categories">
+    <CodeGroup title="Request" tag="GET" label="/v1/completions">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.categories.list()
+    const response = await axios.get('/v1/completions');
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    [
-      {
-        "id": "sdsfafa",
-        "name": "Technology"
-      },
-      {
-        "id": "sdsf34afa",
-        "name": "Science"
-      },
-      {
-        "id": "43fa3ikut",
-        "name": "Business"
-      },
-      ...
-    ]
+    {
+      "completions": [
+        {
+          "id": "entity123",
+          "user_id": "user123",
+          "goal_id": "goal123",
+          "completion_id": "completion123",
+          "caption": "Entity caption",
+          "image": "https://example.com/image.jpg",
+          "isCompleteResolution": true,
+          "createdAt": "2023-04-25T12:34:56Z",
+          "updatedAt": "2023-04-25T12:34:56Z"
+        },
+      ],
+      "pagination": {
+          "page": 1,
+          "pageSize": 1,
+          "pageCount": 4,
+          "totalDocument": 16
+      }
+    }
     ```
-
   </Col>
 </Row>
 
 ---
 
-## List all role {{ tag: 'GET', label: '/v1/roles' }}
+## List all completion owned {{ tag: 'GET', label: '/v1/completions/user/:id' }}
 
 <Row>
   <Col>
@@ -107,30 +93,165 @@ The attachment model contains all the information about the role type of the use
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/roles">
+    <CodeGroup title="Request" tag="GET" label="/v1/completions/user/:id">
 
     ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.roles.list()
+    const response = await axios.get('/v1/entities/user/entity123');
     ```
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    [
-      {
-        "id": "kdfb32423",
-        "name": "Facilitator"
-      },
-      {
-        "id": "kdt3ew423",
-        "name": "Student"
+    {
+      "completions": [
+        {
+          "id": "entity123",
+          "user_id": "user123",
+          "goal_id": "goal123",
+          "completion_id": "completion123",
+          "caption": "Entity caption",
+          "image": "https://example.com/image.jpg",
+          "isCompleteResolution": true,
+          "createdAt": "2023-04-25T12:34:56Z",
+          "updatedAt": "2023-04-25T12:34:56Z"
+        },
+      ],
+      "pagination": {
+          "page": 1,
+          "pageSize": 1,
+          "pageCount": 4,
+          "totalDocument": 16
       }
-    ]
+    }
     ```
 
   </Col>
 </Row>
 
+---
+
+## Create a completion {{ tag: 'POST', label: '/v1/completions' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a list of all specified role.  
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        Identifier of the User associated with the Entity.
+      </Property>
+      <Property name="goal_id" type="string">
+        Identifier of the Goal associated with the Entity.
+      </Property>
+      <Property name="resolution_id" type="string">
+        Identifier of the resolution to which the Entity belongs.
+      </Property>
+      <Property name="caption" type="string">
+        Caption or description of the Entity.
+      </Property>
+      <Property name="image" type="string">
+        URL or path of the image associated with the Entity.
+      </Property>
+      <Property name="isCompleteResolution" type="boolean">
+        Flag indicating whether the resolution is complete for the Entity.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/v1/completions">
+
+    ```js
+      const response = await axios.post('/v1/completions', {
+        user_id: 'user123',
+        goal_id: 'goal123',
+        completion_id: 'completion123',
+        caption: 'Entity caption',
+        image: 'https://example.com/image.jpg',
+        isCompleteResolution: true
+      });
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "sd0asu9djs",
+      "acknowledged": true
+    }
+    ```
+  </Col>
+</Row>
+
+---
+
+## Edit a completion {{ tag: 'PUT', label: '/v1/completions/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a list of all specified role.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        Identifier of the User associated with the Entity.
+      </Property>
+      <Property name="goal_id" type="string">
+        Identifier of the Goal associated with the Entity.
+      </Property>
+      <Property name="resolution_id" type="string">
+        Identifier of the resolution to which the Entity belongs.
+      </Property>
+      <Property name="caption" type="string">
+        Caption or description of the Entity.
+      </Property>
+      <Property name="image" type="string">
+        URL or path of the image associated with the Entity.
+      </Property>
+    </Properties>  
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="PUT" label="/v1/completions/dfadfa">
+
+    ```js
+      const response = await axios.put('/v1/completions/entity123', {
+        caption: 'Updated entity caption',
+      });
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+  </Col>
+</Row>
+
+---
+
+## Delete a completion {{ tag: 'DELETE', label: '/v1/completions/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to delete a completion goal
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/v1/completions/dfadfa">
+
+    ```js
+    const response = await axios.delete('/api/entities/entity123');
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
+    ```
+  </Col>
+</Row>
