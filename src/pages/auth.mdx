@@ -18,11 +18,11 @@ The user model contains all the information about your users, such as their user
   <Property name="username" type="string">
     The username for the user.
   </Property>
+    <Property name="accountName" type="string">
+    The username for the user.
+  </Property>
   <Property name="email" type="string">
     The email for the user.
-  </Property>
-  <Property name="password" type="string">
-    The password of the user.
   </Property>
   <Property name="photo" type="string">
     The Url of the profile picture
@@ -31,93 +31,26 @@ The user model contains all the information about your users, such as their user
 
 ---
 
-## Sign up {{ tag: 'POST', label: '/v1/auth/signup' }}
+## Sign up / Sign in {{ tag: 'GET', label: '/v1/auth/google' }}
 
 <Row>
   <Col>
 
-    This endpoint allows you to add a new user. To add a user, you must provide email, username, and password.
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="username" type="string">
-        The username for the user.
-      </Property>
-      <Property name="email" type="string">
-        The email for the user.
-      </Property>
-      <Property name="password" type="string">
-        The password for the user.
-      </Property>
-    </Properties>
-
+    This endpoint allows you to sign in user via google, automatically add new user.
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/auth/signup">
+    <CodeGroup title="Request" tag="GET" label="/v1/auth/signup">
 
     ```js
-    const postResponse = await axios.post('https://api.example.com/v1/auth/signup', {
-      username: 'John',
-      email: 'john@example.com',
-      password: 'admin'
-    });
+    const postResponse = await axios.get('https://api.example.com/v1/auth/signup');
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "id": "WAz8eIbvDR60rouK",
-      "acknowledged": true,
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-
-## Sign in {{ tag: 'POST', label: '/v1/auth/signin' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to login to the user account
-
-    ### Required attributes
-
-    <Properties>
-      <Property name="email" type="string">
-        The email for the user.
-      </Property>
-      <Property name="password" type="string">
-        The password for the user.
-      </Property>
-    </Properties>
-
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="POST" label="/v1/auth/signin">
-
-    ```js
-    const postResponse = await axios.post('https://api.example.com/v1/auth/signin', {
-      email: 'john@example.com',
-      password: 'admin'
-    });
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "accessToken": "WAz8eIbvDR60rouKdfg45556dfgdf",
-    }
+    // redirected
     ```
 
   </Col>

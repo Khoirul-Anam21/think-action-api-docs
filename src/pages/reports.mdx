@@ -66,53 +66,73 @@ The report model contains all the information about courses informations that th
 
 ---
 
-## Get participant report by id {{ tag: 'GET', label: '/v1/participant_reports' }}
+## Get report by user_id monthly {{ tag: 'GET', label: '/v1/reports/month/1' }}
  
 <Row>
   <Col>
 
-    This endpoint will inform you about the student learning information.
+    This endpoint will inform you about the user goals report monthly
+    
+    ### Optional attributes
 
+    <Properties>
+      <Property name="user_id" type="string">
+        The user request report.
+      </Property>
+    </Properties>
   </Col>
   <Col sticky>    
 
-    <CodeGroup title="Request" tag="GET" label="/v1/reports">
+    <CodeGroup title="Request" tag="GET" label="/v1/reports/month/1">
     ```js
-    import ApiClient from '@example/protocol-api'
+      const response = await axios.get('/v1/reports/month/:month');
 
-    const client = new ApiClient(token)
-
-    await client.reports.participantReports.get()
     ```
 
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
     {
-      "id": "xxxxx-xxx-xx"
-      "courses_count": 6,
-      "courses_info": [
+      "data": [
         {
-          "id": " frdg453er3"
-          "title": "Belajar Machine learning",
-          "assignments": [
+          "user": {...},
+          "year": 2023,
+          "month": 1,
+          "week": 1,
+          "weekCompletion": [
             {
-              "title": "Penerapan Machine Learning versi 1",
-              "is_complete": true,
-              "score": 0.6,
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
             },
-            {
-              "title": "Penerapan Machine Learning versi 2",
-              "is_complete": false,
-              "score": 0,
-            }
+                        {
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
+            },
+                        {
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
+            },
+                        {
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
+            },
+            ...
           ]
         },
         {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
+          "user": {...},
+          "year": 2023,
+          "month": 1,
+          "week": 1,
+          "weekCompletion": [...]
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
     }
     ```
 
@@ -121,109 +141,81 @@ The report model contains all the information about courses informations that th
 
 ---
 
-## Get facilitator reports {{ tag: 'GET', label: '/v1/facilitator_reports' }}
-
+## Get report by user_id yearly {{ tag: 'GET', label: '/v1/reports/year/2023' }}
+ 
 <Row>
   <Col>
 
-    This endpoint will inform you about the summary information for facilitator.
+    This endpoint will inform you about the user goals report monthly
     
+    ### Optional attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        The user request report.
+      </Property>
+    </Properties>
   </Col>
-  <Col sticky>
+  <Col sticky>    
 
-<CodeGroup title="Request" tag="GET" label="/v1/reports">
-
-
+    <CodeGroup title="Request" tag="GET" label="/v1/reports/year/2023">
     ```js
-    import ApiClient from '@example/protocol-api'
+      const response = await axios.get('/v1/reports/year/:year');
 
-    const client = new ApiClient(token)
-
-    await client.facilitatorReports.get()
     ```
 
     </CodeGroup>
+
     ```json {{ title: 'Response' }}
     {
-      "id": "xxxxx-xxx-xx"
-      "courses_owned": 6,
-      "courses_info": [
+      "data": [
         {
-          "id": " frdg453er3"
-          "title": "Belajar Machine learning",
-          "students_count": 13,
-          "assignments": [
+          "user": {...},
+          "year": 2023,
+          "month": 1,
+          "week": 1,
+          "weekCompletion": [
             {
-              "title": "Penerapan Machine Learning versi 1",
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
             },
-            {
-              "title": "Penerapan Machine Learning versi 2",
-            }
+                        {
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
+            },
+                        {
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
+            },
+                        {
+              "category_id": "0djfadfjaidjf0f",
+              "completed": false
+            },
+            ...
           ]
         },
         {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
-
-  </Col>
-</Row>
-
---- 
-
-## Get facilitator report detail by id {{ tag: 'GET', label: '/v1/facilitator_reports/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint will inform you more detailed information about the content of the course that contains assignment. In short, it's a submission information.
-
-  </Col>
-  <Col sticky>
-
-<CodeGroup title="Request" tag="GET" label="/v1/facilitator_reports/sdf434td">
-
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.facilitatorReports.get("sdf434td")
-    ```
-
-    </CodeGroup>
-    ```json {{ title: 'Response' }}
-    {
-      "id": "xxxxx-xxx-xx",
-      "title": "Penerapan Machine Learning versi 1",
-      "course": "Belajar Machine Learning",
-      "student_reports": [
-        {
-          "id": "q5eqre00rkqe",
-          "name": "AnamWidodo Maharani",
-          "photo": "cdn.cloud_storage.com/img/sdtwesdfafd.jpg",
-          "is_submit": true,
-          "score": 0.78,
+          "user": {...},
+          "year": 2023,
+          "month": 1,
+          "week": 1,
+          "weekCompletion": [...]
         },
+        ...
         {
-          "id": "q5eqre00rkqe",
-          "name": "Mega panjaitan wati",
-          "photo": "cdn.cloud_storage.com/img/sdtwe45rsdfafd.jpg",
-          "is_submit": true,
-          "score": 0.90,
+          "user": {...},
+          "year": 2023,
+          "month": 12,
+          "week": 52,
+          "weekCompletion": [...]
         },
-        {
-          "id": "q5eqre00rkqe",
-          "name": "Buzzer Lightyear",
-          "photo": "cdn.cloud_storage.com/img/sdtwQQ4esdfafd.jpg",
-          "is_submit": false,
-          "score": 0,
-        }
-      ]
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
     }
     ```
 

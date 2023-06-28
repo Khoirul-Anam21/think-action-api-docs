@@ -18,11 +18,11 @@ The user model contains all the information about your users, such as their user
   <Property name="username" type="string">
     The username for the user.
   </Property>
+    <Property name="accountName" type="string">
+    The display name for the user.
+  </Property>
   <Property name="email" type="string">
     The email for the user.
-  </Property>
-  <Property name="password" type="string">
-    The password of the user.
   </Property>
   <Property name="photo" type="string">
     The Url of the profile picture
@@ -56,8 +56,8 @@ The user model contains all the information about your users, such as their user
       {
         "_id": "60aeb58db4fe155d9c4a0cf1",
         "username": "johnDoe",
+        "accountnName": "johnDoe sad",
         "email": "johndoe@example.com",
-        "password": "********",
         "photo": "https://example.com/photo.jpg",
         "createdAt": "2022-05-27T12:30:45.123Z",
         "updatedAt": "2022-05-27T12:30:45.123Z"
@@ -82,7 +82,7 @@ The user model contains all the information about your users, such as their user
       <Property name="photo" type="string">
         The display profile picture.
       </Property>
-      <Property name="username" type="string">
+      <Property name="accountName" type="string">
         The user  name in the user list. By default, this is just the username.
       </Property>
     </Properties>
@@ -95,9 +95,7 @@ The user model contains all the information about your users, such as their user
 
     ```js
       const response = await axios.put('/users/:id', {
-        username: 'newUsername',
-        email: 'newemail@example.com',
-        password: 'newpassword123',
+        displayName: 'newUsername',
         photo: 'https://example.com/newphoto.jpg'
       });
     ```
