@@ -1,43 +1,13 @@
 export const description =
   'On this page, we’ll dive into the different report endpoints you can use to manage reports programmatically.'
 
-# reports
+# Report
 
-reports are how student or facilitator analize or obtain information about their activity in this LMS {{ className: 'lead' }}
+reports are how User analize their goal achievements
 
-## Student report model 
+## Goal report model
 
-The report model contains all the learning informations and progresses.
-
-### Properties
-
-<Properties>
-  <Property name="id" type="string">
-    Unique identifier for the report.
-  </Property>
-  <Property name="user_id" type="string">
-    Unique identifier for the user associated with the report.
-  </Property>
-  <Property name="course_id" type="string">
-    Unique identifier for the course associated with the report
-  </Property>
-  <Property name="progress" type="double">
-    The percentage of course completion.
-  </Property>
-  <Property name="score" type="string">
-    The score report of the course.
-  </Property>
-  <Property name="status" type="integer">
-    The completion status of the course.
-  </Property>
-  <Property name="latest_update" type="timestamp">
-    Timestamp of when the report was updated.
-  </Property>
-</Properties>
-
-## Facilitator report model
-
-The report model contains all the information about courses informations that the facilitator has.
+The report model contains all the information about goal achievements
 
 ### Properties
 
@@ -48,17 +18,17 @@ The report model contains all the information about courses informations that th
   <Property name="user_id" type="string">
     Unique identifier for the message associated with the report.
   </Property>
-  <Property name="total_course" type="string">
-    Total courses the facilitator have
+  <Property name="year" type="number">
+  Year indicator
   </Property>
-  <Property name="total_participant" type="string">
-    Total partipants enrolled in the facilitator courses.
+  <Property name="month" type="number">
+    Month indicator
   </Property>
-  <Property name="complete_participant" type="string">
-    Total participants completed the facilitator courses
+  <Property name="week" type="number">
+    Week indicator
   </Property>
-  <Property name="latest_update" type="timestamp">
-    Timestamp of when the report was updated.
+  <Property name="week completion" type="array">
+    Completion of goal every week by categories
   </Property>
 </Properties>
 
