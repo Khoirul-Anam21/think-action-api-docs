@@ -205,6 +205,7 @@ export const navigation = [
       { title: 'Goals', href: '/goal' },
       { title: 'Comments', href: '/comments' },
       { title: 'Reports', href: '/reports' },
+      { title: 'Notification', href: '/notification' },
       { title: 'Support', href: '/support' },
       { title: 'Goal Completion', href: '/completion-goal' },
     ],

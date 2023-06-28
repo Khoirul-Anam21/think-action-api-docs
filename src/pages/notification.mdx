@@ -1,0 +1,98 @@
+export const description =
+  'On this page, we’ll dive into the different notification endpoints you can use to manage notifications programmatically.'
+
+# notification
+
+notifications are how User received informations triggered by other user
+
+## Goal notification model
+
+The notification model contains all the information about notification
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="objectId">
+    The unique identifier for the notification.
+  </Property>
+  <Property name="user_id" type="objectId">
+    The unique identifier of the user receiving the notification.
+  </Property>
+  <Property name="user_notifier_id" type="objectId">
+    The unique identifier of the user who triggered the notification.
+  </Property>
+  <Property name="post_id" type="objectId">
+    The unique identifier of the related post (if applicable).
+  </Property>
+  <Property name="message" type="string">
+    The content of the notification message.
+  </Property>
+</Properties>
+
+
+
+
+---
+
+## Get notification by user_id {{ tag: 'GET', label: '/v1/notifications' }}
+ 
+<Row>
+  <Col>
+
+    This endpoint will inform you about the user goals notification monthly
+    
+    ### Optional attributes
+
+    <Properties>
+      <Property name="user_id" type="string">
+        The user request notification.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>    
+
+    <CodeGroup title="Request" tag="GET" label="/v1/notifications">
+    ```js
+    const response = await axios.get('/v1/notifications');
+
+
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "data": [
+        {
+          "_id": "61fd4b2d3b1f2a1e7359f4e8",
+          "user_id": "61fd4b2d3b1f2a1e7359f4e9",
+          "user_notifier_id": "61fd4b2d3b1f2a1e7359f4ea",
+          "post_id": "61fd4b2d3b1f2a1e7359f4eb",
+          "message": "You have a new comment on your post!"
+        },
+        {
+          "_id": "61fd4b2d3b1f2a1e7359f4ec",
+          "user_id": "61fd4b2d3b1f2a1e7359f4ed",
+          "user_notifier_id": "61fd4b2d3b1f2a1e7359f4ee",
+          "post_id": "61fd4b2d3b1f2a1e7359f4ef",
+          "message": "Your post has been shared!"
+        },
+        {
+          "_id": "61fd4b2d3b1f2a1e7359f4f0",
+          "user_id": "61fd4b2d3b1f2a1e7359f4f1",
+          "user_notifier_id": "61fd4b2d3b1f2a1e7359f4f2",
+          "post_id": "61fd4b2d3b1f2a1e7359f4f3",
+          "message": "You have a new follower!"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "pageSize": 1,
+        "pageCount": 4,
+        "totalDocument": 16
+      }
+    }
+    ```
+
+  </Col>
+</Row>
