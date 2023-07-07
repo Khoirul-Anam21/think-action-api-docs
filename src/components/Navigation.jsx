@@ -208,6 +208,8 @@ export const navigation = [
       { title: 'Notification', href: '/notification' },
       { title: 'Support', href: '/support' },
       { title: 'Goal Completion', href: '/completion-goal' },
+      { title: 'Cheers', href: '/cheer' },
+      { title: 'Category', href: '/category' },
     ],
   },
 ]
