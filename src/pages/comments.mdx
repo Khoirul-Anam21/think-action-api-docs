@@ -42,6 +42,9 @@ The comment model contains all the information about the reply of comments.
   <Property name="user_id" type="string">
     Unique identifier of user commented.
   </Property>
+    <Property name="comment_id" type="string">
+    Unique identifier of a comment replied by this reply.
+  </Property>
   <Property name="replyTo_id" type="string">
     Unique identifier of a comment replied by this reply.
   </Property>
@@ -109,7 +112,8 @@ The comment model contains all the information about the reply of comments.
                 "photo": "www.image.com/dfdfs.jpg",
                 "username": "tes"
               },
-              "replyTo_id": "comment1",
+              "comment_id": "osdfa44",
+              "replyTo_id": null,
               "comment": "This is a reply."
             },
           ]
@@ -195,8 +199,8 @@ The comment model contains all the information about the reply of comments.
   <Property name="userId" type="string">
     Unique identifier of the user commented
   </Property>
-  <Property name="replyToId" type="string">
-    Unique identifier of the user replied
+  <Property name="comment_id" type="string">
+    Unique identifier of the user commented
   </Property>
   <Property name="comment" type="string">
     The content for the comment.
@@ -204,6 +208,9 @@ The comment model contains all the information about the reply of comments.
 </Properties>
 
     ### Optional attributes
+  <Property name="reply_id" type="string">
+    Identifier of the other replies that the user replied
+  </Property>
 
   </Col>
   <Col sticky>
@@ -213,7 +220,8 @@ The comment model contains all the information about the reply of comments.
     ```js
     const response = await axios.post('/v1/comments/replies', {
       user_id: 'user2',
-      replyTo_id: 'comment1ID',
+      comment_id: 'comment1ID',
+      replyTo_id: 'reply1ID',
       post_id: 'post1',
       postType: 'resolution',
       comment: 'This is a reply.'
