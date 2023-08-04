@@ -3,12 +3,11 @@ export const description =
 
 # Goal Completion
 
-This Goal Completion contains some information that's not really involved in the business logic but important however. {{ className: 'lead' }}
+This Goal Completion contains the completion of the weekly goal
 
 ## Completion model
 
-The attachment model contains all the information about the role type of the user. Decide whether the user is a student or facilitator.
-
+The attachment model contains all the information about the goal completion
 ### Properties
 
 <Properties>
@@ -24,108 +23,19 @@ The attachment model contains all the information about the role type of the use
   <Property name="completion_id" type="string">
     Identifier of the completion to which the Entity belongs.
   </Property>
+    <Property name="category_id" type="string">
+    Identifier of the category of the completion
+  </Property>
   <Property name="caption" type="string">
     Caption or description of the Entity.
   </Property>
-  <Property name="image" type="string">
-    URL or path of the image associated with the Entity.
+  <Property name="images" type="array">
+    images associated with the Entity.
   </Property>
-  <Property name="isCompleteResolution" type="boolean">
+  <Property name="completeResolution" type="boolean">
     Flag indicating whether the resolution is complete for the Entity.
   </Property>
 </Properties>
-
-
-
----
-
-## List all completions {{ tag: 'GET', label: '/v1/completions' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a list of all of the completions.
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/completions">
-
-    ```js
-    const response = await axios.get('/v1/completions');
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "completions": [
-        {
-          "id": "entity123",
-          "user_id": "user123",
-          "goal_id": "goal123",
-          "completion_id": "completion123",
-          "caption": "Entity caption",
-          "image": "https://example.com/image.jpg",
-          "isCompleteResolution": true,
-          "createdAt": "2023-04-25T12:34:56Z",
-          "updatedAt": "2023-04-25T12:34:56Z"
-        },
-      ],
-      "pagination": {
-          "page": 1,
-          "pageSize": 1,
-          "pageCount": 4,
-          "totalDocument": 16
-      }
-    }
-    ```
-  </Col>
-</Row>
-
----
-
-## List all completion owned {{ tag: 'GET', label: '/v1/completions/user/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a list of all specified role.  
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/completions/user/:id">
-
-    ```js
-    const response = await axios.get('/v1/entities/user/entity123');
-    ```
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "completions": [
-        {
-          "id": "entity123",
-          "user_id": "user123",
-          "goal_id": "goal123",
-          "completion_id": "completion123",
-          "caption": "Entity caption",
-          "image": "https://example.com/image.jpg",
-          "isCompleteResolution": true,
-          "createdAt": "2023-04-25T12:34:56Z",
-          "updatedAt": "2023-04-25T12:34:56Z"
-        },
-      ],
-      "pagination": {
-          "page": 1,
-          "pageSize": 1,
-          "pageCount": 4,
-          "totalDocument": 16
-      }
-    }
-    ```
-
-  </Col>
-</Row>
 
 ---
 
@@ -145,16 +55,21 @@ The attachment model contains all the information about the role type of the use
       <Property name="goal_id" type="string">
         Identifier of the Goal associated with the Entity.
       </Property>
-      <Property name="resolution_id" type="string">
-        Identifier of the resolution to which the Entity belongs.
-      </Property>
       <Property name="caption" type="string">
         Caption or description of the Entity.
       </Property>
-      <Property name="image" type="string">
-        URL or path of the image associated with the Entity.
+      <Property name="images" type="array">
+        images associated with the Entity.
       </Property>
       <Property name="isCompleteResolution" type="boolean">
+        Flag indicating whether the resolution is complete for the Entity.
+      </Property>
+    </Properties>
+
+        ### Optional attributes
+
+    <Properties>
+      <Property name="completeResolution" type="boolean">
         Flag indicating whether the resolution is complete for the Entity.
       </Property>
     </Properties>
@@ -168,10 +83,10 @@ The attachment model contains all the information about the role type of the use
       const response = await axios.post('/v1/completions', {
         user_id: 'user123',
         goal_id: 'goal123',
-        completion_id: 'completion123',
+        category_id: 'category123',
         caption: 'Entity caption',
-        image: 'https://example.com/image.jpg',
-        isCompleteResolution: true
+        images: ['https://example.com/image.jpg', ...],
+        completeResolution: true
       });
     ```
     </CodeGroup>
@@ -203,14 +118,17 @@ The attachment model contains all the information about the role type of the use
       <Property name="goal_id" type="string">
         Identifier of the Goal associated with the Entity.
       </Property>
-      <Property name="resolution_id" type="string">
-        Identifier of the resolution to which the Entity belongs.
+      <Property name="category_id" type="string">
+        Identifier of the category to which the Entity belongs.
       </Property>
       <Property name="caption" type="string">
         Caption or description of the Entity.
       </Property>
-      <Property name="image" type="string">
+      <Property name="images" type="array">
         URL or path of the image associated with the Entity.
+      </Property>
+      <Property name="completeResolution" type="boolean">
+        Flag indicating whether the resolution is complete for the Entity.
       </Property>
     </Properties>  
   </Col>
@@ -246,7 +164,7 @@ The attachment model contains all the information about the role type of the use
     <CodeGroup title="Request" tag="DELETE" label="/v1/completions/dfadfa">
 
     ```js
-    const response = await axios.delete('/api/entities/entity123');
+    const response = await axios.delete('/v1/completions/dfadfa');
     ```
     </CodeGroup>
 

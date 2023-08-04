@@ -3,7 +3,7 @@ export const description =
 
 # notification
 
-notifications are how User received informations triggered by other user
+notifications are information that user received after other user interact in certain way to the current user
 
 ## Goal notification model
 
@@ -18,11 +18,17 @@ The notification model contains all the information about notification
   <Property name="user_id" type="objectId">
     The unique identifier of the user receiving the notification.
   </Property>
-  <Property name="user_notifier_id" type="objectId">
+  <Property name="userNotified_id" type="objectId">
     The unique identifier of the user who triggered the notification.
   </Property>
   <Property name="post_id" type="objectId">
     The unique identifier of the related post (if applicable).
+  </Property>
+    <Property name="postType" type="objectId">
+    The unique identifier of the related post (if applicable).
+  </Property>
+    <Property name="read" type="boolean">
+    Indicates whether this notification is already read or not.
   </Property>
   <Property name="message" type="string">
     The content of the notification message.
@@ -34,20 +40,13 @@ The notification model contains all the information about notification
 
 ---
 
-## Get notification by user_id {{ tag: 'GET', label: '/v1/notifications' }}
+## Get all notification from user {{ tag: 'GET', label: '/v1/notifications' }}
  
 <Row>
   <Col>
 
     This endpoint will inform you about the user goals notification monthly
     
-    ### Optional attributes
-
-    <Properties>
-      <Property name="user_id" type="string">
-        The user request notification.
-      </Property>
-    </Properties>
   </Col>
   <Col sticky>    
 
@@ -62,36 +61,53 @@ The notification model contains all the information about notification
 
     ```json {{ title: 'Response' }}
     {
-      "data": [
+    "data": [
         {
-          "_id": "61fd4b2d3b1f2a1e7359f4e8",
-          "user_id": "61fd4b2d3b1f2a1e7359f4e9",
-          "user_notifier_id": "61fd4b2d3b1f2a1e7359f4ea",
-          "post_id": "61fd4b2d3b1f2a1e7359f4eb",
-          "message": "You have a new comment on your post!"
+            "_id": "64c7d18a699be725b4d1a6a0",
+            "post_id": "64bf727c6b5593912e36853a",
+            "postType": "goal",
+            "user_id": "64bb4529fc44e4615d4e1001",
+            "userNotified_id": "64bb4529fc44e4615d4e1001",
+            "message": "Mohammad Khoirul Anam cheered you",
+            "read": false,
+            "createdAt": null,
+            "updatedAt": null
         },
-        {
-          "_id": "61fd4b2d3b1f2a1e7359f4ec",
-          "user_id": "61fd4b2d3b1f2a1e7359f4ed",
-          "user_notifier_id": "61fd4b2d3b1f2a1e7359f4ee",
-          "post_id": "61fd4b2d3b1f2a1e7359f4ef",
-          "message": "Your post has been shared!"
-        },
-        {
-          "_id": "61fd4b2d3b1f2a1e7359f4f0",
-          "user_id": "61fd4b2d3b1f2a1e7359f4f1",
-          "user_notifier_id": "61fd4b2d3b1f2a1e7359f4f2",
-          "post_id": "61fd4b2d3b1f2a1e7359f4f3",
-          "message": "You have a new follower!"
-        }
-      ],
-      "pagination": {
+        ...
+    ],
+    "pagination": {
         "page": 1,
-        "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
-      }
+        "pageCount": 1,
+        "pageSize": 999,
+        "totalDocument": 5
     }
+}
+    ```
+
+  </Col>
+</Row>
+
+## Read (open notification) all notification {{ tag: 'PATCH', label: '/v1/notifications' }}
+ 
+<Row>
+  <Col>
+
+    This endpoint will change all notifications status to read.
+    
+  </Col>
+  <Col sticky>    
+
+    <CodeGroup title="Request" tag="PATCH" label="/v1/notifications">
+    ```js
+    const response = await axios.patch('/v1/notifications');
+
+
+    ```
+
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    // empty response
     ```
 
   </Col>

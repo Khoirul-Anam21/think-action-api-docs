@@ -40,114 +40,34 @@ The Resolution model contains all the information about the Resolutions.
 
 ---
 
-## List all Resolutions {{ tag: 'GET', label: '/v1/resolutions' }}
+## List all resolution {{ tag: 'GET', label: '/v1/resolutions' }} 
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your Resolutions. This endpoint usually used for catalog. By default, a maximum of ten Resolutions are shown per page.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="limit" type="integer">
-        Limit the number of Resolutions returned.
-      </Property>
-      <Property name="category_id" type="string">
-        Filter Resolutions by their categories.
-      </Property>
-    </Properties>
+   Get all resolution owned by a user
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/Resolutions">
+    <CodeGroup title="Request" tag="GET" label="/v1/resolutions">
 
     ```js
-    import ApiClient from '@example/protocol-api'
+    const response = await axios.get('/v1/resolutions');
 
-    const client = new ApiClient(token)
-
-    await client.Resolutions.list()
     ```
 
     </CodeGroup>
 
+    <CodeGroup title="Response" tag="GET" label="/v1/resolutions">
     ```json {{ title: 'Response' }}
-    
     {
-      "resolutions": [
+      "data": [
         {
           "_id": "resolution123",
           "user_id": "user123",
           "resolution": "Finish reading a book",
-          "imageUrl": "https://example.com/image.jpg",
-          "category_id": "category123",
-          "shareType": "public",
-          "completed": false,
-          "dueDate": "2023-05-31",
-          "createdAt": "2023-04-20T10:00:00Z",
-          "updatedAt": "2023-04-20T10:00:00Z"
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
-      }
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## List a user resolutions {{ tag: 'GET', label: '/v1/resolutions/user' }} 
-
-<Row>
-  <Col>
-
-   Get all Resolutions that a user have
-    
-    
-    ### Required attributes
-
-    <Properties>
-      <Property name="user_id" type="string">
-        User who own the resolutions.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/Resolutions/student/learnings">
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.Resolutions.students.list({user_id: "sda090jear"})
-    ```
-
-    </CodeGroup>
-
-    <CodeGroup title="Response" tag="GET" label="/v1/Resolutions/student/learnings">
-    ```json {{ title: 'Response' }}
-    {
-      "Resolutions": [
-        {
-          "_id": "resolution123",
-          "user_id": "user123",
-          "resolution": "Finish reading a book",
-          "imageUrl": "https://example.com/image.jpg",
+          "images": ["https://example.com/image.jpg", ...],
           "category_id": "category123",
           "shareType": "public",
           "completed": false,
@@ -171,99 +91,56 @@ The Resolution model contains all the information about the Resolutions.
 
 ---
 
-## List all Resolutions cheerer{{ tag: 'GET', label: '/v1/resolution/:id/cheers' }}
+## List a user resolutions by category {{ tag: 'GET', label: '/v1/resolutions/category/:id' }} 
 
 <Row>
   <Col>
 
-    This endpoint allows you to retrieve a paginated list of all your participant of a Resolution.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="limit" type="integer">
-        Limit the number of Resolutions returned.
-      </Property>
-    </Properties>
+   Get resolution by every category, only one resolution per category
 
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/resolutions/resolution123/cheers">
+    <CodeGroup title="Request" tag="GET" label="/v1/resolutions/category/:id">
 
     ```js
-    const response = await axios.get('/v1/resolutions/resolution123/cheers');
+    const response = await axios.get('/v1/resolutions/category/:id');
+
     ```
 
     </CodeGroup>
 
+    <CodeGroup title="Response" tag="GET" label="/v1/resolutions/category/:id">
     ```json {{ title: 'Response' }}
-    
     {
-      "cheers": [
-         {
-          "id": "xgQQXg3hrtjh7AvZ",
-          "name": "FrankMcCallister",
-          "photo": "cdn.cloud_storage.com/img/sdf8re.jpg"
-        },
+      "data": [
         {
-          "id": "hSIhXBhNe8X1d8Et",
-          "name": "FrankMcCallister",
-          "photo": "cdn.cloud_storage.com/img/sdf8re.jpg"
-        }
+          "_id": "resolution123",
+          "user_id": "user123",
+          "resolution": "Finish reading a book",
+          "images": ["https://example.com/image.jpg", ...],
+          "category_id": "category123",
+          "shareType": "public",
+          "completed": false,
+          "dueDate": "2023-05-31",
+          "createdAt": "2023-04-20T10:00:00Z",
+          "updatedAt": "2023-04-20T10:00:00Z"
+        },
       ],
       "pagination": {
         "page": 1,
         "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
+        "pageCount": 1,
+        "totalDocument":1
       }
     }
     ```
-
-  </Col>
-</Row>
-
---- 
-
-## Retrieve a Resolution {{ tag: 'GET', label: '/v1/resolutions/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a Resolution by providing the Resolution id. 
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/Resolutions/xgQQXg3hrtjh7AvZ">
-
-    ```js
-    const response = await axios.get('/v1/resolutions/resolution123');
-    ```
-
     </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "_id": "resolution123",
-      "user_id": "user123",
-      "resolution": "Finish reading a book",
-      "imageUrl": "https://example.com/image.jpg",
-      "category_id": "category123",
-      "shareType": "public",
-      "completed": false,
-      "dueDate": "2023-05-31",
-      "createdAt": "2023-04-20T10:00:00Z",
-      "updatedAt": "2023-04-20T10:00:00Z"
-    }
-    ```
 
   </Col>
 </Row>
 
 ---
-
 
 ## Create a Resolution {{ tag: 'POST', label: '/v1/resolutions' }}
 
@@ -281,8 +158,8 @@ The Resolution model contains all the information about the Resolutions.
         <Property name="resolution" type="string">
           Text content of the Resolution.
         </Property>
-        <Property name="imageUrl" type="string">
-          URL of the image associated with the Resolution.
+        <Property name="imageUrl" type="array">
+          URL of the images associated with the Resolution.
         </Property>
         <Property name="category_id" type="string">
           Identifier of the category to which the Resolution belongs.
@@ -299,13 +176,13 @@ The Resolution model contains all the information about the Resolutions.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/Resolutions/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="POST" label="/v1/resolutions">
 
     ```js
-      const response = await axios.post('/api/resolutions', {
+      const response = await axios.post('/v1/resolutions', {
         user_id: 'user123',
         resolution: 'Finish reading a book',
-        imageUrl: 'https://example.com/image.jpg',
+        imageUrl: ['<image file>', ...],
         category_id: 'category123',
         shareType: 'public',
         dueDate: '2023-05-31'
@@ -336,9 +213,6 @@ The Resolution model contains all the information about the Resolutions.
     ### Optional attributes
 
     <Properties>
-      <Property name="user_id" type="string">
-          Identifier of the user associated with the Resolution.
-      </Property>
       <Property name="resolution" type="string">
           Text content of the Resolution.
       </Property>
@@ -360,10 +234,10 @@ The Resolution model contains all the information about the Resolutions.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="PUT" label="/v1/Resolutions/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="PUT" label="/v1/resolutions/xgQQXg3hrtjh7AvZ">
 
     ```js
-    const response = await axios.put('/api/resolutions/resolution123', {
+    const response = await axios.put('/v1/resolutions/xgQQXg3hrtjh7AvZ', {
       resolution: 'Read 10 pages of a book',
     });
     ```
@@ -395,10 +269,10 @@ The Resolution model contains all the information about the Resolutions.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="DELETE" label="/v1/Resolutions/xgQQXg3hrtjh7AvZ">
+    <CodeGroup title="Request" tag="DELETE" label="/v1/resolutions/xgQQXg3hrtjh7AvZ">
 
     ```js
-    const response = await axios.delete('/api/resolutions/resolution123');
+    const response = await axios.delete('/v1/resolutions/xgQQXg3hrtjh7AvZ');
     ```
 
     </CodeGroup>

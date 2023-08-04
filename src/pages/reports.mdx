@@ -36,26 +36,18 @@ The report model contains all the information about goal achievements
 
 ---
 
-## Get report by user_id monthly {{ tag: 'GET', label: '/v1/reports/month/1' }}
+## Get report by user_id monthly {{ tag: 'GET', label: '/v1/reports/:year/:month' }}
  
 <Row>
   <Col>
 
     This endpoint will inform you about the user goals report monthly
-    
-    ### Optional attributes
-
-    <Properties>
-      <Property name="user_id" type="string">
-        The user request report.
-      </Property>
-    </Properties>
   </Col>
   <Col sticky>    
 
-    <CodeGroup title="Request" tag="GET" label="/v1/reports/month/1">
+    <CodeGroup title="Request" tag="GET" label="/v1/reports/2023/1">
     ```js
-      const response = await axios.get('/v1/reports/month/:month');
+      const response = await axios.get('/v1/reports/2023/1');
 
     ```
 
@@ -111,26 +103,19 @@ The report model contains all the information about goal achievements
 
 ---
 
-## Get report by user_id yearly {{ tag: 'GET', label: '/v1/reports/year/2023' }}
+## Get report by user_id yearly {{ tag: 'GET', label: '/v1/reports/:year' }}
  
 <Row>
   <Col>
 
     This endpoint will inform you about the user goals report monthly
-    
-    ### Optional attributes
-
-    <Properties>
-      <Property name="user_id" type="string">
-        The user request report.
-      </Property>
-    </Properties>
+  
   </Col>
   <Col sticky>    
 
-    <CodeGroup title="Request" tag="GET" label="/v1/reports/year/2023">
+    <CodeGroup title="Request" tag="GET" label="/v1/reports/2023">
     ```js
-      const response = await axios.get('/v1/reports/year/:year');
+      const response = await axios.get('/v1/reports/2023"');
 
     ```
 

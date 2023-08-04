@@ -48,9 +48,6 @@ The goal model contains all the information about the goals.
     ### Required attributes
 
     <Properties>
-      <Property name="resolution_id" type="string">
-        Identifier of the Resolution associated with the Goal.
-      </Property>
       <Property name="goal" type="string">
         Text goal of the Goal.
       </Property>
@@ -60,8 +57,8 @@ The goal model contains all the information about the goals.
       <Property name="shareType" type="string">
         Type of sharing for the Goal (e.g., public, private).
       </Property>
-      <Property name="imageUrl" type="string">
-        URL of the image associated with the Goal.
+      <Property name="images" type="array">
+        images associated with the Goal.
       </Property>
       <Property name="dueDate" type="string">
         Due date for the Goal.
@@ -77,8 +74,7 @@ The goal model contains all the information about the goals.
 
 
     ```js
-    const response = await axios.post('/api/goals', {
-      resolution_id: 'resolution123',
+    const response = await axios.post('/v1/goals', {
       goalText: 'Complete Chapter 1',
       category_id: 'category123',
       shareType: 'public',
@@ -101,7 +97,7 @@ The goal model contains all the information about the goals.
 
 ---
 
-## List all goal  {{ tag: 'GET', label: '/v1/goals' }}
+## List all goal by category {{ tag: 'GET', label: '/v1/goals/category/:id' }}
 
 <Row>
   <Col>
@@ -111,11 +107,11 @@ The goal model contains all the information about the goals.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="GET" label="/v1/goals">
+    <CodeGroup title="Request" tag="GET" label="/v1/goals/category/:id">
 
 
     ```js
-    const response = await axios.delete('/api/goals');
+    const response = await axios.get('/v1/goals/category/09j0wjre0jreweadlf');
     ```
 
     </CodeGroup>
@@ -149,58 +145,6 @@ The goal model contains all the information about the goals.
 
   </Col>
 </Row>
-
----
-
-## List all goal owned by a user  {{ tag: 'GET', label: '/v1/goals/user/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to get all goals that user owns
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/goals/user/sdfa8ah66">
-
-
-    ```js
-    const response = await axios.delete('/api/goals/user/goal123');
-    ```
-
-    </CodeGroup>
-    ```json {{ title: 'Response' }}
-    {
-      "goals": [
-        {
-          "id": "goal123",
-          "resolution_id": "resolution123",
-          "goalText": "Complete Chapter 1",
-          "category_id": "category123",
-          "shareType": "public",
-          "imageUrl": "https://example.com/image.jpg",
-          "dueDate": "2023-06-30",
-          "createdAt": "2023-04-25T12:34:56Z",
-          "updatedAt": "2023-04-25T12:34:56Z"
-        }
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
-      }
-    }
-    ```
-
-  </Col>
-</Row>
-
 
 ---
 
@@ -223,8 +167,8 @@ The goal model contains all the information about the goals.
       <Property name="shareType" type="string">
         Type of sharing for the Goal (e.g., public, private).
       </Property>
-      <Property name="imageUrl" type="string">
-        URL of the image associated with the Goal.
+      <Property name="images" type="array">
+        images associated with the Goal.
       </Property>
       <Property name="dueDate" type="string">
         Due date for the Goal.
@@ -236,11 +180,11 @@ The goal model contains all the information about the goals.
   </Col>
   <Col sticky>
 
-    <CodeGroup title="Request" tag="POST" label="/v1/goals">
+    <CodeGroup title="Request" tag="PUT" label="/v1/goals/:id">
 
 
     ```js
-    const response = await axios.put('/api/goals/goal123', {
+    const response = await axios.put('/v1/goals/0je0f0jdfadf', {
       goalText: 'Complete Chapter 1',
       category_id: 'category123',
       shareType: 'public',
