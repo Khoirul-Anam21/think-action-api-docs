@@ -28,7 +28,7 @@ The Cheer model contains all the information about the Cheers.
 
 ---
 
-## List all Cheers {{ tag: 'GET', label: '/v1/cheers' }}
+## List all Cheers {{ tag: 'GET', label: '/v1/cheers?postId='...'&postType='...'' }}
 
 <Row>
   <Col>
@@ -61,26 +61,23 @@ The Cheer model contains all the information about the Cheers.
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    
     {
-      "cheerers": [
-        {
-          "_id": "cheer123",
-          "photo": "http://example.com/image.jpg",
-          "accountName": "Anam",
-          "supporter": true
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
+        "data": [
+            {
+                "_id": "64bb88806eb8ea7ecb532813",
+                "post_id": "64bdd520bce39c71c13dccf2",
+                "postType": "resolution",
+                "userCheerer_id": "64bb4529fc44e4615d4e1001",
+                "createdAt": "2023-07-22T07:42:56.591Z",
+                "updatedAt": null
+            }
+        ],
+        "pagination": {
+            "page": 1,
+            "pageCount": 1,
+            "pageSize": 999,
+            "totalDocument": 1
         }
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
-      }
     }
     ```
 
