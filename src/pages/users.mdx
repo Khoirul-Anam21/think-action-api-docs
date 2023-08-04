@@ -53,15 +53,55 @@ The user model contains all the information about your users, such as their user
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-      {
-        "_id": "60aeb58db4fe155d9c4a0cf1",
-        "username": "johnDoe",
-        "accountnName": "johnDoe sad",
-        "email": "johndoe@example.com",
-        "photo": "https://example.com/photo.jpg",
-        "createdAt": "2022-05-27T12:30:45.123Z",
-        "updatedAt": "2022-05-27T12:30:45.123Z"
-      }
+    {
+        "data": [
+            {
+                "_id": "64bb4529fc44e4615d4e1001",
+                "accountName": "Mohammad Khoirul Anam",
+                "accountType": "public",
+                "posts": [
+                    {
+                        "_id": "64bdd520bce39c71c13dccf2",
+                        "user_id": "64bb4529fc44e4615d4e1001",
+                        "resolution": "judul baru tes",
+                        "images": [
+                            "https://res.cloudinary.com/dvr8rswvg/image/upload/v1690162464/think-action/posts/kffganfbr6u3ezvzin6f.png",
+                            "https://res.cloudinary.com/dvr8rswvg/image/upload/v1690162464/think-action/posts/n0ekwhppmrkds5cf7a4s.png"
+                        ],
+                        "category_id": "64bb4529fc44e4615d4e1001",
+                        "shareType": "private",
+                        "postType": "resolution",
+                        "completed": false,
+                        "dueDate": "2023-07-22T02:55:37.452Z",
+                        "createdAt": "2023-07-24T01:34:24.833Z",
+                        "updatedAt": "2023-07-24T01:36:56.591Z"
+                    },
+                    {
+                        "_id": "64bf727c6b5593912e36853a",
+                        "user_id": "64bb4529fc44e4615d4e1001",
+                        "goal": "turun berat badan 50kg",
+                        "images": [
+                            "https://res.cloudinary.com/dvr8rswvg/image/upload/v1690269651/think-action/posts/xqojrpfbnol9wbhrflz5.png",
+                            "https://res.cloudinary.com/dvr8rswvg/image/upload/v1690269652/think-action/posts/mnmg2wce4l4ftk20ez6n.jpg"
+                        ],
+                        "category_id": "64bdd520bce39c71c13dccf2",
+                        "shareType": "public",
+                        "postType": "goal",
+                        "dueDate": "2023-07-24T02:59:42.435Z",
+                        "createdAt": "2023-07-25T06:58:04.639Z",
+                        "updatedAt": "2023-07-25T07:20:52.908Z"
+                    },
+                    ...
+                ]
+            }
+        ],
+        "pagination": {
+            "page": 1,
+            "pageCount": 1,
+            "pageSize": 999,
+            "totalDocument": 1
+        }
+    }
     ```
 
   </Col>

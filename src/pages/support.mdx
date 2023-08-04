@@ -3,11 +3,11 @@ export const description =
 
 # supports
 
-supports are where the facilitator announce all the important information to its student. rather than in the comment, supports should have a special and noticeable place {{ className: 'lead' }}
+supports is like a follower. in this model only supporting for creation, since if we filter by supporting user it will be the user supporter
 
-## The supporter model
+## The supporting model
 
-The support model contains all the information about your supports.
+The support model contains all the information about supports.
 
 ### Properties
 
@@ -16,30 +16,13 @@ The support model contains all the information about your supports.
     Unique identifier for the Supporter.
   </Property>
   <Property name="user_id" type="string">
-    Identifier of the User associated with the Supporter.
+    Identifier of the current user
   </Property>
-  <Property name="supporterUser_id" type="string">
-    Identifier of the User who is supporting.
-  </Property>
-</Properties>
-
-## The supporting model
-
-The support model contains all the information about your supports.
-
-### Properties
-
-<Properties>
-  <Property name="id" type="string">
-    Unique identifier for the Supporting entity.
-  </Property>
-  <Property name="user_id" type="string">
-    Identifier of the User associated with the Supporting entity.
-  </Property>
-  <Property name="supportingUser_id" type="string">
-    Identifier of the User being supported.
+  <Property name="supporting" type="object">
+    Identifier of the supported by current user
   </Property>
 </Properties>
+
 
 
 ---
@@ -54,14 +37,8 @@ The support model contains all the information about your supports.
     ### Required attributes
 
     <Properties>
-      <Property name="user_id" type="string">
-        Unique identifier of user supported first.
-      </Property>
-      <Property name="course_id" type="string">
-        Unique identifier of the course this support belongs to.
-      </Property>
-      <Property name="description" type="string">
-        The content of the support.
+      <Property name="supporting_id" type="string">
+        Unique identifier of user who want to be supported
       </Property>
     </Properties>
 
@@ -72,7 +49,7 @@ The support model contains all the information about your supports.
 
     ```js
     const response = await axios.post('/v1/supports', {
-      user_id: 'user123',
+      supporting_id: 'user123',
     });
     ```
 
@@ -98,14 +75,6 @@ The support model contains all the information about your supports.
 
     This endpoint allows you to retrieve a list of all your supports.
 
-    ### Required attributes
-    <Properties>
-      <Property name="user_id" type="string">
-        Unique identifier of user supported first.
-      </Property>
-    </Properties>
-
-
   </Col>
   <Col sticky>
 
@@ -118,26 +87,20 @@ The support model contains all the information about your supports.
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "supporters": [
-        {
-          "_id": "sdf9rrew",
-          "photo": "www.example.com/img/sdfa.jpg",
-          "username": "Someone"
-        },
-        {
-          "_id": "sdf9rrew",
-          "photo": "www.example.com/img/sdfa.jpg",
-          "username": "Someone"
-        }
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
+      {
+          "data": [
+              {
+                  "_id": "64c8d9519199c8e463eafc8d",
+                  "accountName": "Mohammad Khoirul Anam"
+              }
+          ],
+          "pagination": {
+              "page": 1,
+              "pageCount": 1,
+              "pageSize": 10,
+              "totalDocument": 1
+          }
       }
-    }
     ```
 
   </Col>
@@ -152,13 +115,6 @@ The support model contains all the information about your supports.
 
     This endpoint allows you to retrieve a list of all your supports.
 
-    ### Required attributes
-    <Properties>
-      <Property name="user_id" type="string">
-        Unique identifier of user supported first.
-      </Property>
-    </Properties>
-
 
   </Col>
   <Col sticky>
@@ -172,26 +128,20 @@ The support model contains all the information about your supports.
     </CodeGroup>
 
     ```json {{ title: 'Response' }}
-    {
-      "supporters": [
-        {
-          "_id": "sdf9rrew",
-          "photo": "www.example.com/img/sdfa.jpg",
-          "username": "Someone"
-        },
-        {
-          "_id": "sdf9rrew",
-          "photo": "www.example.com/img/sdfa.jpg",
-          "username": "Someone"
-        }
-      ],
-      "pagination": {
-        "page": 1,
-        "pageSize": 1,
-        "pageCount": 4,
-        "totalDocument": 16
+      {
+          "data": [
+              {
+                  "_id": "64c8d9519199c8e463eafc8d",
+                  "accountName": "Mohammad Khoirul Anam"
+              }
+          ],
+          "pagination": {
+              "page": 1,
+              "pageCount": 1,
+              "pageSize": 10,
+              "totalDocument": 1
+          }
       }
-    }
     ```
 
   </Col>
